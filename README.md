@@ -1,4 +1,4 @@
-Portfolio project for award of sotware enginering 
+Portfolio project for award of software engineering 
 
 Authors:
 Benson
