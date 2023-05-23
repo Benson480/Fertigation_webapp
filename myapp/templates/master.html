@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+  <style type="text/css">
+    .sidenav {
+      height: 100%;
+      width: 180px;
+      position: fixed;
+      z-index: 1;
+      top:0;
+      left: 0;
+      background-color: rgb(208, 208, 221);
+      overflow-x:  hidden;
+      padding-top: 20px;
+      text-decoration-color: black;
+    }
+    .sidenav a {
+      padding: 7px 15px 7px 16px;
+      text-decoration: none;
+      font-size: 19px;
+      font: #818181;
+      display: block;
+    }
+
+    .sidenav a:hover{
+      color: hwb(260 7% 9%);
+    }
+    .main{
+      margin-left: 0px;
+      padding: 0px 2px;
+    }
+
+  </style>
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <div class="sidenav">
+    <a href="/home">HOME</a>
+    <a href="/members">FERTILIZERS</a>
+    <a href="services.html">SERVICES</a>
+    <a href="products.html">PRODUCTS</a>
+    <a href="support.html">SUPPORT</a>
+    <a href="Education.html">LABORATORIES</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a> 
+    {% if user.is_authenticated %}
+    <a href="/login">LOGOUT</a> 
+    {% else %}
+    <a href="{% url 'login' %}">LOGIN</a>
+    <a href="{% url 'register' %}">REGISTER</a>
+    {% endif %}
+  </div>
+  <div id="content", name="content", class="main">
+      {% block content %}
+      {% endblock %}
+  </div>
+</body>
+</html>

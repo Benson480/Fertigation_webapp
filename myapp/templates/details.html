@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+
+{% block title %}
+  Details about {{ mymember.name }}
+{% endblock %}
+
+{% block content %}
+<div class="mycard">
+    <h3>{{ mymember.name }}</h3>
+    <p>Check out <a href="/elements">elements</a></p>
+    <p>Fertilizer added on: {{ mymember.registeredDate  }}</p>
+</div>
+{% endblock %}  
+
+
+

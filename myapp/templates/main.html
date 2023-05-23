@@ -1,0 +1,60 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'mystyles.css' %}">
+  <style type="text/css">
+    .sidenav {
+      height: 100%;
+      width: 180px;
+      position: fixed;
+      z-index: 1;
+      visibility: hidden;
+      top:0;
+      left: 0;
+      background-color: hwb(240 90% 4%);
+      overflow-x:  hidden;
+      padding-top: 20px;
+    }
+
+    .sidenav a {
+      padding: 7px 15px 7px 16px;
+      text-decoration: none;
+      font-size: 19px;
+      font: #818181;
+      display: block;
+    }
+
+    .sidenav a:hover{
+      color: hwb(260 7% 9%);
+    }
+    .main{
+      margin-left: 160px;
+      padding: 0px 18px;
+    }
+
+  </style>
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+
+
+{% block content %}
+<div style="height:620px;width:1400px;overflow:auto;background-color:yellowgreen;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:20px;">
+    <h1>FERTIGATION APP</h1>
+
+    <h3>IMPROVE YOUR CROPHEALTH, SAVE A COIN</h3>
+  
+    <img 
+        align="left"
+        src="https://eyouagro.com/wp-content/uploads/2021/11/%E6%9C%AA%E5%91%BD%E5%90%8D%E7%9A%84%E8%AE%BE%E8%AE%A1-36.jpg" 
+        alt="click here"
+        height="450px"
+        width="750px"
+        
+        >
+        
+        <a href="{% url 'login' %}">Log In</a>
+  
+</div>
+{% endblock %}  
+    

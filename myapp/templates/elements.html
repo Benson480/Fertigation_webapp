@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+
+{% block title %}
+  FETILIZERS APP - LIST ALL FERTILIZERS
+{% endblock %}
+
+{% block content %}
+  <div class="mycard">
+    <h1>Fertilizers elements</h1>
+  <ul id="id01">
+  <ul>
+    {% for x in mymember %}
+        <h3>{{x.container}}</h3>
+        <ul>
+        <ul id="id01">
+          {% if x.element1 is not None %}
+            <li onclick="window.location">{{ x.element1 }} : {{ x.composition1 }}</li>
+          {% endif %}
+          {% if x.element2 is not None %}
+            <li onclick="window.location">{{ x.element2 }} : {{ x.composition2 }}</li>
+          {% endif %}
+          {% if x.element3 is not None %}
+            <li onclick="window.location">{{ x.element3 }} : {{ x.composition3 }}</li>
+          {% endif %}
+          {% if x.element4 is not None %}
+            <li onclick="window.location">{{ x.element4 }} : {{ x.composition4 }}</li>
+          {% endif %}
+          {% if x.element5 is not None %}
+            <li onclick="window.location">{{ x.element5 }} : {{ x.composition5 }}</li>
+          {% endif %}
+        </ul>
+    {% endfor %}
+</div>
+{% endblock %}

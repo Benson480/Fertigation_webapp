@@ -1,0 +1,96 @@
+{% load widget_tweaks %}
+
+<head>
+	<style type="text/css">
+	  .sidenav {
+		height: 100%;
+		width: 180px;
+		position: fixed;
+		z-index: 1;
+		visibility: hidden;
+		top:0;
+		left: 0;
+		background-color: hwb(240 90% 4%);
+		overflow-x:  hidden;
+		padding-top: 20px;
+	  }
+  
+	  .sidenav a {
+		padding: 7px 15px 7px 16px;
+		text-decoration: none;
+		font-size: 19px;
+		font: #818181;
+		display: block;
+	  }
+  
+	  .sidenav a:hover{
+		color: hwb(260 7% 9%);
+	  }
+	  .main{
+		margin-left: 100px;
+		padding: 0px 5px;
+	  }
+	  img {
+    	padding: 0;
+    	display: block;
+   		margin: 0 auto;
+    	max-height: 100%;
+    	max-width: 100%;
+	  }
+	  .text {
+    	font-size: 50px;
+	  }
+  	  .panel{
+		background-color:#d8e4c1;
+		color:#212ff5;
+        font-weight: bold;
+		font-family:sans-serif;
+        height: 100%;
+		width: 100%;
+        padding: 7px 15px 7px 16px;
+      }
+	  .name {
+		margin: 0px auto 15px auto;
+		background-color:yellowgreen;
+  		display: block;
+  		min-width: 250px;
+  		margin: .3em;
+  		padding-right: 3em;
+  		font-size: 20px;
+  		padding-left: .5em;
+		right: 0;
+		height: 100%;
+		width: 50%;
+		position: fixed;
+  		top: 0;
+ 		left: 50%;
+  		text-align: center;
+		padding:5px;
+		margin: 0px auto 15px auto;
+		color:#212ff5;
+		font-family:sans-serif;
+		padding:5px;
+		height: 100%;
+		width: 50%;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		overflow-x: hidden;
+		padding-top: 20px;
+	  }
+</style>
+  
+	<title>{% block title %}{% endblock %}</title>
+
+
+{% block content %}
+<div class="panel">
+	<div style='margin-top:30px;'>
+		<form method='POST'>{% csrf_token %}
+			{{ form.as_p }}
+			<button type='submit'>Register</button>
+		</form>
+		<p>Already have an account? Please <a href='/login'>Login</a></p>
+	</div>
+</div>
+{% endblock %}
