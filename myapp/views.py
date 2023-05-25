@@ -54,14 +54,16 @@ def members(request):
     'mymembers': mymembers,
   }
   return HttpResponse(template.render(context, request))
-  
+ 
+
 def details(request, id):
-  mymember = Fertilizer.objects.get(id=id)
+  mymember = Fertilizer_Detail.objects.all()
   template = loader.get_template('details.html')
   context = {
     'mymember': mymember,
   }
   return HttpResponse(template.render(context, request))
+
 
 def elements(request): 
   mymember = Fertilizer_Element.objects.all()

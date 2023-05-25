@@ -20,6 +20,7 @@ from myapp.views import (
     register_view, login_view, logout_view, members, details, elements, home, testing,template
     )
 
+
 urlpatterns = [
     path('', login_view),
     path('login/', login_view),
@@ -28,3 +29,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('',include('myapp.urls')),
 ]
+
+
+# Admin Site Config
+admin.sites.AdminSite.site_header = 'FERTIGATION SITE ADMINISTRATION'
+admin.sites.AdminSite.site_title = 'FERTIGATION PPM PROGRAM'
+admin.sites.AdminSite.index_title = 'FERTIGATION ADMIN SITE'

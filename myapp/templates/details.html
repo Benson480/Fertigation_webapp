@@ -2,16 +2,42 @@
 
 
 {% block title %}
-  Details about {{ mymember.name }}
+  Details about Fertilizers
 {% endblock %}
 
 {% block content %}
-<div class="mycard">
-    <h3>{{ mymember.name }}</h3>
-    <p>Check out <a href="/elements">elements</a></p>
-    <p>Fertilizer added on: {{ mymember.registeredDate  }}</p>
+  <div class="mycard">
+    <div><h1>Fertilizers Details</h1></div>
+  <ul id="id01">
+  <ul>
+    {% for x in mymember %}
+        <h3>{{x.container}}</h3>
+        <ul>
+        <ul id="id01">
+          {% if x.registeredDate is not None %}
+            <li onclick="window.location">Fertilizer added on : {{ x.registeredDate }}</li>
+          {% endif %}
+          {% if x.price_USD is not None %}
+            <li onclick="window.location">Price $ : {{ x.price_USD }}</li>
+          {% endif %}
+          {% if x.supplier is not None %}
+            <li onclick="window.location">Supplier : {{ x.supplier }}</li>
+          {% endif %}
+          {% if x.fertilizer_info is not None %}
+            <li onclick="window.location">Fertilizer Information <a href="{{ x.fertilizer_info }}" target ="_blank">Read more</a></li>
+          {% endif %}
+          {% if x.element5 is not None %}
+            <li onclick="window.location">{{ x.element5 }} : {{ x.composition5 }}</li>
+          {% endif %}
+        </ul>
+    {% endfor %}
+    <p></p>
+    <p></p>
+    <button onclick="window.location.href='/members';">
+      Back
+    </button>
 </div>
-{% endblock %}  
+{% endblock %}
 
 
 

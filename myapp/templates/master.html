@@ -3,56 +3,72 @@
 <html>
 <head>
   <link rel="stylesheet" href="{% static 'mystyles.css' %}">
-  <style type="text/css">
-    .sidenav {
-      height: 100%;
-      width: 180px;
-      position: fixed;
-      z-index: 1;
-      top:0;
-      left: 0;
-      background-color: rgb(208, 208, 221);
-      overflow-x:  hidden;
-      padding-top: 20px;
-      text-decoration-color: black;
-    }
-    .sidenav a {
-      padding: 7px 15px 7px 16px;
-      text-decoration: none;
-      font-size: 19px;
-      font: #818181;
-      display: block;
-    }
-
-    .sidenav a:hover{
-      color: hwb(260 7% 9%);
-    }
-    .main{
-      margin-left: 0px;
-      padding: 0px 2px;
-    }
-
-  </style>
-
   <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
+
+  <nav class="navbar">
+    <!-- LOGO -->
+    <div class="logo"></div>
+    
+    <!-- NAVIGATION MENU -->
+    <ul class="nav-links">
+    <!-- USING CHECKBOX HACK -->
+    <input type="checkbox" id="checkbox_toggle" />
+    <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+    
+    <!-- NAVIGATION MENUS -->
+      <div class="menu">
+        <li><a href="/">PPM</a></li>
+        <li><a href="/">Fertilizer Recycle</a></li>
+        
+        <li class="services">
+        <a href="#/">Lab Results</a>
+      
+      <!-- DROPDOWN MENU -->
+      <ul class="dropdown">
+      <li><a href="/">Dropdown 1 </a></li>
+      <li><a href="/">Dropdown 2</a></li>
+      <li><a href="/">Dropdown 2</a></li>
+      <li><a href="/">Dropdown 3</a></li>
+      <li><a href="/">Dropdown 4</a></li>
+      </ul>
+      
+      </li>
+      
+      <li><a href="/">Pricing</a></li>
+      <li><a href="/">Reports</a></li>
+      </div>
+      
+    </ul>
+    </nav>
+
   <div class="sidenav">
-    <a href="/home">HOME</a>
-    <a href="/members">FERTILIZERS</a>
-    <a href="services.html">SERVICES</a>
-    <a href="products.html">PRODUCTS</a>
-    <a href="support.html">SUPPORT</a>
-    <a href="Education.html">LABORATORIES</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a> 
+    <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" style="width:40%" height="10%" left="20%">
+    <a href="/home">Home</a>
+    <a href="/members">Fertilizers</a>
+    <a href="services.html">Services</a>
+    <a href="products.html">Products</a>
+    <a href="support.html">Support</a>
+    <a href="Education.html">Laboratories</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a> 
     {% if user.is_authenticated %}
-    <a href="/login">LOGOUT</a> 
+    <a href="/login">Logout</a> 
     {% else %}
-    <a href="{% url 'login' %}">LOGIN</a>
-    <a href="{% url 'register' %}">REGISTER</a>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
     {% endif %}
+
+    <!-- DROPDOWN MENU -->
+    <ul class="dropdown">
+      <li><a href="/">Dropdown 1 </a></li>
+      <li><a href="/">Dropdown 2</a></li>
+      <li><a href="/">Dropdown 2</a></li>
+      <li><a href="/">Dropdown 3</a></li>
+      <li><a href="/">Dropdown 4</a></li>
+      </ul>
   </div>
   <div id="content", name="content", class="main">
       {% block content %}

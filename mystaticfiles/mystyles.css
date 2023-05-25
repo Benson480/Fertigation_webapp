@@ -28,15 +28,16 @@ body {
   margin: .1em;
   font-size: 20px;
   padding-left: .2em;
+  padding-top: .4em;
   right: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  height: 91.6%;
+  width: 86%;
   position: relative;
-  top: 0;
-  left: 12%;
+  top: 45%;
+  left: 13.1%;
   text-align: left;
-  padding:2px;
+  padding:5px;
   margin: 0px auto 0px auto;
   color:hsl(240, 2%, 8%);
   font-family:sans-serif;
@@ -45,15 +46,18 @@ body {
   top: 0;
   overflow-x: hidden;
   padding-top: .0em;
-  margin-top: 0px;
+  margin-top: 47.5px;
   font-size: 15px;
+  Overflow-x:scroll;
+  Overflow-y:scroll;
   
 }
 
 .mycard h1 {
-  text-align: left;
+  text-align: center;
   color:#ffffff;
-  margin:20px 0 40px 0;
+  margin:10px 0 20px 0;
+  position: relative;
 }
 ul {
   list-style-type: none;
@@ -67,7 +71,7 @@ ul {
   transition: transform .25s;
   border-radius: 5px;
   padding: 2px;
-  padding-left: 10px;
+  padding-left: 15px;
   margin-top: 2px;
   text-align: left;
 
@@ -87,8 +91,11 @@ a:link, a:visited {
   text-underline-position: below;
   text-decoration: underline;
   padding-top: 0px;
-  padding-left: 0px;
   color: #375BDC;
+  text-align:left;
+  padding-left: 15px;
+  padding: 2px;
+  transition: transform .25s;
 }
 
 .mycard a {
@@ -110,4 +117,189 @@ a:link, a:visited {
   text-decoration: underline;
   padding: 10px;
   color: #375BDC;
+  left: 15%;
+
 }
+
+.topnav {
+  height: 20%;
+  width: 180px;
+  position: fixed;
+  z-index: 1;
+  top:100%;
+  left: 12%;
+  background-color: rgb(208, 208, 221);
+  overflow-x:  hidden;
+  padding-top: 0px;
+}
+.topnav a {
+  padding: 7px 15px 7px 16px;
+  text-decoration: none;
+  font-size: 19px;
+  font: #818181;
+  display: block;
+}
+
+.topnav a:hover{
+  color: hwb(260 7% 9%);
+}
+
+
+
+
+
+
+/* NAVBAR STYLING STARTS */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+    background-color: teal;
+    color: #fff;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    transition: 0.3s ease;
+    text-decoration: underline;
+    text-underline-position: below;
+  }
+
+  .sidenav a {
+    color: whitesmoke;
+    transition: 0.3s ease;
+    text-decoration: underline;
+    text-underline-position: below;
+  }
+
+
+  .sidenav {
+    height: 100%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top:0;
+    left: 0;
+    background-color: teal;
+    overflow-x:  hidden;
+    padding-top: 20px;
+    font: white;
+  }
+
+  .sidenav img {
+    left: 10%;
+    margin: .3em;
+    font-size: 20px;
+    padding-left: .5em;
+  }
+  .topnav {
+    height: 20%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top:100%;
+    left: 0;
+    background-color: rgb(208, 208, 221);
+    overflow-x:  hidden;
+    padding-top: 20px;
+  }
+  .sidenav a {
+    padding: 7px 15px 7px 16px;
+    text-decoration: none;
+    font-size: 19px;
+    font: hsl(0, 20%, 97%);
+    display: block;
+    transition: 0.1s ease;
+    text-decoration: underline;
+    text-underline-position: below;
+  }
+
+  .sidenav a:hover{
+    color: rgb(251, 249, 253);
+    transition: 0.3s ease;
+  }
+  .main{
+    margin-left: 0px;
+    padding: 0px 2px;
+  }
+  
+  /* LOGO */
+  .logo {
+    font-size: 32px;
+  }
+  
+  /* NAVBAR MENU */
+  .menu {
+    display: flex;
+    gap: 0em;
+    font-size: 18px;
+  }
+  
+  .menu li:hover {
+    background-color: #4c9e9e;
+    border-radius: 5px;
+    transition: 0.3s ease;
+  }
+  
+  .menu li {
+    padding: 0px 12px;
+  }
+  
+  /* DROPDOWN MENU */
+  .services {
+    position: relative; 
+  }
+  
+  .dropdown {
+    background-color: rgb(1, 139, 139);
+    padding: 1em 0;
+    position: absolute; /*WITH RESPECT TO PARENT*/
+    display: none;
+    border-radius: 8px;
+    top: 3px;
+  }
+  
+  .dropdown li + li {
+    margin-top: 2px;
+    bottom: 100%;
+  }
+  
+  .dropdown li {
+    padding: 0.5em 1em;
+    width: 1em;
+    text-align: center;
+    bottom: 100%;
+  }
+  
+  .dropdown li:hover {
+    background-color: #4c9e9e;
+    z-index: -1;
+    bottom: 100%;
+    position: absolute;
+  }
+  
+  .services:hover .dropdown {
+    display: block;
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .sidenav:hover .dropdown {
+    display: block;
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+
+  

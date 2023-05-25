@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="mycard">
-    <h1>Fertilizers elements</h1>
+    <div><h1>Fertilizers elements</h1></div>
   <ul id="id01">
   <ul>
     {% for x in mymember %}
@@ -30,5 +30,10 @@
           {% endif %}
         </ul>
     {% endfor %}
+    <p></p>
+    <p></p>
+    <button onclick="window.location.href='/members';">
+      Back
+    </button>
 </div>
 {% endblock %}

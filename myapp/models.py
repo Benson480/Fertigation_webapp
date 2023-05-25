@@ -27,9 +27,9 @@ class Fertilizer_Element(models.Model):
 class Fertilizer_Detail(models.Model):
     container = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
     registeredDate = models.DateField(null=True, db_index=True, blank=True)
-    price = models.FloatField(null=True, db_index=True, blank=True)
+    price_USD= models.FloatField(null=True, db_index=True, blank=True)
     supplier = models.CharField(max_length=200, null=True, db_index=True, blank=True)
-    fertilizer_info = models.CharField(max_length=200, db_index=True, blank=True)
+    fertilizer_info = models.URLField(max_length=200, db_index=True, blank=True)
 
     def __str__(self):
         return str(self.container)
