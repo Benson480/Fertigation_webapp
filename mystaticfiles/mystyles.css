@@ -154,8 +154,6 @@ a:link, a:visited {
   .sidenav a {
     color: whitesmoke;
     transition: 0.3s ease;
-    text-decoration: underline;
-    text-underline-position: below;
   }
 
 
@@ -198,9 +196,8 @@ a:link, a:visited {
     font: hsl(0, 20%, 97%);
     display: block;
     transition: 0.1s ease;
-    text-decoration: underline;
-    text-underline-position: below;
     text-transform: uppercase;
+    padding: 1.7em 2.5em;
   }
 
   .sidenav a:hover{
