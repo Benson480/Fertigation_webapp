@@ -131,6 +131,7 @@ a:link, a:visited {
   background-color: rgb(208, 208, 221);
   overflow-x:  hidden;
   padding-top: 0px;
+  text-transform: uppercase;
 }
 .topnav a {
   padding: 7px 15px 7px 16px;
@@ -138,6 +139,7 @@ a:link, a:visited {
   font-size: 19px;
   font: #818181;
   display: block;
+  text-transform: uppercase;
 }
 
 .topnav a:hover{
@@ -168,6 +170,7 @@ a:link, a:visited {
     overflow-x:  hidden;
     padding-top: 20px;
     font: white;
+    text-transform: uppercase;
   }
 
   .sidenav img {
@@ -186,6 +189,7 @@ a:link, a:visited {
     background-color: rgb(208, 208, 221);
     overflow-x:  hidden;
     padding-top: 20px;
+    text-transform: uppercase;
   }
   .sidenav a {
     padding: 7px 15px 7px 16px;
@@ -196,11 +200,13 @@ a:link, a:visited {
     transition: 0.1s ease;
     text-decoration: underline;
     text-underline-position: below;
+    text-transform: uppercase;
   }
 
   .sidenav a:hover{
     color: rgb(251, 249, 253);
     transition: 0.3s ease;
+    text-transform: uppercase;
   }
   .main{
     margin-left: 0px;

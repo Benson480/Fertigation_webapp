@@ -1,4 +1,4 @@
-Portfolio project for award of software engineering 
+Portfolio Project ALX Software Engineering 
 
 
 Research & project approval (Part 1-3)
@@ -17,8 +17,15 @@ Week 7: * Blog post reflection (peer review) * github cleanup
 End of Foundations Year
 
 Authors:
-Benson
-stephanie
+<Benson Mwangi 
+bensonmwangi102@gmail.com
+bensonmwangi102@gmail.com
+backend
+>
+
+<stephanie iman
+Front end
+>
 
 
 echo "# Django" >> README.md
