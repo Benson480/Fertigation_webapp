@@ -4,17 +4,75 @@
   FETILIZERS APP - LIST ALL FERTILIZERS
 {% endblock %}
 
+<style>
+.mycard ul
+{
+list-style-type: none;
+padding: 0;
+margin: 0;
+text-align: right;
+}
+.mycard
+{
+width: 10%;
+}
+
+.Fertresults h1 {
+  position: sticky;
+}
+.mycard #id01 li{
+    text-align: right;
+    list-style-position: inside;
+}
+</style>
 {% block content %}
-  <div class="mycard">
-    <h1>Fertilizers</h1>
-    <ul id="id01">
-      {% for x in mymembers %}
-        <li onclick="window.location = 'details/{{ x.id }}'">{{ x.name }}</li>
-      {% endfor %}
-    </ul>
-    <p> </p>
-    <p> </p>
-    <button onclick="sortListDir()">Sort</button>
+  <div class="myentry" style="left: 13%; background-color: #d5d0d0; width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
+  <div style="background-color: #d5d0d0; width: 40%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 500px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
+
+    <h1>Fertilizers Amount</h1>
+    <ul id="id00">   
+        <form method="POST" class="post-form">{% csrf_token %}  
+                {{ form.as_p }}  
+                <button type="submit" class="save btn btn-default">Save</button>  
+          </form> 
+          <button onclick="window.location.href='/members';">
+            Back
+          </button>
+    </ul> 
+      <p></p>
+      <p></p>
+
+
+      <div style="position: fixed;
+      bottom: 0px;
+      left: -42%;
+      float: left;
+      opacity: 0.6;
+      padding: 0em 3.1em;
+
+      "
+      >
+    <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width:28%" height="height:10%">
+  </div>
+
+
+    <div class="Fertresults" style="float: right; width: 70%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
+      <div style="background-color: hwb(0 98% 1%); width: 70%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
+        <h1>Fertilizers records</h1>
+        <ul id="id01">
+          <h3>--------------------------------------- <button onclick="window.location.href='/members';">
+           Back
+          </button>
+        <button onclick="sortListDir()">Sort</button>-----------------------------------------------</h3>
+        {% for x in mymember %}
+              {% if x.Fertilizer is not None %}
+              <li>{{ x.Date}} - {{ x.Fertilizer }} : {{ x.amount }} <a style="color: red;" href="delete/{{ x.id }}">Delete</a></li>
+              {% endif %}
+              
+          {% endfor %}
+          
+        </ul> 
+        
 <script>
 function sortListDir() {
   var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
@@ -67,5 +125,7 @@ function sortListDir() {
   }
 }
 </script>
-  </div>
+</div>
+</div>
+
 {% endblock %}

@@ -52,6 +52,13 @@ body {
   Overflow-y:scroll;
   
 }
+.Fertresults {
+  margin-top: 47.5px;
+  font-size: 15px;
+  Overflow-x:scroll;
+  Overflow-y:scroll;
+  
+}
 
 .mycard h1 {
   text-align: center;
@@ -59,23 +66,21 @@ body {
   margin:10px 0 20px 0;
   position: relative;
 }
+
+.mycard h3 {
+  text-align: left;
+  color:#ffffff;
+  margin:10px 0 20px 0;
+  position: relative;
+  color: #375BDC;
+}
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
   text-align: left;
 }
-.mycard li {
 
-  cursor: pointer;
-  transition: transform .25s;
-  border-radius: 5px;
-  padding: 2px;
-  padding-left: 15px;
-  margin-top: 2px;
-  text-align: left;
-
-}
 li:hover {
   transform: scale(1);
 }
@@ -87,11 +92,8 @@ a:link, a:visited {
   color:#375BDC;
 }
 
-.mycard h3 {
-  text-underline-position: below;
-  text-decoration: underline;
+.mycard li {
   padding-top: 0px;
-  color: #375BDC;
   text-align:left;
   padding-left: 15px;
   padding: 2px;
