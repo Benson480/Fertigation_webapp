@@ -17,4 +17,6 @@ urlpatterns = [
     path('index/', views.template, name='index'),
     path('members/delete/<int:id>', views.delete, name='delete'),
     path('members/details/elements/', views.elements, name='elements'),
+    path('members/update/<int:id>', views.update, name='update'),
+    path('members/update/updaterecord/<int:id>', views.updaterecord, name='updaterecord'),
 ]

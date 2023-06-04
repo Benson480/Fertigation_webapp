@@ -1,0 +1,23 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Update Fertilizers
+{% endblock %}
+{% block content %}
+    <h1>Update Fertilizers</h1>
+
+    <form action="updaterecord/{{ mymember.id }}" method="post">
+    {% csrf_token %}
+    Date:<br>
+    <input type="date" name="Date" value="{{ mymember.Date }}">
+    <br><br>
+    Fertilizer:<br>
+    <input name="Fertilizer" value="{{ mymember.Fertilizer }}">
+    <br><br>
+    Amount:<br>
+    <input name="Amount" value="{{ mymember.amount }}">
+    <br><br>
+    <input type="submit" value="Submit">
+    </form>
+    
+{% endblock %}

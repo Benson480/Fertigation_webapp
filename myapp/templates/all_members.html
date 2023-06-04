@@ -52,7 +52,7 @@ width: 10%;
 
       "
       >
-    <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width:28%" height="height:10%">
+    <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width:27.85%" height="height:10%">
   </div>
 
 
@@ -64,12 +64,21 @@ width: 10%;
            Back
           </button>
         <button onclick="sortListDir()">Sort</button>-----------------------------------------------</h3>
+        <table border="1">
         {% for x in mymember %}
+        <tr>
               {% if x.Fertilizer is not None %}
-              <li>{{ x.Date}} - {{ x.Fertilizer }} : {{ x.amount }} <a style="color: red;" href="delete/{{ x.id }}">Delete</a></li>
+              <td>{{ x.id}}</td>
+              <td>{{ x.Date}}</td>
+              <td>{{ x.Fertilizer }}</td>
+              <td>{{ x.amount }}</td>
+              <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
+              <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
               {% endif %}
-              
+        </tr>     
           {% endfor %}
+        </table>
+
           
         </ul> 
         

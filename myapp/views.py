@@ -14,6 +14,7 @@ import itertools
 from .forms import Fertilizer_AmountForm, DeleteFertilizerForm
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
+from django.utils.datastructures import MultiValueDictKeyError
 
 def register_view(request):
     form = UserCreationForm(request.POST or None)
@@ -70,7 +71,22 @@ def members(request):
     return render(request, "all_members.html", context)
   
 
+def update(request, id):
+  mymember = Fertilizer_Amount.objects.get(id=id)
+  template = loader.get_template('update.html')
+  context = {
+    'mymember': mymember,
+  }
+  return HttpResponse(template.render(context, request))
 
+def updaterecord(request, id):
+  Date = request.POST['Date']
+  # amount = request.POST['amount', False]
+  member = Fertilizer_Amount.objects.get(id=id)
+  member.Date = Date
+  # member.amount = amount
+  member.save()
+  return HttpResponseRedirect(reverse('members'))
 
 def delete(request, id):
   member = Fertilizer_Amount.objects.get(id=id)
