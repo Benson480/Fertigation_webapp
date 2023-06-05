@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*','https://agnc4ncjrk.execute-api.us-west-2.amazonaws.com/']
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Application definition
 
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'widget_tweaks'
 ]
 

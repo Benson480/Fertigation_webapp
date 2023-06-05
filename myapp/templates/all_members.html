@@ -24,27 +24,70 @@ width: 10%;
     text-align: right;
     list-style-position: inside;
 }
+
+table {
+  counter-reset: rowNumber;
+}
+
+table tr::before {
+  display: table-cell;
+  counter-increment: rowNumber;
+  content: counter(rowNumber) ".";
+  padding-right: 0.3em;
+  text-align: right;
+}
+li {
+    list-style-type: none; 
+    display : inline;
+  }
 </style>
 {% block content %}
-  <div class="myentry" style="left: 13%; background-color: #d5d0d0; width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-  <div style="background-color: #d5d0d0; width: 40%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 500px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
+  <div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
+  <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
 
     <h1>Fertilizers Amount</h1>
     <ul id="id00">   
+      {% load crispy_forms_tags %}
+      <br>
         <form method="POST" class="post-form">{% csrf_token %}  
-                {{ form.as_p }}  
-                <button type="submit" class="save btn btn-default">Save</button>  
+        {% csrf_token %}
+        <div class="container">
+            <div class="form-group row">
+    
+                <div class="col">
+                    {{form.Date|as_crispy_field}}
+                </div>
+                <div class="col">
+                  {{form.Water_Volume_m3|as_crispy_field}}
+              </div>
+                <div class="col">
+                    {{form.UV_percent|as_crispy_field}}
+                </div>
+    
+                <div class="col">
+                    {{form.Injection_Ratio|as_crispy_field}}
+                </div>
+    
+                <div class="col">
+                    {{form.Fertilizer|as_crispy_field}}
+                </div>
+
+                <div class="col">
+                  {{form.amount|as_crispy_field}}
+              </div>
+              <p></p>
+
+          <button type="submit" class="save btn btn-default">Save</button>  
           </form> 
           <button onclick="window.location.href='/members';">
             Back
           </button>
+        </div>
+    </form>
+
     </ul> 
-      <p></p>
-      <p></p>
-
-
       <div style="position: fixed;
-      bottom: 0px;
+      bottom: -7%;
       left: -42%;
       float: left;
       opacity: 0.6;
@@ -52,23 +95,34 @@ width: 10%;
 
       "
       >
-    <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width:27.85%" height="height:10%">
+    <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width:27.8%" height="height:10%">
   </div>
 
 
     <div class="Fertresults" style="float: right; width: 70%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
       <div style="background-color: hwb(0 98% 1%); width: 70%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
         <h1>Fertilizers records</h1>
-        <ul id="id01">
+        
           <h3>--------------------------------------- <button onclick="window.location.href='/members';">
            Back
           </button>
-        <button onclick="sortListDir()">Sort</button>-----------------------------------------------</h3>
-        <table border="1">
+        <button onclick="sortTable(0)">Sort with number</button>
+        <button onclick="sortnameTable(2)">Sort with Name</button>-----------------
+        </h3>
+        <ul id="id01">
+        <table id="myTable2" border="1">
+          <tr>
+            <th>No.</th>
+            <th>Date</th>
+            <th>Fertilizer</th>
+            <th>Amount</th>
+            <th>Change</th>
+            <th>Remove</th>
+          </tr>
         {% for x in mymember %}
         <tr>
               {% if x.Fertilizer is not None %}
-              <td>{{ x.id}}</td>
+              <td>{{ "" }}</td>
               <td>{{ x.Date}}</td>
               <td>{{ x.Fertilizer }}</td>
               <td>{{ x.amount }}</td>
@@ -78,11 +132,145 @@ width: 10%;
         </tr>     
           {% endfor %}
         </table>
-
-          
         </ul> 
         
 <script>
+
+
+
+
+// Sort table with name
+
+function sortnameTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+// sort table with number
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable2");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+
+
+
+
+// Insert numbers on table
+
+var table = document.getElementsByTagName('table')[0],
+  rows = table.getElementsByTagName('tr'),
+  text = 'textContent' in document ? 'textContent' : 'innerText';
+
+for (var i = 1, len = rows.length; i < len; i++) {
+  rows[i].children[0][text] = i + rows[i].children[0][text];
+}
+
 function sortListDir() {
   var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
   list = document.getElementById("id01");
