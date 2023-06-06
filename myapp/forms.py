@@ -32,30 +32,33 @@ class Fertilizer_AmountForm(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Fertilizer_Amount
-		fields = ['Date', 'Water_Volume_m3', 'UV_percent', 'Injection_Ratio','Fertilizer', 'amount', ]
+		fields = ['Date', 'Water_Volume_m3', 'UV_percent', 'Injection_Ratio','Fertilizer',
+	     'amount', 'Media']
 		widgets = {
             'Date': DateInput(),
 	    
         }
-		def __init__(self, *args, **kwargs):
-			super().__init__(*args, **kwargs)
-			self.helper = FormHelper()
-			self.helper.form_method = 'post'
-			self.helper.form_class = 'form-horizontal'
-			self.helper.label_class = 'col-md-2'
-			self.helper.field_class = 'col-md-2'
-			self.helper.layout = Layout(
-				Row(
-					Column('Date', css_class='form-group col'),
-					Column('Water_Volume_m3', css_class='form-group col'),
-					Column('UV_percent', css_class='form-group col'),
-					Column('Injection_Ratio', css_class='form-group col'),
-					Column('Fertilizer', css_class='form-group col'),
-					Column('amount', css_class='form-group col'),
-					# Column('mother_name', css_class='form-group col'),
-					# Column('signature_of_student', css_class='form-group col'),
-				)
-			)
+		# def __init__(self, *args, **kwargs):
+		# 	super().__init__(*args, **kwargs)
+		# 	self.helper = FormHelper()
+		# 	self.helper.form_method = 'post'
+		# 	self.helper.form_class = 'form-horizontal'
+		# 	self.helper.label_class = 'col-lg-2'
+		# 	self.helper.field_class = 'col-lg-8'
+		# 	self.helper.form_style = 'inline'
+		# 	self.helper.layout = Layout(
+		# 		Row(
+		# 			Column('Date', css_class='form-group col'),
+		# 			Column('Media', css_class='form-group col'),
+		# 			Column('Water_Volume_m3', css_class='form-group col'),
+		# 			Column('UV_percent', css_class='form-group col'),
+		# 			Column('Injection_Ratio', css_class='form-group col'),
+		# 			Column('Fertilizer', css_class='form-group col'),
+		# 			Column('amount', css_class='form-group col'),
+		# 			# Column('mother_name', css_class='form-group col'),
+		# 			# Column('signature_of_student', css_class='form-group col'),
+		# 		)
+		# 	)
 
 
 

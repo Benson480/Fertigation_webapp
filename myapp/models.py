@@ -41,6 +41,13 @@ class Fertilizer_Amount(models.Model):
     Water_Volume_m3 = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
     Injection_Ratio = models.FloatField(null=True,db_index=True)
+    MEDIA_CHOICES = (
+    ("HYDROPONICS", "HYDROPONICS"),
+    ("SOIL", "SOIL"),
+    )
+    Media = models.CharField(max_length=255,
+                  choices=MEDIA_CHOICES
+                  )
     
     def __str__(self):
         return str(self.Fertilizer)

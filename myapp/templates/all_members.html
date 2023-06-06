@@ -50,13 +50,78 @@ li {
       {% load crispy_forms_tags %}
       <br>
         <form method="POST" class="post-form">{% csrf_token %}  
-        {% csrf_token %}
+          <p>
+            {% if form.Date.help_text %}
+            <small style="color: grey">{{ form.Date.help_text }}</small>
+            {% endif %}
+            {{ form.Date.label_tag }}
+            {{ form.Date }}
+            {% for error in form.Date.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {% if form.Media.help_text %}
+                <small style="color: grey">{{ form.Media.help_text }}</small>
+                {% endif %}
+                {{ form.Media.label_tag }}*
+                {{ form.Media }} 
+                {% for error in form.Media.errors %}
+                <span style="color: red">{{ error }}</span>
+                {% endfor %}
+        </p>
+        <p>
+            {% if form.Water_Volume_m3.help_text %}
+            <small style="color: grey">{{ form.Water_Volume_m3.help_text }}</small>
+            {% endif %}
+            {{ form.Water_Volume_m3.label_tag }}
+            {{ form.Water_Volume_m3 }}
+            {% for error in form.Water_Volume_m3.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {% if form.UV_percent.help_text %}
+                <small style="color: grey">{{ form.UV_percent.help_text }}</small>
+                {% endif %}
+                {{ form.UV_percent.label_tag }}*
+                {{ form.UV_percent }} 
+                {% for error in form.UV_percent.errors %}
+                <span style="color: red">{{ error }}</span>
+                {% endfor %}
+        </p>
+        <p>
+          {% if form.Injection_Ratio.help_text %}
+              <small style="color: grey">{{ form.Injection_Ratio.help_text }}</small>
+              {% endif %}
+              {{ form.Injection_Ratio.label_tag }}*
+              {{ form.Injection_Ratio }} 
+              {% for error in form.Injection_Ratio.errors %}
+              <span style="color: red">{{ error }}</span>
+              {% endfor %}
+      </p>
+      <p>
+        {% if form.Fertilizer.help_text %}
+            <small style="color: grey">{{ form.Fertilizer.help_text }}</small>
+            {% endif %}
+            {{ form.Fertilizer.label_tag }}*
+            {{ form.Fertilizer }} 
+            {% for error in form.Fertilizer.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+    </p>
+
+
+
         <div class="container">
             <div class="form-group row">
     
                 <div class="col">
                     {{form.Date|as_crispy_field}}
                 </div>
+                <div class="col">
+                  {{form.Media|as_crispy_field}}
+              </div>
                 <div class="col">
                   {{form.Water_Volume_m3|as_crispy_field}}
               </div>
