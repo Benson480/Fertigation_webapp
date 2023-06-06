@@ -1,13 +1,24 @@
 {% extends "master.html" %}
-
 {% block title %}
-  Details about {{ mymembers.fertilizer }} {{ mymembers.elements }}
+FETILIZERS FORM
 {% endblock %}
 
 {% block content %}
-  <div class="mycard1">
-    <h1>{{ mymember.fertilizer }} {{ mymember.elements }}</h1>
-    <p>Check out {{ mymember.firstname }} {{ mymember.lastname }} <a href="elements/">elements</a></p>
-    <p>Fertilizer added on: {{ mymembers.registeredDate }}</p>
-  </div>
+<body>  
+  <form method="POST" class="post-form">  
+          {% csrf_token %}  
+          {{ form.as_p }}  
+          <button type="submit" class="save btn btn-default">Save</button>  
+      </form>  
+  </body>   
 {% endblock %}  
+
+
+
+
+
+
+
+
+
+

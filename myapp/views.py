@@ -11,6 +11,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
+from .forms import Fertilizer_AmountForm, DeleteFertilizerForm
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.urls import reverse
+from django.utils.datastructures import MultiValueDictKeyError
 
 def register_view(request):
     form = UserCreationForm(request.POST or None)
@@ -48,13 +52,47 @@ def logout_view(request):
     return render(request, "accounts/logout.html", {})
 
 def members(request):
-  mymembers = Fertilizer.objects.all()
-  template = loader.get_template('all_members.html')
+    context ={}
+ 
+    # create object of form
+    mymember = Fertilizer_Amount.objects.all()
+    fertform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
+     
+    # check if form data is valid
+    if fertform.is_valid():
+        # save the form data to model
+        fertform.save()
+    context = {
+    'form':fertform,
+    'mymember': mymember,
+  }
+
+
+    return render(request, "all_members.html", context)
+  
+
+def update(request, id):
+  mymember = Fertilizer_Amount.objects.get(id=id)
+  template = loader.get_template('update.html')
   context = {
-    'mymembers': mymembers,
+    'mymember': mymember,
   }
   return HttpResponse(template.render(context, request))
- 
+
+def updaterecord(request, id):
+  Date = request.POST['Date']
+  # amount = request.POST['amount', False]
+  member = Fertilizer_Amount.objects.get(id=id)
+  member.Date = Date
+  # member.amount = amount
+  member.save()
+  return HttpResponseRedirect(reverse('members'))
+
+def delete(request, id):
+  member = Fertilizer_Amount.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("members"))
+
 
 def details(request, id):
   mymember = Fertilizer_Detail.objects.all()
@@ -79,12 +117,7 @@ def main(request):
 
 
 def home(request):
-  mymembers = Fertilizer.objects.all()
-  template = loader.get_template('home.html')
-  context = {
-    'mymembers': mymembers,
-  }
-  return HttpResponse(template.render(context, request))
+   ...
 
 
 def testing(request):

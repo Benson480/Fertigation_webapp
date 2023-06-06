@@ -35,8 +35,12 @@ class Fertilizer_Detail(models.Model):
         return str(self.container)
     
 class Fertilizer_Amount(models.Model):
-    container = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
-    amount = models.FloatField(null=True, db_index=True, blank=True)
+    Date = models.DateField(null=True,db_index=True)
+    Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
+    amount = models.FloatField(null=True,db_index=True)
+    Water_Volume_m3 = models.FloatField(null=True,db_index=True)
+    UV_percent = models.FloatField(null=True,db_index=True)
+    Injection_Ratio = models.FloatField(null=True,db_index=True)
     
     def __str__(self):
-        return str(self.container)
+        return str(self.Fertilizer)

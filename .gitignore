@@ -1,0 +1,5 @@
+# ~$RTPPM MVP RESEARCH PROJECT REPORT.docx
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

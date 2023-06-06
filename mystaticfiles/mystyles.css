@@ -52,6 +52,13 @@ body {
   Overflow-y:scroll;
   
 }
+.Fertresults {
+  margin-top: 47.5px;
+  font-size: 15px;
+  Overflow-x:scroll;
+  Overflow-y:scroll;
+  
+}
 
 .mycard h1 {
   text-align: center;
@@ -59,23 +66,21 @@ body {
   margin:10px 0 20px 0;
   position: relative;
 }
+
+.mycard h3 {
+  text-align: left;
+  color:#ffffff;
+  margin:10px 0 20px 0;
+  position: relative;
+  color: #375BDC;
+}
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
   text-align: left;
 }
-.mycard li {
 
-  cursor: pointer;
-  transition: transform .25s;
-  border-radius: 5px;
-  padding: 2px;
-  padding-left: 15px;
-  margin-top: 2px;
-  text-align: left;
-
-}
 li:hover {
   transform: scale(1);
 }
@@ -87,11 +92,8 @@ a:link, a:visited {
   color:#375BDC;
 }
 
-.mycard h3 {
-  text-underline-position: below;
-  text-decoration: underline;
+.mycard li {
   padding-top: 0px;
-  color: #375BDC;
   text-align:left;
   padding-left: 15px;
   padding: 2px;
@@ -131,6 +133,7 @@ a:link, a:visited {
   background-color: rgb(208, 208, 221);
   overflow-x:  hidden;
   padding-top: 0px;
+  text-transform: uppercase;
 }
 .topnav a {
   padding: 7px 15px 7px 16px;
@@ -138,6 +141,7 @@ a:link, a:visited {
   font-size: 19px;
   font: #818181;
   display: block;
+  text-transform: uppercase;
 }
 
 .topnav a:hover{
@@ -149,28 +153,9 @@ a:link, a:visited {
 
 
 
-/* NAVBAR STYLING STARTS */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px;
-    background-color: teal;
-    color: #fff;
-  }
-  
-  .nav-links a {
-    color: #fff;
-    transition: 0.3s ease;
-    text-decoration: underline;
-    text-underline-position: below;
-  }
-
   .sidenav a {
     color: whitesmoke;
     transition: 0.3s ease;
-    text-decoration: underline;
-    text-underline-position: below;
   }
 
 
@@ -185,6 +170,7 @@ a:link, a:visited {
     overflow-x:  hidden;
     padding-top: 20px;
     font: white;
+    text-transform: uppercase;
   }
 
   .sidenav img {
@@ -203,6 +189,7 @@ a:link, a:visited {
     background-color: rgb(208, 208, 221);
     overflow-x:  hidden;
     padding-top: 20px;
+    text-transform: uppercase;
   }
   .sidenav a {
     padding: 7px 15px 7px 16px;
@@ -211,95 +198,95 @@ a:link, a:visited {
     font: hsl(0, 20%, 97%);
     display: block;
     transition: 0.1s ease;
-    text-decoration: underline;
-    text-underline-position: below;
+    text-transform: uppercase;
+    padding: 1.7em 2.5em;
   }
 
   .sidenav a:hover{
     color: rgb(251, 249, 253);
     transition: 0.3s ease;
+    text-transform: uppercase;
   }
   .main{
     margin-left: 0px;
     padding: 0px 2px;
   }
   
-  /* LOGO */
-  .logo {
-    font-size: 32px;
-  }
-  
-  /* NAVBAR MENU */
-  .menu {
-    display: flex;
-    gap: 0em;
-    font-size: 18px;
-  }
-  
-  .menu li:hover {
-    background-color: #4c9e9e;
-    border-radius: 5px;
-    transition: 0.3s ease;
-  }
-  
-  .menu li {
-    padding: 0px 12px;
-  }
-  
-  /* DROPDOWN MENU */
-  .services {
-    position: relative; 
-  }
-  
-  .dropdown {
-    background-color: rgb(1, 139, 139);
-    padding: 1em 0;
-    position: absolute; /*WITH RESPECT TO PARENT*/
-    display: none;
-    border-radius: 8px;
-    top: 3px;
-  }
-  
-  .dropdown li + li {
-    margin-top: 2px;
-    bottom: 100%;
-  }
-  
-  .dropdown li {
-    padding: 0.5em 1em;
-    width: 1em;
-    text-align: center;
-    bottom: 100%;
-  }
-  
-  .dropdown li:hover {
-    background-color: #4c9e9e;
-    z-index: -1;
-    bottom: 100%;
-    position: absolute;
-  }
-  
-  .services:hover .dropdown {
-    display: block;
-    display: none;
-    position: absolute;
-    bottom: 50px;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .sidenav:hover .dropdown {
-    display: block;
-    display: none;
-    position: absolute;
-    bottom: 50px;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
+  .name img {
+    display: inline;
+}
 
-  
+/*************************/
+/*    Styling  Header    */
+/*************************/
+header{
+     
+  overflow: hidden;
+}
+
+#top-header{
+       
+  text-align: center;
+  height: 60px;
+}
+
+/****************/   
+/* Styling Logo */
+/****************/
+#logo{
+  float: left;
+  padding: none;
+  margin: none;
+  height: 60px;
+  width: 30%;
+}
+
+#logo img{
+  width: 60%;
+  float: left;
+  padding: 10px 0px;
+}   
+
+/***************************/
+/* Styling Navigation Menu */
+/***************************/
+#menu{
+  float: right;
+  width: 70%;
+  height: 100%;
+  margin: none;
+}
+   
+#menu ul{
+  text-align: center;
+  float: right;
+  margin: none;
+  background: teal;
+}
+   
+#menu li{
+  display: inline-block;
+  padding: none;
+  margin: none;
+}
+   
+#menu li a, #menu li span{
+  display: inline-block;
+  padding: 0em 1.5em;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 60px;
+}
+   
+#menu li a{
+       
+  color: #FFF;
+}
+   
+#menu li:hover a, #menu li span{
+  background: #FFF;
+  color: #0074D9;
+  border-left: 1px solid #0074D9;
+  text-decoration: none;
+}

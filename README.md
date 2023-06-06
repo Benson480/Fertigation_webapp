@@ -1,8 +1,31 @@
-Portfolio project for award of software engineering 
+Portfolio Project ALX Software Engineering 
+
+
+Research & project approval (Part 1-3)
+
+Week 1: * Project proposal (staff review, approval required)
+Week 2: * MVP (Minimum Viable Product) proposal (staff review, approval required)
+Week 3: * Trello board (staff review, approval required)
+Build Portfolio Project (Part 1-3)
+
+Week 4: * Making Progress (status update, staff review)
+Week 5: * MVP completed (staff review, approval required)
+Week 6: * Landing page deployed * Final presentation preparation & delivery (staff review, approval required)
+
+Week 7: * Blog post reflection (peer review) * github cleanup
+
+End of Foundations Year
 
 Authors:
-Benson
-stephanie
+<Benson Mwangi 
+bensonmwangi102@gmail.com
+bensonmwangi102@gmail.com
+backend
+>
+
+<stephanie iman
+Front end
+>
 
 
 echo "# Django" >> README.md

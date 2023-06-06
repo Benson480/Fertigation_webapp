@@ -1,5 +1,8 @@
 {% load widget_tweaks %}
 <head>
+	<link rel = "icon" href = 
+"https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" 
+	  type = "image/x-icon">
 	<style type="text/css">
 	  .sidenav {
 		height: 100%;
@@ -13,6 +16,10 @@
 		overflow-x:  hidden;
 		padding-top: 20px;
 	  }
+	.name img {
+    	display: inline;
+    	gap: 45px;
+	}
   
 	  .sidenav a {
 		padding: 7px 15px 7px 16px;
@@ -90,6 +97,9 @@
 	  }
 	  h3 {
 		text-align: center;
+	  }
+	  .name .iconset a {
+		padding: 0em 0.5em;
 	  }
 </style>
   
@@ -174,7 +184,11 @@
 						</head>
 						<body>
 						<div class="slideshow-container">
-						
+						<div class="mySlides fade">
+							<div class="numbertext"></div>
+							<img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width:100%" height="70%">
+							<div class="text">We give best fertilizer ides</div>
+						</div>
 						<div class="mySlides fade">
 						  <div class="numbertext"></div>
 						  <img src="https://eyouagro.com/wp-content/uploads/2021/11/%E6%9C%AA%E5%91%BD%E5%90%8D%E7%9A%84%E8%AE%BE%E8%AE%A1-36.jpg" style="width:100%" height="70%">
@@ -213,6 +227,7 @@
 						  <span class="dot"></span> 
 						  <span class="dot"></span> 
 						  <span class="dot"></span> 
+						  <span class="dot"></span>
 						  <span class="dot"></span> 
 						</div>
 						
@@ -234,7 +249,7 @@
 						  }
 						  slides[slideIndex-1].style.display = "block";  
 						  dots[slideIndex-1].className += " active";
-						  setTimeout(showSlides, 3000); // Change image every 2 seconds
+						  setTimeout(showSlides, 5000); // Change image every 2 seconds
 						}
 						</script>
 		</div>
@@ -243,7 +258,14 @@
 				<p>{{message}}</p>
 			{% endfor %}
 		{% endif %}
-	<div class="name">	
+		
+	<div class="name">
+		<div class="iconset">
+			<a href=" https://wa.me/+254702045497" target ="_blank"><img src="https://cdn-icons-png.flaticon.com/512/124/124034.png?w=360" style="width:4%" height="4%" /></a>
+			<a href="tel:0702045497"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdslxfxMiPnqaR08rJS28c1xuCz8SXOC-iGqtpnJc&s" alt="Call 0702045497" style="width:4%" height="4%"/></a>
+			<a href="mailto:bensonmwangi101@gmail.com" target ="_blank"><img src="https://cdn0.iconfinder.com/data/icons/apple-apps/100/Apple_Mail-512.png"style="width:4%" height="4%"/></a>
+			<a href="http://www.facebook.com/mwas.king2" target ="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"style="width:4%" height="4%"/></a>
+		</div>
 		<h3>      Producer Member Sign In     </h3>
 		<a href="/accounts/register/">Register new user</a>
 		
@@ -253,12 +275,15 @@
 			{{form.as_p}}
 			<button type="submit">         Log in       </button>
 		</form>
-
+		<p>      Support info </p>
+		<p>      WhatsApp: <a href="https://wa.me/+25472045497" target ="_blank">+254 0702045497</a></p>
+		<p><a href="mailto:bensonmwangi101@gmail.com"> support@fertigation-solutions.com </a></p>
+		<div>
+			<h2>     FertPPM <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" style="width:20%" height="12.5%"></h2>
+		</div>
 	</div>
 	</body>
 </html>
-
-
 
 
 
