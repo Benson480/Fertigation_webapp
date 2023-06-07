@@ -51,3 +51,12 @@ class Fertilizer_Amount(models.Model):
     
     def __str__(self):
         return str(self.Fertilizer)
+    
+class Fertilizer_Price(models.Model):
+    Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
+    Price_USD = models.FloatField(null=True,db_index=True, blank=True)
+
+class Fertilizer_Cost(models.Model):   
+    Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
+    Fertilizers_Cost_USD = models.FloatField(null=True,db_index=True)
+     

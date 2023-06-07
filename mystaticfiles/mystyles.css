@@ -166,7 +166,8 @@ a:link, a:visited {
     z-index: 1;
     top:0;
     left: 0;
-    background-color: teal;
+    background-color:#244c0c;
+    ;
     overflow-x:  hidden;
     padding-top: 20px;
     font: white;
@@ -261,7 +262,7 @@ header{
   text-align: center;
   float: right;
   margin: none;
-  background: teal;
+  background: #244c0c;
 }
    
 #menu li{

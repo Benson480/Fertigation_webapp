@@ -94,7 +94,7 @@ def delete(request, id):
   return HttpResponseRedirect(reverse("members"))
 
 
-def details(request, id):
+def details(request):
   mymember = Fertilizer_Detail.objects.all()
   template = loader.get_template('details.html')
   context = {
