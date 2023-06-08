@@ -44,7 +44,6 @@ def login_view(request):
     }
     return render(request, "accounts/login.html", context)
 
-
 def logout_view(request):
     if request.method == "POST":
         logout(request)

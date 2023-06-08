@@ -249,6 +249,9 @@ button:hover {
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/index" style="color: #244c0c;">Home</a>
+                </li>
+              <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#" style="color: #244c0c;">About</a>
               </li>
               <li class="nav-item">
@@ -257,13 +260,16 @@ button:hover {
               <li class="nav-item">
                 <a class="nav-link" href="#" style="color: #244c0c;">Contact</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/accounts/register/" style="color: #244c0c;">Sign up</a>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
 
       <!-- login <section></section> -->
-      <section class="login_section">
+      <!-- <section class="login_section">
           <div class="signup">
             <form action="" method="post">
               <h3 class="signup">Sign Up Here</h3>
@@ -288,7 +294,7 @@ button:hover {
             </form>
 
           </div>
-          <div class="horizontal-divider"></div>
+          <div class="horizontal-divider"></div> -->
 
           <!-- the login section -->
           <div class="login_area">
@@ -297,14 +303,6 @@ button:hover {
               <ul>
                 {% csrf_token %}
                 {{form.as_p}}
-                <!-- <li class="">
-                  <label for="mail">Email:</label>
-                  <input type="email" id="mail" name="user_email" />
-                </li>
-                <li class="">
-                  <label for="msg">Password:</label>
-                  <input type="password" id="password" name="user_Password" />
-                </li> -->
                 <li class="button">
                   <button type="submit">Sign in</button>
                 </li>
