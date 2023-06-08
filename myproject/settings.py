@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'masteruser',
         'PASSWORD': 'Sulu5542',
-        'HOST': 'fertigation-project.cytm4rkibekf.us-east-1.rds.amazonaws.com',
+        'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
