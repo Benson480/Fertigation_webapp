@@ -19,4 +19,6 @@ urlpatterns = [
     path('members/details/elements/', views.elements, name='elements'),
     path('members/update/<int:id>', views.update, name='update'),
     path('members/update/updaterecord/<int:id>', views.updaterecord, name='updaterecord'),
+    path('about/', views.about, name='about'),
+    path('anouncement/', views.anouncement, name='anouncement'),
 ]

@@ -25,6 +25,7 @@ def register_view(request):
     return render(request, "accounts/register.html", context)
 
 # Create your views here.
+
 def login_view(request):
     # future -> ?next=/articles/create/
     if request.method == "POST":
@@ -133,4 +134,12 @@ def template(request):
 
 def index(request):
   template = loader.get_template('index.html')
+  return HttpResponse(template.render())
+
+def about(request):
+  template = loader.get_template('about.html')
+  return HttpResponse(template.render())
+
+def anouncement(request):
+  template = loader.get_template('anouncement.html')
   return HttpResponse(template.render())
