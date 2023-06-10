@@ -21,4 +21,5 @@ urlpatterns = [
     path('members/update/updaterecord/<int:id>', views.updaterecord, name='updaterecord'),
     path('about/', views.about, name='about'),
     path('anouncement/', views.anouncement, name='anouncement'),
+    path('contacts/', views.contacts, name='contacts'),
 ]

@@ -143,3 +143,7 @@ def about(request):
 def anouncement(request):
   template = loader.get_template('anouncement.html')
   return HttpResponse(template.render())
+
+def contacts(request):
+  template = loader.get_template('contacts.html')
+  return HttpResponse(template.render())
