@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'myapp',
     'crispy_forms',
     'crispy_bootstrap4',
+    'calculation',
     'widget_tweaks'
 ]
 
@@ -84,12 +85,14 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'masteruser',
-        'PASSWORD': 'Sulu5542',
-        'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'postgres',
+        # 'USER': 'masteruser',
+        # 'PASSWORD': 'Sulu5542',
+        # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
+        # 'PORT': '5432',
     }
 }
 

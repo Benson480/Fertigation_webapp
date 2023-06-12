@@ -86,7 +86,7 @@ li {
         <form method="POST" class="post-form" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
           <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">{% csrf_token %}  
             <h1>
-              Fertilizers Amount
+              Fertilizers Prices
             </h1>
             <p>
             {% if form.Date.help_text %}
@@ -98,48 +98,8 @@ li {
             <span style="color: red">{{ error }}</span>
             {% endfor %}
           </p>
-          <p>
-            {% if form.Media.help_text %}
-                <small style="color: grey">{{ form.Media.help_text }}</small>
-                {% endif %}
-                {{ form.Media.label_tag }}*
-                {{ form.Media }} 
-                {% for error in form.Media.errors %}
-                <span style="color: red">{{ error }}</span>
-                {% endfor %}
-        </p>
         <p>
-            {% if form.Water_Volume_m3.help_text %}
-            <small style="color: grey">{{ form.Water_Volume_m3.help_text }}</small>
-            {% endif %}
-            {{ form.Water_Volume_m3.label_tag }}
-            {{ form.Water_Volume_m3 }}
-            {% for error in form.Water_Volume_m3.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-        </p>
-        <p>
-            {% if form.UV_percent.help_text %}
-                <small style="color: grey">{{ form.UV_percent.help_text }}</small>
-                {% endif %}
-                {{ form.UV_percent.label_tag }}*
-                {{ form.UV_percent }} 
-                {% for error in form.UV_percent.errors %}
-                <span style="color: red">{{ error }}</span>
-                {% endfor %}
-        </p>
-        <p>
-          {% if form.Injection_Ratio.help_text %}
-              <small style="color: grey">{{ form.Injection_Ratio.help_text }}</small>
-              {% endif %}
-              {{ form.Injection_Ratio.label_tag }}*
-              {{ form.Injection_Ratio }} 
-              {% for error in form.Injection_Ratio.errors %}
-              <span style="color: red">{{ error }}</span>
-              {% endfor %}
-      </p>
-      <p>
-        {% if form.Fertilizer.help_text %}
+            {% if form.Fertilizer.help_text %}
             <small style="color: grey">{{ form.Fertilizer.help_text }}</small>
             {% endif %}
             {{ form.Fertilizer.label_tag }}*
@@ -150,12 +110,12 @@ li {
     </p>
 
     <p>
-      {% if form.amount.help_text %}
-          <small style="color: grey">{{ form.amount.help_text }}</small>
+      {% if form.price_Usd.help_text %}
+          <small style="color: grey">{{ form.price_Usd.help_text }}</small>
           {% endif %}
-          {{ form.amount.label_tag }}*
-          {{ form.amount }} 
-          {% for error in form.amount.errors %}
+          {{ form.price_Usd.label_tag }}*
+          {{ form.price_Usd }} 
+          {% for error in form.price_Usd.errors %}
           <span style="color: red">{{ error }}</span>
           {% endfor %}
         </p>
@@ -185,7 +145,7 @@ li {
 
     <div class="Fertresults" style="float: right; width: 70%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
       <div style="background-color: hwb(0 98% 1%); width: 70%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-        <h1>Fertilizers records</h1>
+        <h1>Fertilizers Price</h1>
         
           <h3>---------<button onclick="window.location.href='/members';">
            Back
@@ -204,11 +164,9 @@ li {
           <table id="myTable2" border="1">
           <tr>
             <th>No.</th>
-            <th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="MEDIA" size="10"></th>
-            <th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="DATE" size="9" ></th>
-            <th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="FERTILIZER" size="15"></th>
-            <th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="AMOUNT" size="4"></th>
-            <th>COST</th>
+            <th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="DATE" size="9" ></th>
+            <th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="FERTILIZER" size="15"></th>
+            <th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="PRICE" size="4"></th>
             <th>CHANGE</th>
             <th>REMOVE</th>
           </tr>
@@ -216,13 +174,11 @@ li {
         <tr>
               {% if x.Fertilizer is not None %}
               <td>{{ "" }}</td>
-              <td>{{ x.Media}}</td>
               <td>{{ x.Date}}</td>
               <td>{{ x.Fertilizer }}</td>
-              <td>{{ x.amount }}</td>
-              <td>{{ x.total_cost }}</td>
-              <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-              <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
+              <td>{{ x.price_Usd }}</td>
+              <td><a style="color: green;" href="/members/update/{{ x.id }}">Edit</a></td>
+              <td><a style="color: red;" href="/members/delete/{{ x.id }}">Delete</a></td>
               {% endif %}
         </tr>     
           {% endfor %}

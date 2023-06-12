@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import Fertilizer_AmountForm, DeleteFertilizerForm
+from .forms import Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -147,3 +147,23 @@ def anouncement(request):
 def contacts(request):
   template = loader.get_template('contacts.html')
   return HttpResponse(template.render())
+
+def prices(request):
+    context ={}
+ 
+    # create object of form
+    mymember = Fertilizer_Amount.objects.all()
+    fertpriceform = Fertilizer_PricesForm(request.POST or None, request.FILES or None)
+     
+    # check if form data is valid
+    if fertpriceform .is_valid():
+        # save the form data to model
+        fertpriceform .save()
+    context = {
+    'form':fertpriceform ,
+    'mymember': mymember,
+  }
+
+
+    return render(request, "prices.html", context)
+  
