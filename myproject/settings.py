@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-a^-!si_9u(5noyi=)l%uno@o!0kn95cba#2ajn)2lwdmi^^%e&
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'fertppm.pythonanywhere.com']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -85,14 +86,22 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'postgres',
-        # 'USER': 'masteruser',
-        # 'PASSWORD': 'Sulu5542',
-        # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
-        # 'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'fertppm$fertdatabase',
+        # 'USER': 'fertppm',
+        # 'PASSWORD': 'Sulu5542!',
+        # 'HOST': 'fertppm.mysql.pythonanywhere-services.com',
+        # 'PORT': '3306',
+
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'masteruser',
+        'PASSWORD': 'Sulu5542',
+        'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
