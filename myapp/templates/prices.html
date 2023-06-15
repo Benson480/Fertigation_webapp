@@ -164,9 +164,9 @@ li {
           <table id="myTable2" border="1">
           <tr>
             <th>No.</th>
-            <th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="DATE" size="9" ></th>
-            <th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="FERTILIZER" size="15"></th>
-            <th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="PRICE" size="4"></th>
+            <th>DATE</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Date" size="14" >
+            <th>FERTILIZER</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Fertilizer" size="13">
+            <th>PRICE</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Price" size="3">
             <th>CHANGE</th>
             <th>REMOVE</th>
           </tr>
@@ -237,7 +237,7 @@ li {
 
 
 
-// Search table with name
+// Search table with Date
 function myFunction() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -262,7 +262,7 @@ function myFunction() {
 
 
 
-// Search table with Date
+// Search table with Fert name
 function myFunction1() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
@@ -286,7 +286,7 @@ function myFunction1() {
 }
 
 
-// Search table with Fertilizer
+// Search table with Price
 function myFunction2() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;

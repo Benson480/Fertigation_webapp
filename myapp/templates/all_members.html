@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FETILIZERS APP - LIST ALL FERTILIZERS
+  FETILIZERS DASHBOARD
 {% endblock %}
 
 <style>
@@ -194,7 +194,7 @@ li {
         <button onclick="sortnameTable(2)">Sort with Name</button>
         <input type="button" id="btnExport1" value="PDF" />
         <!-- <input type="button" id="btnExport" value="Excel" /> -->
-        <input type="button" id="btn_excel" value="Excel"/>  
+        <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
   
         </h3>
         <ul id="id01">
@@ -206,7 +206,7 @@ li {
             <th>No.</th>
             <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
             <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-            <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="14">
+            <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
             <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
             <th>COST</th>
             <th>CHANGE</th>
@@ -254,32 +254,51 @@ li {
 
 
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
-<script>
-    $("#btn_excel").click(function(e) {   
-      let table = document.getElementsByTagName("table");
-        TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
-          // exclude CSS class
-          exclude:"tr td a",
-          exclude_links: true,
-          ignoreRow: 'hidden',
-          dom: "Bfrtip",
-          name: `Fertilizer Record.xlsx`, // fileName you could use any name
-           sheet: {
-              name: 'Fertilizer' // sheetName
-           }
-        });
-    });
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js">
+
+function ExportToExcel(type, fn, dl) {
+  var elt = document.getElementById('myTable2');
+  var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+  return dl ?
+    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+    XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+}
 </script>
 
 <script>
 
+// Export table to excel
+function htmlTableToExcel(type, tableId) {
+  const table = document.getElementById(tableId);
+  const data = document.createElement('table');
+  data.innerHTML = table.innerHTML;
+  data.querySelectorAll('tr').forEach(row => { 
+    if (row.hidden || (row.closest('tbody') && row.matches('.header'))) row.remove() 
+  })
+  for(i = 0 ; i < data.rows.length ; i++) 
+  {    
+      var row = data.rows[i];
+      var numberOfCells = row.cells.length;
+      row.deleteCell(numberOfCells - 1);
 
+      var row = data.rows[i];
+      var numberOfCells = row.cells.length;
+      row.deleteCell(numberOfCells - 1);
 
-
-
+  }
+  console.log(data.outerHTML)
+  var excelFile = XLSX.utils.table_to_book(data, {
+    
+    sheet: "sheet1"
+  });
+  XLSX.write(excelFile, {
+    bookType: type,
+    bookSST: true,
+    type: 'base64'
+  });
+  
+  XLSX.writeFile(excelFile, 'Fertilizer records.' + type);
+}
 
 // Search table with name
 function myFunction() {
