@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import Fertilizer, Fertilizer_Detail, Fertilizer_Element, Fertilizer_Amount
+from .models import (Fertilizer, Fertilizer_Detail, 
+Fertilizer_Element, Fertilizer_Amount, Fertilizer_Price, Fertilizer_Cost)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib.auth import login
@@ -56,6 +57,7 @@ def members(request):
  
     # create object of form
     mymember = Fertilizer_Amount.objects.all()
+    membercost = Fertilizer_Cost.objects.all()
     fertform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
      
     # check if form data is valid
@@ -65,6 +67,7 @@ def members(request):
     context = {
     'form':fertform,
     'mymember': mymember,
+    'membercost': membercost, 
   }
 
 
@@ -92,6 +95,11 @@ def delete(request, id):
   member = Fertilizer_Amount.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse("members"))
+
+def deleteprice(request, id):
+  member = Fertilizer_Price.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("prices"))
 
 
 def details(request):
@@ -152,7 +160,7 @@ def prices(request):
     context ={}
  
     # create object of form
-    mymember = Fertilizer_Amount.objects.all()
+    mymember = Fertilizer_Price.objects.all()
     fertpriceform = Fertilizer_PricesForm(request.POST or None, request.FILES or None)
      
     # check if form data is valid

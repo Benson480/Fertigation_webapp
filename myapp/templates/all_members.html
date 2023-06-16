@@ -220,7 +220,11 @@ li {
               <td>{{ x.Date}}</td>
               <td>{{ x.Fertilizer }}</td>
               <td>{{ x.amount }}</td>
-              <td>{{ x.total_cost }}</td>
+              {% if x.total_cost is None %}
+                <td>{{ 0 }}</td>
+              {% else %}
+                <td>{{ x.total_cost }}</td>
+              {% endif %}
               <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
               <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
               {% endif %}

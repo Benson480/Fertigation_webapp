@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Fertilizer_Amount, Fertilizer_Cost
+from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 import calculation
@@ -46,12 +46,12 @@ class Fertilizer_PricesForm(forms.ModelForm):
 	# specify the name of model to use
 	price_Usd = forms.DecimalField(required=True,label= "price_Usd", widget=forms.NumberInput(attrs={'placeholder': 0}))
 	class Meta:
-		model = Fertilizer_Amount
-		fields = ['Date','Fertilizer','price_Usd']
+		model = Fertilizer_Price
+		fields = ['Date', 'Fertilizer', 'price_Usd']
 		widgets = {
-            'Date': DateInput(),
-	    
-        }
+			'Date': DateInput(),
+			
+		}
 
 
 class DeleteFertilizerForm(forms.ModelForm):

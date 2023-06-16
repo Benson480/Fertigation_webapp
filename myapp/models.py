@@ -34,7 +34,16 @@ class Fertilizer_Detail(models.Model):
 
     def __str__(self):
         return str(self.Fertilizer)
-    
+
+
+class Fertilizer_Price(models.Model):
+    Date = models.DateField(null=True,db_index=True)
+    Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
+    price_Usd = models.FloatField(blank=True, db_index=True, null=True, default=0)
+
+    def __str__(self):
+        return str(self.Fertilizer)
+
 class Fertilizer_Amount(models.Model):
     Date = models.DateField(null=True,db_index=True)
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
@@ -42,7 +51,6 @@ class Fertilizer_Amount(models.Model):
     Water_Volume_m3 = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
     Injection_Ratio = models.FloatField(null=True,db_index=True)
-    price_Usd = models.FloatField(blank=True, db_index=True, null=True, default=0)
 
     # Fertilizers_Cost_USD = models.FloatField(null=True,db_index=True)
     MEDIA_CHOICES = (
@@ -55,19 +63,32 @@ class Fertilizer_Amount(models.Model):
     
     def __str__(self):
         return str(self.Fertilizer)
-      
+
     @property
     def total_cost(self):
-        
-        return self.amount * self.price_Usd
-    
-    
-    
-class Fertilizer_Price(models.Model):
-    Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
-    
+        getprice = Fertilizer_Price.objects.all()
+        for a in getprice:
+            if a.Fertilizer == self.Fertilizer:
+                # updated_price = a.price_Usd[:-1]
+                fertcost = a.price_Usd * self.amount
+                return str(fertcost)
+      
 
-class Fertilizer_Cost(models.Model):   
-    Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
+#Testing Models
+class Fertilizer_Cost(models.Model):
+    ...   
+    # Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
+    # getamount = Fertilizer_Amount.objects.all()
+    # getprice = Fertilizer_Price.objects.all()
+    # for a in getamount:
+    #     for p in getprice:
+    #         if p.price_Usd == None:
+    #             p.price_Usd = 0
+    #             fertcost = a.amount * p.price_Usd
     
-     
+    # @property
+    # def total_cost(self):
+    #     if self.fertcost == None:
+    #         self.fertcost = 0
+    #         return str(0)
+    #     return str(self.fertcost)
