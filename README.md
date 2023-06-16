@@ -27,6 +27,11 @@ backend
 Front end
 >
 
+<Benjamin Musyoki
+benjaminmutunga40@gmail.com
+Backend, Designer
+>
+
 
 echo "# Django" >> README.md
 git init
