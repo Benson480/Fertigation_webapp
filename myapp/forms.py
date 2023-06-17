@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
-import calculation
 
 
 # Create your forms here.
