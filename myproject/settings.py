@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import platform
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,26 +84,48 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fertppm$fertdatabase',
-        'USER': 'fertppm',
-        'PASSWORD': 'Sulu5542',
-        'HOST': 'fertppm.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
+if platform.system() == 'Windows':
+    DATABASES = {
+        'default': {
+            # 'ENGINE': 'django.db.backends.mysql',
+            # 'NAME': 'fertppm$fertdatabase',
+            # 'USER': 'fertppm',
+            # 'PASSWORD': 'Sulu5542',
+            # 'HOST': 'fertppm.mysql.pythonanywhere-services.com',
+            # 'PORT': '3306',
 
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
 
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'postgres',
-        # 'USER': 'masteruser',
-        # 'PASSWORD': 'Sulu5542',
-        # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
-        # 'PORT': '5432',
+            # 'ENGINE': 'django.db.backends.postgresql',
+            # 'NAME': 'postgres',
+            # 'USER': 'masteruser',
+            # 'PASSWORD': 'Sulu5542',
+            # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
+            # 'PORT': '5432',
+        }
     }
-}
+elif platform.system() == 'Linux':
+        DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'fertppm$fertdatabase',
+            'USER': 'fertppm',
+            'PASSWORD': 'Sulu5542',
+            'HOST': 'fertppm.mysql.pythonanywhere-services.com',
+            'PORT': '3306',
+
+            # 'ENGINE': 'django.db.backends.sqlite3',
+            # 'NAME': BASE_DIR / 'db.sqlite3',
+
+            # 'ENGINE': 'django.db.backends.postgresql',
+            # 'NAME': 'postgres',
+            # 'USER': 'masteruser',
+            # 'PASSWORD': 'Sulu5542',
+            # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
+            # 'PORT': '5432',
+        }
+    }
 
 
 # Password validation
@@ -163,7 +186,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 """
 
 LOGIN_REDIRECT_URL = 'members'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = '/login'
 
 
 SECURE_SSL_REDIRECT=False
