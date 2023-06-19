@@ -10,9 +10,9 @@ admin.site.register(Fertilizer_Amount)
 admin.site.register(Fertilizer_Cost)
 
 
-admin.site.site_header = "your Admin name "
-admin.site.site_title = "Your Admin Portal"
-admin.site.index_title = "Welcome to YOur Researcher Portal"
+admin.site.site_header = "FERTPPM"
+admin.site.site_title = "FERTPPM ADMINSTARTION"
+admin.site.index_title = "WELCOME TO YOUR CROP NUTRITION SITE"
 
 
 
