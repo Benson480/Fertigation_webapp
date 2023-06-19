@@ -34,6 +34,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_menu',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -192,3 +193,16 @@ LOGOUT_REDIRECT_URL = '/login'
 SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
+
+# ADMIN_LOGO = 'FERTPPM.jpeg'
+MENU_WEIGHT = {
+    'World': 20,
+    'Auth': 4,
+    'Sample': 5
+}
+
+ADMIN_STYLE = {
+    'primary-color': '#164B36',
+    'secondary-color': '#092117',
+    'tertiary-color': '#51B48E'
+}
