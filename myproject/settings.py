@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import platform
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,6 +35,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    'flat_responsive', # only if django version < 2.0
+    'flat', # only if django version < 1.9
+    'colorfield',
     'admin_menu',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +52,8 @@ INSTALLED_APPS = [
     # 'calculation',
     'widget_tweaks'
 ]
+
+X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -167,8 +174,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'productionfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'mystaticfiles',
+# ]
+
 STATICFILES_DIRS = [
-    BASE_DIR / 'mystaticfiles',
+    os.path.join(BASE_DIR, "static"),
 ]
 
 
@@ -203,6 +214,10 @@ MENU_WEIGHT = {
 
 ADMIN_STYLE = {
     'primary-color': '#164B36',
-    'secondary-color': '#092117',
-    'tertiary-color': '#51B48E'
+    'secondary-color': 'green',
+    'tertiary-color': '#51B48E',
+    'body-color': 'white',
+    'backgound-color': 'black',
 }
+
+MEDIA_URL = 'C:/Django/images/FERTPPM.jpeg/'

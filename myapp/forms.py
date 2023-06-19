@@ -30,12 +30,12 @@ class DateInput(forms.DateInput):
 # create a ModelForm
 class Fertilizer_AmountForm(forms.ModelForm):
 	# specify the name of model to use
-	amount = forms.DecimalField(required=True,label= "amount", widget=forms.NumberInput(attrs={'placeholder': 0}))
+	Amount = forms.DecimalField(required=True,label= "amount", widget=forms.NumberInput(attrs={'placeholder': 0}))
 	class Meta:
 		model = Fertilizer_Amount
 		model2 = Fertilizer_Cost
-		fields = ['Date', 'Water_Volume_m3', 'UV_percent', 'Injection_Ratio','Fertilizer',
-	     'amount', 'Media']
+		fields = ['Date', 'H2O_m3_Per_Ha', 'UV_percent', 'Injection_Ratio','Fertilizer',
+	     'Amount', 'Media','Area_Ha']
 		widgets = {
             'Date': DateInput(),
 	    

@@ -109,12 +109,23 @@ li {
                 {% endfor %}
         </p>
         <p>
-            {% if form.Water_Volume_m3.help_text %}
-            <small style="color: grey">{{ form.Water_Volume_m3.help_text }}</small>
+          {% if form.Area_Ha.help_text %}
+              <small style="color: grey">{{ form.Area_Ha.help_text }}</small>
+              {% endif %}
+              {{ form.Area_Ha.label_tag }}*
+              {{ form.Area_Ha }} 
+              {% for error in form.Area_Ha.errors %}
+              <span style="color: red">{{ error }}</span>
+              {% endfor %}
+      </p>
+
+        <p>
+            {% if form.H2O_m3_Per_Ha.help_text %}
+            <small style="color: grey">{{ form.H2O_m3_Per_Ha.help_text }}</small>
             {% endif %}
-            {{ form.Water_Volume_m3.label_tag }}
-            {{ form.Water_Volume_m3 }}
-            {% for error in form.Water_Volume_m3.errors %}
+            {{ form.H2O_m3_Per_Ha.label_tag }}
+            {{ form.H2O_m3_Per_Ha }}
+            {% for error in form.H2O_m3_Per_Ha.errors %}
             <span style="color: red">{{ error }}</span>
             {% endfor %}
         </p>
@@ -150,12 +161,12 @@ li {
     </p>
 
     <p>
-      {% if form.amount.help_text %}
-          <small style="color: grey">{{ form.amount.help_text }}</small>
+      {% if form.Amount.help_text %}
+          <small style="color: grey">{{ form.Amount.help_text }}</small>
           {% endif %}
-          {{ form.amount.label_tag }}*
-          {{ form.amount }} 
-          {% for error in form.amount.errors %}
+          {{ form.Amount.label_tag }}*
+          {{ form.Amount }} 
+          {% for error in form.Amount.errors %}
           <span style="color: red">{{ error }}</span>
           {% endfor %}
         </p>
@@ -219,7 +230,7 @@ li {
               <td>{{ x.Media}}</td>
               <td>{{ x.Date}}</td>
               <td>{{ x.Fertilizer }}</td>
-              <td>{{ x.amount }}</td>
+              <td>{{ x.Amount }}</td>
               {% if x.total_cost is None %}
                 <td>{{ 0 }}</td>
               {% else %}

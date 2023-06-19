@@ -47,10 +47,12 @@ class Fertilizer_Price(models.Model):
 class Fertilizer_Amount(models.Model):
     Date = models.DateField(null=True,db_index=True)
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
-    amount = models.FloatField(null=True,db_index=True,blank=True, default=0)
-    Water_Volume_m3 = models.FloatField(null=True,db_index=True)
+    Amount = models.FloatField(null=True,db_index=True,blank=True, default=0)
+    Area_Ha = models.FloatField(null=True,db_index=True,blank=True)
+    H2O_m3_Per_Ha = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
     Injection_Ratio = models.FloatField(null=True,db_index=True)
+    Grams_Per_m3 = models.FloatField(null=True,db_index=True)
 
     # Fertilizers_Cost_USD = models.FloatField(null=True,db_index=True)
     MEDIA_CHOICES = (
@@ -70,8 +72,24 @@ class Fertilizer_Amount(models.Model):
         for a in getprice:
             if a.Fertilizer == self.Fertilizer:
                 # updated_price = a.price_Usd[:-1]
-                fertcost = a.price_Usd * self.amount
+                fertcost = a.price_Usd * self.Amount
                 return str(fertcost)
+            
+
+    @property
+    def Grams_Per_m3(self):
+        Grams_Converter = 1000
+        Grams = self.Amount * Grams_Converter
+        Cubic_Meters = self.Area_Ha * self.H2O_m3_Per_Ha
+        Grams_per_m3 = Grams / Cubic_Meters
+        Uv_Recycle = self.UV_percent / 100
+        getelements = Fertilizer_Element.objects.all()
+        for a in getelements:
+            if a.Fertilizer == self.Fertilizer:
+                # updated_price = a.price_Usd[:-1]
+                fertppm = a.composition1 * Grams_per_m3 / 100
+                print(fertppm)
+                return str(fertppm)
       
 
 #Testing Models
