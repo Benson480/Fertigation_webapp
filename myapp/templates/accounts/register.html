@@ -264,6 +264,9 @@ button:hover {
               <li class="nav-item">
                 <a class="nav-link" href="#" style="color: #244c0c;">Contact</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/" style="color: #244c0c;">Admin</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -274,11 +277,11 @@ button:hover {
           <div class="signup">
             <form action="" method="post">
               <h3 class="signup">Sign Up Here</h3>
+              <p>Already have an account? Please <a href='/login'>Login</a></p>
               <ul>
 				{% csrf_token %}
 					{{ form.as_p }}
 					<button type='submit'>Sign Up</button>
-				<p>Already have an account? Please <a href='/login'>Login</a></p>
 				</div>
 			</div>
 
