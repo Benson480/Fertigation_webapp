@@ -12,7 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
-from .forms import Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm
+from .forms import (Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm, 
+                    Fertilizer_ElementsForm)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -111,9 +112,29 @@ def details(request):
   return HttpResponse(template.render(context, request))
 
 
-def elements(request): 
+def elements(request):
+    context ={}
+    # create object of form
+    mymember = Fertilizer_Element.objects.all()
+    fertelementform = Fertilizer_ElementsForm(request.POST or None, request.FILES or None)
+     
+    # check if form data is valid
+    if fertelementform.is_valid():
+        # save the form data to model
+        fertelementform.save()
+    context = {
+    'fertelementform':fertelementform,
+    'mymember': mymember,
+  }
+
+
+    return render(request, "elements.html", context)
+  
+
+
+def ppm(request): 
   mymember = Fertilizer_Element.objects.all()
-  template = loader.get_template('elements.html')
+  template = loader.get_template('ppm.html')
   context = {
     'mymember': mymember,
   }

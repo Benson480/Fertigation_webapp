@@ -54,3 +54,7 @@ To https://github.com/Benson480/Fertigation_webapp.git
 branch 'main' set up to track 'origin/main'.
 (env) PS C:\Django> git push
 Everything up-to-date
+
+
+
+https://www.geeksforgeeks.org/how-to-deploy-django-project-on-pythonanywhere/

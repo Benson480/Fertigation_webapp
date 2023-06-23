@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FETILIZERS DASHBOARD
+  FETILIZERS ELEMENTS
 {% endblock %}
 
 <style>
@@ -35,6 +35,7 @@ table tr::before {
   content: counter(rowNumber) ".";
   padding-right: 0.3em;
   text-align: right;
+  border-color: #96D4D4;
 }
 li {
     list-style-type: none; 
@@ -58,16 +59,19 @@ li {
   width: 100%; /* Full-width */
   border: 1px solid #ddd; /* Add a grey border */
   font-size: 18px; /* Increase font-size */
+  border-color: #96D4D4;
 }
 
 #myTable2 th, #myTable td {
   text-align: left; /* Left-align text */
   padding: 12px; /* Add padding */
+  border-color: #96D4D4;
 }
 
 #myTable2 tr {
   /* Add a bottom border to all table rows */
   border-bottom: 1px solid #ddd;
+  border-color: #96D4D4;
 }
 
 #myTable2 tr.header, #myTable tr:hover {
@@ -76,45 +80,60 @@ li {
 }
 </style>
 {% block content %}
-<div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
+  <div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 30%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
   <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
 
     
     <ul id="id00">   
-      {% load crispy_forms_tags %}
       <br>
-        <form method="POST" class="post-form" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-          <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">{% csrf_token %}  
-            <h1>
-              Fertilizers Amount
-            </h1>
-            <p>
-            {% if fertelementform.Fertilizer.help_text %}
-            <small style="color: grey">{{ fertelementform.Fertilizer.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Fertilizer.label_tag }}*
-            {{ fertelementform.Fertilizer }}
-            {% for error in fertelementform.Fertilizer.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-          </p>
-      <p>
-        <button style="float: left; background-color:hwb(from color h w b);" type="submit" class="save btn btn-default">Add</button>  
+        <class="elements" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
+          <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
+            <div><h1>Fertilizers elements</h1></div>
+            <ul id="id01">
+              {% for x in mymember %}
+                  <h3>{{x.Fertilizer}}</h3>
+                  <ul id="id01">
+                    {% if x.element1 is not None %}
+                      <li onclick="window.location">{{ x.element1 }} : {{ x.composition1 }}</li>
+                    {% endif %}
+                    {% if x.element2 is not None %}
+                      <li onclick="window.location">{{ x.element2 }} : {{ x.composition2 }}</li>
+                    {% endif %}
+                    {% if x.element3 is not None %}
+                      <li onclick="window.location">{{ x.element3 }} : {{ x.composition3 }}</li>
+                    {% endif %}
+                    {% if x.element4 is not None %}
+                      <li onclick="window.location">{{ x.element4 }} : {{ x.composition4 }}</li>
+                    {% endif %}
+                    {% if x.element5 is not None %}
+                      <li onclick="window.location">{{ x.element5 }} : {{ x.composition5 }}</li>
+                    {% endif %}
+                  </ul>
+              {% endfor %}
+              <p></p>
+              <p></p>
+              <button onclick="window.location.href='/members';">
+                Back
+              </button>
+          </div> 
+        <button onclick="window.location.href='/members';">
+          Back
+        </button>
       </p>  
-
+      </div>
     </form>
     
 
-
-    <div class="Fertresults" style="float: right; width: 70%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-      <div style="background-color: hwb(0 98% 1%); width: 70%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-        <h1>Fertilizers records</h1>
+    </ul> 
+    <div class="Fertresults" style="float: right; width: 92%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
+      <div style="background-color: hwb(0 98% 1%); width: 92%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
+        <h1>REGIME GUIDE</h1>
         
-          <h3>---------<button onclick="window.location.href='/members';">
+          <h3><button onclick="window.location.href='/members';">
            Back
           </button>
         <button onclick="sortTable(0)">Sort with number</button>
-        <button onclick="sortnameTable(2)">Sort with Name</button>
+        <button onclick="sortnameTable(2)">Sort with PPM</button>
         <input type="button" id="btnExport1" value="PDF" />
         <!-- <input type="button" id="btnExport" value="Excel" /> -->
         <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
@@ -127,11 +146,11 @@ li {
           <table id="myTable2" border="1">
           <tr>
             <th>No.</th>
-            <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
             <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-            <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
-            <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-            <th>COST</th>
+            <th>ELEMENT</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
+            <th>REGIME PPM</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
+            <th>LAB PROPOSED PPM</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
+            <th>LAB VS REGIME</th>
             <th>CHANGE</th>
             <th>REMOVE</th>
           </tr>
@@ -514,4 +533,3 @@ function sortListDir() {
 </div>
 
 {% endblock %}
-

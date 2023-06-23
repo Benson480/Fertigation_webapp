@@ -9,26 +9,25 @@ class Fertilizer(models.Model):
     name = models.CharField(max_length=255)
     def __str__(self):
             return f"{self.name}"
+    
 
 class Fertilizer_Element(models.Model):
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
-    element1       = models.CharField(max_length=200, null=True, db_index=True, blank=True)
-    composition1     = models.FloatField(null=True, db_index=True, blank=True)
-    element2       = models.CharField(max_length=200, null=True, db_index=True, blank=True)
-    composition2     = models.FloatField(null=True, db_index=True, blank=True)
-    element3       = models.CharField(max_length=200, null=True, db_index=True,default=None, blank=True)
-    composition3     = models.FloatField(null=True, db_index=True,default=None, blank=True)
-    element4       = models.CharField(max_length=200, null=True, db_index=True, default=None, blank=True)
-    composition4     = models.FloatField(null=True, db_index=True, default=None, blank=True)
-    element5       = models.CharField(max_length=200, null=True, db_index=True, default=None, blank=True)
-    composition5     = models.FloatField(null=True, db_index=True, default=None, blank=True)
+    Element_1       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Composition_1     = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Element_2       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Composition_2     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
+    Element_3       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Composition_3     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
+    Element_4       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Composition_4     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
     def __str__(self):
         return str(self.Fertilizer)
+    
         
 class Fertilizer_Detail(models.Model):
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
     registeredDate = models.DateField(null=True, db_index=True, blank=True)
-    price_USD= models.FloatField(null=True, db_index=True, blank=True)
     supplier = models.CharField(max_length=200, null=True, db_index=True, blank=True)
     fertilizer_info = models.URLField(max_length=200, db_index=True, blank=True)
 
@@ -51,8 +50,8 @@ class Fertilizer_Amount(models.Model):
     Area_Ha = models.FloatField(null=True,db_index=True,blank=True)
     H2O_m3_Per_Ha = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
-    Injection_Ratio = models.FloatField(null=True,db_index=True)
-    Grams_Per_m3 = models.FloatField(null=True,db_index=True)
+    Tank_mix_Volume = models.FloatField(null=True,db_index=True)
+    
 
     # Fertilizers_Cost_USD = models.FloatField(null=True,db_index=True)
     MEDIA_CHOICES = (
@@ -79,15 +78,19 @@ class Fertilizer_Amount(models.Model):
     @property
     def Grams_Per_m3(self):
         Grams_Converter = 1000
+        Litres_To_M3 = 1000
+        Number_of_Tanks = 1
         Grams = self.Amount * Grams_Converter
         Cubic_Meters = self.Area_Ha * self.H2O_m3_Per_Ha
         Grams_per_m3 = Grams / Cubic_Meters
         Uv_Recycle = self.UV_percent / 100
+        Injection_Ratio = round(Number_of_Tanks*(Cubic_Meters*Litres_To_M3)/self.Tank_mix_Volume,0)
         getelements = Fertilizer_Element.objects.all()
-        for a in getelements:
-            if a.Fertilizer == self.Fertilizer:
+        for e in getelements:
+            print(e.element1)
+            if e.Fertilizer == self.Fertilizer:
                 # updated_price = a.price_Usd[:-1]
-                fertppm = a.composition1 * Grams_per_m3 / 100
+                fertppm = e.composition1 * Grams_per_m3 / 100
                 print(fertppm)
                 return str(fertppm)
       

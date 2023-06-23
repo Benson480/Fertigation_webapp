@@ -92,7 +92,7 @@ li {
             {% if form.Date.help_text %}
             <small style="color: grey">{{ form.Date.help_text }}</small>
             {% endif %}
-            {{ form.Date.label_tag }}
+            {{ form.Date.label_tag }}*
             {{ form.Date }}
             {% for error in form.Date.errors %}
             <span style="color: red">{{ error }}</span>
@@ -119,11 +119,22 @@ li {
               {% endfor %}
       </p>
 
+      <p>
+        {% if form.Tank_mix_Volume.help_text %}
+            <small style="color: grey">{{ form.Tank_mix_Volume.help_text }}</small>
+            {% endif %}
+            {{ form.Tank_mix_Volume.label_tag }}*
+            {{ form.Tank_mix_Volume }} 
+            {% for error in form.Tank_mix_Volume.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </p>
+
         <p>
             {% if form.H2O_m3_Per_Ha.help_text %}
             <small style="color: grey">{{ form.H2O_m3_Per_Ha.help_text }}</small>
             {% endif %}
-            {{ form.H2O_m3_Per_Ha.label_tag }}
+            {{ form.H2O_m3_Per_Ha.label_tag }}*
             {{ form.H2O_m3_Per_Ha }}
             {% for error in form.H2O_m3_Per_Ha.errors %}
             <span style="color: red">{{ error }}</span>
@@ -139,16 +150,6 @@ li {
                 <span style="color: red">{{ error }}</span>
                 {% endfor %}
         </p>
-        <p>
-          {% if form.Injection_Ratio.help_text %}
-              <small style="color: grey">{{ form.Injection_Ratio.help_text }}</small>
-              {% endif %}
-              {{ form.Injection_Ratio.label_tag }}*
-              {{ form.Injection_Ratio }} 
-              {% for error in form.Injection_Ratio.errors %}
-              <span style="color: red">{{ error }}</span>
-              {% endfor %}
-      </p>
       <p>
         {% if form.Fertilizer.help_text %}
             <small style="color: grey">{{ form.Fertilizer.help_text }}</small>

@@ -13,6 +13,7 @@ urlpatterns = [
     path('members/details/<int:id>', views.details, name='details'),
     path('testing/', views.testing, name='testing'),
     path('elements/', views.elements, name='elements'),
+    path('ppm/', views.ppm, name='ppm'),
     path('template/', views.template, name='template'),
     path('index/', views.index, name='index'),
     path('members/delete/<int:id>', views.delete, name='delete'),
