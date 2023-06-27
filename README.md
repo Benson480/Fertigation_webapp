@@ -67,3 +67,8 @@ Everything up-to-date
 
 
 https://www.geeksforgeeks.org/how-to-deploy-django-project-on-pythonanywhere/
+
+python3 -m venv env #create virtual environment
+source env/bin/activate #activate virtual environment
+cd deploy_on_pythonanywhere #navigate inside your project 
+pip install -r requirements.txt #installing dependencies using requirements.txt

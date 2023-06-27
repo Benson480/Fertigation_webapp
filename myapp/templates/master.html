@@ -3,276 +3,247 @@
 <html>
 <head>
   <link rel="stylesheet" href="{% static 'mystyles.css' %}">
-  <link rel = "icon" href = 
-  "https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" 
-        type = "image/x-icon">
-            
+  <link rel="icon" href="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" type="image/x-icon">
   <title>{% block title %}{% endblock %}</title>
   <style>
-    /*************************/
-/*    Styling  Header    */
-/*************************/
+    /* Styling Header */
+    header {
+      overflow: hidden;
+    }
 
-header{
-     
-     overflow: hidden;
- }
-  
- #top-header{
-          
-     text-align: center;
-     height: 60px;
- }
-  
- /****************/   
- /* Styling Logo */
- /****************/
- #logo{
-     float: left;
-     padding: none;
-     margin: none;
-     height: 60px;
-     width: 30%;
-     top: 0%;
-     margin-top: 0%;
- }
-  
- #logo h1{
+    #top-header {
+      text-align: center;
+      height: 60px;
+    }
 
-  margin-top: 1%;
-  top: 0%;
-  padding: 0em 1em;
-  display: inline-block;
-  margin-left: 100%;
+    /* Styling Logo */
+    #logo {
+      float: left;
+      padding: none;
+      margin: none;
+      height: 60px;
+      width: 30%;
+      top: 0%;
+      margin-top: 0%;
+    }
 
- }  
- #logo h1 img{
-  top: 0%;
-  margin-top: -16%;
-  padding: 0em 3.1em;
-  display: inline-block;
-  margin-left: 37%;
-  padding-top: 0em;
+    #logo h1 {
+      margin-top: 1%;
+      top: 0%;
+      padding: 0em 1em;
+      display: inline-block;
+      margin-left: 100%;
+      font-size: 24px;
+      color: #000;
+    }
 
-} 
+    #logo h1 img {
+      top: 0%;
+      margin-top: -16%;
+      padding: 0em 3.1em;
+      display: inline-block;
+      margin-left: 37%;
+      padding-top: 0em;
+      width: 16%;
+      height: 8%;
+    }
 
- /***************************/
- /* Styling Navigation Menu */
- /***************************/
- #menu{
-     float: right;
-     width: 70%;
-     height: 100%;
-     margin: none;
- }
-      
- #menu ul{
-     text-align: center;
-     float: right;
-     margin: none;
-     background: #244c0c;
- }
-      
- #menu li{
-     display: inline-block;
-     padding: none;
-     margin: none;
- }
-      
- #menu li a, #menu li span{
-     display: inline-block;
-     padding: 0em 1.5em;
-     text-decoration: none;
-     font-weight: 600;
-     text-transform: uppercase;
-     line-height: 60px;
- }
-      
- #menu li a{
-          
-     color: #FFF;
- }
+    /* Styling Navigation Menu */
+    #menu {
+      float: right;
+      width: 70%;
+      height: 100%;
+      margin: none;
+    }
 
+    #menu ul {
+      text-align: center;
+      float: right;
+      margin: none;
+      background: #007f46; /* Change the background color here */
+    }
 
+    #menu li {
+      display: inline-block;
+      padding: none;
+      margin: none;
+    }
 
- /* Style the search box inside the navigation bar */
- #menu input[type=text] {
-  margin-top: 1%;
-  top: 0%;
-  padding: 0.2em 1em;
-  display: inline-block;
-  margin-left: 0%;
-}
+    #menu li a,
+    #menu li span {
+      display: inline-block;
+      padding: 0em 1.5em;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      line-height: 60px;
+      font-size: 16px;
+      color: #FFF;
+    }
 
-#menu input[type=text] {
-  margin-top: 1%;
-  top: 0%;
-  padding: 0.2em 1em;
-  display: inline-block;
-  margin-left: 0%;
-}
+    /* Style the search box inside the navigation bar */
+    #menu input[type=text] {
+      margin-top: 1%;
+      top: 0%;
+      padding: 0.2em 1em;
+      display: inline-block;
+      margin-left: 0%;
+      font-size: 14px;
+    }
 
-form.example input[type=text] {
-  top: -20%;
-  margin-top: -1.2%;
-  padding: 1em 2em;
-  display: inline-block;
-  margin-left: -10%;
-  padding-top: -12em;
+    form.example input[type=text] {
+      top: -20%;
+      margin-top: -1.2%;
+      padding: 1em 2em;
+      display: inline-block;
+      margin-left: -10%;
+      padding-top: -12em;
+      font-size: 14px;
+    }
 
-} 
-form.example{
-  top: 0%;
-  margin-top: 1.5%;
-  padding: 1.7em 2.5em;
-  display: inline-block;
-  margin-left: -48%;
-  padding-top: 0.0em;
-  width: 42%;
-  height: 30%;
-  padding-left: 50px;
+    form.example {
+      top: 0%;
+      margin-top: 1.5%;
+      padding: 1.7em 2.5em;
+      display: inline-block;
+      margin-left: -48%;
+      padding-top: 0.0em;
+      width: 42%;
+      height: 30%;
+      padding-left: 50px;
+    }
 
-} 
-form.example button{
-  cursor: pointer;
-  background-color: aqua;
-}
-/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
-@media screen and (max-width: 600px) {
-  #menu a, .menu input[type=text] {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 100%;
-    margin: 0;
-    padding: 14px;
-  }
-  #menu input[type=text] {
-    border: 1px solid #ccc;
-    height: 100%;
-  }
-}
-      
- #menu li:hover a, #menu li span{
-     background: #FFF;
-     color: #244c0c;
-     border-left: 1px solid #244c0c;
-     text-decoration: none;
- }
+    form.example button {
+      cursor: pointer;
+      background-color: aqua;
+    }
 
- form.example button:hover {
-  background: #0b7dda;
-}
+    /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+    @media screen and (max-width: 600px) {
+      #menu a,
+      .menu input[type=text] {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+      }
 
-form.example::after {
-  content: "";
-  clear: both;
-  display: table;
-}
+      #menu input[type=text] {
+        border: 1px solid #ccc;
+        height: 100%;
+      }
+    }
 
-.sidenav #iconhere img{
-float: left;
-display: inline;
-margin-top: -10%;
+    #menu li:hover a,
+    #menu li span {
+      background: #FFF;
+      color: #007f46; /* Change the text color here */
+      border-left: 1px solid #007f46; /* Change the border color here */
+      text-decoration: none;
+    }
 
+    form.example button:hover {
+      background: #0b7dda;
+    }
 
+    form.example::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
 
-}
-.sidenav a {
-  padding: 0.7em 0.7em;
-  text-decoration-line: none;
+    .sidenav #iconhere img {
+      float: left;
+      display: inline;
+      margin-top: -10%;
+    }
 
-}
-.sidenav a:hover{
-  color:black;
-  background: #A4be7b;
-  border-left: 1px solid hsl(208, 36%, 90%);
-  text-decoration: none;
-}
+    .sidenav a {
+      padding: 0.7em 0.7em;
+      text-decoration-line: none;
+      font-size: 16px;
+      color: #FFF;
+    }
 
+    .sidenav a:hover {
+      color: black;
+      background: #A4be7b;
+      border-left: 1px solid hsl(208, 36%, 90%);
+      text-decoration: none;
+    }
 
-.sidenav {
-    height: 100%;
-    width: 180px;
-    position: fixed;
-    z-index: 1;
-    top:0;
-    left: 0;
-    background-color:#244c0c;
-    overflow-x:  hidden;
-    padding-top: 20px;
-    font: white;
-    text-transform: uppercase;
-  }
+    .sidenav {
+      height: 100%;
+      width: 180px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #244c0c;
+      overflow-x: hidden;
+      padding-top: 20px;
+      font: white;
+      text-transform: uppercase;
+    }
   </style>
 </head>
 
 <body>
-
-<!-- Header Menu of the Page -->
-<header>
-         
-  <!-- Top header menu containing
-       logo and Navigation bar -->
-  <div id="top-header">
-           
+  <!-- Header Menu of the Page -->
+  <header>
+    <!-- Top header menu containing logo and Navigation bar -->
+    <div id="top-header">
       <!-- Logo -->
       <div id="logo">
-        <h1>FertPPM <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" style="width:16%" height="8%"></h1>
+        <h1>FertPPM <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width:16%" height="8%"></h1>
       </div> 
-               
       <!-- Navigation Menu -->
       <nav>
         <div id="menu">
           <form class="example" action="javascript:search();">
             <input type="text" placeholder="Search.." name="search" width="100%">
-            <button id="go" class="btn btn-default" type="button" 
-              onclick="document.getElementById('example').submit(); return false;">Search
-            </button>
+            <button id="go" class="btn btn-default" type="button" onclick="document.getElementById('example').submit(); return false;">Search</button>
           </form>
-
           <ul>
-              
-              <li class="active"><a href="/ppm/">PPM</a></li>
-              <li><a href="#">Lab test</a></li>
-              <li><a href='/elements'>Elements</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Research</a></li>
+            <li class="active"><a href="/ppm/">PPM</a></li>
+            <li><a href="#">Lab test</a></li>
+            <li><a href='/elements'>Elements</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Research</a></li>
           </ul>
         </div>
       </nav>
-  </div>
-  <script>
-  function search() {
- 
-    var name = document.getElementById("mycard").elements["searchItem"].value;
-    var pattern = name.toLowerCase();
-    var targetId = "";
-  
-    var divs = document.getElementsByClassName("col-md-2");
-    for (var i = 0; i < divs.length; i++) {
-       var para = divs[i].getElementsByTagName("h2");
-       var index = para[0].innerText.toLowerCase().indexOf(pattern);
-       if (index != -1) {
-          targetId = divs[i].parentNode.id;
-          document.getElementById(targetId).scrollIntoView();
-          break;
-       }
-    }  
- }
-</script>   
-  <!-- Image menu in Header to contain an Image and
-       a sample text over that image -->
-  <div id="header-image-menu">
-
-  </div>
-</header>
+    </div>
+    <script>
+      function search() {
+        var name = document.getElementById("mycard").elements["searchItem"].value;
+        var pattern = name.toLowerCase();
+        var targetId = "";
+        var divs = document.getElementsByClassName("col-md-2");
+        for (var i = 0; i < divs.length; i++) {
+          var para = divs[i].getElementsByTagName("h2");
+          var index = para[0].innerText.toLowerCase().indexOf(pattern);
+          if (index != -1) {
+            targetId = divs[i].parentNode.id;
+            document.getElementById(targetId).scrollIntoView();
+            break;
+          }
+        }  
+      }
+    </script>   
+    <!-- Image menu in Header to contain an Image and a sample text over that image -->
+    <div id="header-image-menu"></div>
+  </header>
 
   <div class="sidenav">
     <div id="iconhere">
-      <a href="http://www.facebook.com/mwas.king2" target ="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png"style="width:10%" height="10%"/></a>
+      <a href="http://www.facebook.com/mwas.king2" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png" alt="Facebook Icon" style="width:10%" height="10%">
+      </a>
     </div>
-    <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" style="width:40%" height="10%" left="20%">
+    <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width:40%" height="10%" left="20%">
     <a href="/members">HOME</a>
     <a href="/details">FERTILIZERS</a>
     <a href="services.html">SERVICES</a>
@@ -289,10 +260,9 @@ margin-top: -10%;
     <a href="{% url 'register' %}">Register</a>
     {% endif %}
   </div>
-  <div id="content", name="content", class="main">
-      {% block content %}
-      {% endblock %}
+  <div id="content" name="content" class="main">
+    {% block content %}
+    {% endblock %}
   </div>
-  
 </body>
 </html>

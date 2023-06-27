@@ -76,33 +76,129 @@ li {
 }
 </style>
 {% block content %}
-<div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-  <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-
-    
-    <ul id="id00">   
+<div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%; height: 550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display: block; overflow-x: hidden;">
+  <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right: 70%; top: 10px; z-index: 0; float: left; vertical-align: bottom; overflow-x: hidden; margin-bottom: 0em;">
+    <ul id="id00">
       {% load crispy_forms_tags %}
       <br>
-        <form method="POST" class="post-form" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-          <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">{% csrf_token %}  
-            <h1>
-              Fertilizers Amount
-            </h1>
-            <p>
-            {% if fertelementform.Fertilizer.help_text %}
-            <small style="color: grey">{{ fertelementform.Fertilizer.help_text }}</small>
+      <form method="POST" class="post-form">
+        {% csrf_token %}
+        <h1>Fertilizers Element</h1>
+        <p>
+          {% if fertelementform.Fertilizer.help_text %}
+          <small style="color: grey">{{ fertelementform.Fertilizer.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Fertilizer.label_tag }}*
+          {{ fertelementform.Fertilizer }}
+          {% for error in fertelementform.Fertilizer.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <div class="input-row">
+          <p>
+            {% if fertelementform.Element_1.help_text %}
+            <small style="color: grey">{{ fertelementform.Element_1.help_text }}</small>
             {% endif %}
-            {{ fertelementform.Fertilizer.label_tag }}*
-            {{ fertelementform.Fertilizer }}
-            {% for error in fertelementform.Fertilizer.errors %}
+            {{ fertelementform.Element_1.label_tag }} 
+            {{ fertelementform.Element_1 }}
+            {% for error in fertelementform.Element_1.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+
+            {% if fertelementform.Composition_1.help_text %}
+            <small style="color: grey">{{ fertelementform.Composition_1.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Composition_1.label_tag }} 
+            {{ fertelementform.Composition_1 }}
+            {% for error in fertelementform.Composition_1.errors %}
             <span style="color: red">{{ error }}</span>
             {% endfor %}
           </p>
-      <p>
-        <button style="float: left; background-color:hwb(from color h w b);" type="submit" class="save btn btn-default">Add</button>  
-      </p>  
+        </div>
+        <div class="input-row">
+          <p>
+            {% if fertelementform.Element_2.help_text %}
+            <small style="color: grey">{{ fertelementform.Element_2.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Element_2.label_tag }}
+            {{ fertelementform.Element_2 }}
+            {% for error in fertelementform.Element_2.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
 
-    </form>
+            {% if fertelementform.Composition_2.help_text %}
+            <small style="color: grey">{{ fertelementform.Composition_2.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Composition_2.label_tag }} 
+            {{ fertelementform.Composition_2 }}
+            {% for error in fertelementform.Composition_2.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+          </p>
+        </div>
+        <div class="input-row">
+          <p>
+            {% if fertelementform.Element_3.help_text %}
+            <small style="color: grey">{{ fertelementform.Element_3.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Element_3.label_tag }} 
+            {{ fertelementform.Element_3 }}
+            {% for error in fertelementform.Element_3.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+
+            {% if fertelementform.Composition_3.help_text %}
+            <small style="color: grey">{{ fertelementform.Composition_3.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Composition_3.label_tag }} 
+            {{ fertelementform.Composition_3 }}
+            {% for error in fertelementform.Composition_3.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+          </p>
+        </div>
+        <div class="input-row">
+          <p>
+            {% if fertelementform.Element_4.help_text %}
+            <small style="color: grey">{{ fertelementform.Element_4.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Element_4.label_tag }} 
+            {{ fertelementform.Element_4 }}
+            {% for error in fertelementform.Element_4.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+
+            {% if fertelementform.Composition_4.help_text %}
+            <small style="color: grey">{{ fertelementform.Composition_4.help_text }}</small>
+            {% endif %}
+            {{ fertelementform.Composition_4.label_tag }} 
+            {{ fertelementform.Composition_4 }}
+            {% for error in fertelementform.Composition_4.errors %}
+            <span style="color: red">{{ error }}</span>
+            {% endfor %}
+          </p>
+        </div>
+
+        <p>
+          <button style="float: left; background-color: hwb(from color h w b);" type="submit" class="save btn btn-default">Add</button>
+        </p>
+      </form>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+  function toggleField(fieldId) {
+    var field = document.getElementById(fieldId);
+    if (field.style.display === "none") {
+      field.style.display = "block";
+    } else {
+      field.style.display = "none";
+    }
+  }
+</script>
+
     
 
 

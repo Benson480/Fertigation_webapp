@@ -44,17 +44,57 @@ class Fertilizer_AmountForm(forms.ModelForm):
 
 
 class Fertilizer_ElementsForm(forms.ModelForm):
-	# specify the name of model to use
-	# amount = forms.DecimalField(required=True,label= "amount", widget=forms.NumberInput(attrs={'placeholder': 0}))
-	# Tank_mix_Volume = forms.DecimalField(required=True,label= "Tank_mix_Volume", widget=forms.NumberInput(attrs={'placeholder': 1000}))
-	class Meta:
-		model = Fertilizer_Element
-		fields = ['Fertilizer','Element_1', 'Composition_1','Element_2', 'Composition_2', 'Element_3',
-	    'Composition_3', 'Element_4','Composition_4']
-		widgets = {
+    Element_1 = forms.CharField(
+        required=True,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': "Element 1 *", 'style': 'width:15ch'})
+    )
+    Composition_1 = forms.DecimalField(
+        required=True,
+        label="",
+        widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
+    )
+    Element_2 = forms.CharField(
+        required=True,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': "Element 2 *", 'style': 'width:15ch'})
+    )
+    Composition_2 = forms.DecimalField(
+        required=True,
+        label="",
+        widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
+    )
+    Element_3 = forms.CharField(
+        required=True,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': "Element 3 *", 'style': 'width:15ch'})
+    )
+    Composition_3 = forms.DecimalField(
+        required=True,
+        label="",
+        widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
+    )
+    Element_4 = forms.CharField(
+        required=True,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': "Element 4 *", 'style': 'width:15ch'})
+    )
+    Composition_4 = forms.DecimalField(
+        required=True,
+        label="",
+        widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
+    )
+
+    class Meta:
+        model = Fertilizer_Element
+        fields = [
+            'Fertilizer', 'Element_1', 'Composition_1', 'Element_2', 'Composition_2', 'Element_3',
+            'Composition_3', 'Element_4', 'Composition_4'
+        ]
+        widgets = {
             'Date': DateInput(),
-	    
         }
+
 
 class Fertilizer_PricesForm(forms.ModelForm):
 	# specify the name of model to use
