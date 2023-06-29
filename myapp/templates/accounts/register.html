@@ -36,8 +36,6 @@
       margin: 0;
       padding: 0;
       list-style-type: none;
-      position: sticky;
-      top: 0;
     }
 
     .navbar-brand {
@@ -47,7 +45,7 @@
     }
 
     .nav-item {
-      float: right;
+      /* float: right; */ /* Remove this line */
       display: block;
       text-align: center;
       padding: 14px 16px;
@@ -66,12 +64,13 @@
       flex-flow: row wrap;
       margin: 0px 00px;
       padding: 0px 20px;
+
     }
 
-    .signup,
+    /* .signup, */
     .login_area {
       color: black;
-      padding: 70px 0px;
+      padding: 125px 5px;
       width: 100%;
       max-width: 500px;
       align-items: center;
@@ -166,28 +165,25 @@
           Menu
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav"> <!-- Add justify-content-center class here -->
+          <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/index">Home</a>
+              <a class="nav-link" href="/index" style="color: #244c0c;">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
+              <a class="nav-link" href="/about" style="color: #244c0c;">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/anouncement">Announcements</a>
+              <a class="nav-link" href="/anouncement" style="color: #244c0c;">Announcements</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/contacts">Contact</a>
+              <a class="nav-link" href="/contacts" style="color: #244c0c;">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/accounts/register">Sign up</a>
+              <a class="nav-link" href="/login" style="color: #244c0c;">Log in</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin">Admin</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://benson480.github.io/fertppmblog">Our Blog</a>
+              <a class="nav-link" href="/admin" style="color: #244c0c;">Admin</a>
             </li>
           </ul>
         </div>
