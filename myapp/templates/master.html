@@ -87,23 +87,41 @@
       background-color: yellow;
     }
 
-    /* Responsive Styles for Phone Screens */
-    @media only screen and (max-width: 480px) {
+    /* Responsive Styles for Tablet and Phone Screens */
+    @media only screen and (max-width: 1024px) {
       .sidenav {
-        width: 100%;
-        height: auto;
         position: relative;
         top: 0;
+        width: 100%;
+        height: auto;
         padding-top: 0;
-        background-size: cover;
       }
 
       .content {
         margin-left: 0;
         margin-top: 0;
-        height: auto;
         padding-top: 130px; /* Adjust the padding to make space for the fixed topnav */
-        background-size: cover;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .topnav {
+        position: static;
+      }
+
+      .search-container {
+        float: none;
+        margin: 10px auto;
+        text-align: center;
+      }
+
+      .sidenav {
+        display: none;
+      }
+
+      .content {
+        margin-top: 0;
+        padding-top: 80px; /* Adjust the padding to make space for the fixed topnav */
       }
     }
   </style>
