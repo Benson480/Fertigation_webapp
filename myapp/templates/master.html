@@ -20,7 +20,6 @@
       left: 0;
       width: 100%;
       z-index: 9999;
-
     }
     
     .topnav a {
@@ -51,7 +50,7 @@
     
     .sidenav {
       width: 200px;
-      height: 100vh; /* Updated to use viewport height */
+      height: 100%;
       position: fixed;
       top: 58px; /* Adjusted to accommodate the height of the topnav */
       left: 0;
@@ -76,13 +75,32 @@
     .content {
       margin-left: 200px;
       padding: 16px;
-      margin-top: 58px; /* Updated to match the topnav height */
-      height: calc(100vh - 58px); /* Updated to use viewport height */
+      margin-top: 50px;
+      /* overflow-y: auto; */
+      height: calc(100vh - 50px);
       background-color: rgb(243, 248, 246);
     }
 
     .highlight {
       background-color: yellow;
+    }
+
+    /* Responsive Styles for Phone Screens */
+    @media only screen and (max-width: 480px) {
+      .sidenav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        padding-top: 0;
+      }
+
+      .content {
+        margin-left: 0;
+        margin-top: 0;
+        height: auto;
+        padding-top: 130px; /* Adjust the padding to make space for the fixed topnav */
+      }
     }
   </style>
   <script>
