@@ -59,6 +59,7 @@
       padding-top: 20px;
       z-index: 999; /* Increased z-index to ensure sidenav is displayed above content */
       background-color: #8292ee;
+      transition: 0.5s; /* Added transition for smooth movement */
     }
     
     .sidenav a {
@@ -81,6 +82,7 @@
       /* overflow-y: auto; */
       background-color: rgb(243, 248, 246);
       background-size: cover;
+      transition: 0.5s; /* Added transition for smooth movement */
     }
 
     .highlight {
@@ -116,12 +118,42 @@
       }
 
       .sidenav {
-        display: none;
+        position: fixed;
+        left: -200px;
+        top: 58px; /* Adjusted to accommodate the height of the topnav */
+        width: 200px;
+        height: calc(100% - 58px);
+        transition: 0.5s;
+        z-index: 999;
+        background-color: #8292ee;
+      }
+
+      .sidenav a {
+        padding: 20px 8px 6px 16px;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
       }
 
       .content {
+        margin-left: 0;
         margin-top: 0;
         padding-top: 80px; /* Adjust the padding to make space for the fixed topnav */
+      }
+
+      .sidenav.show {
+        left: 0;
+      }
+
+      /* Move content to the right when side navigation is shown */
+      .content.show {
+        margin-left: 200px;
+      }
+
+      /* Show the "show" button only when the screen is small */
+      .topnav .icon {
+        display: block;
       }
     }
     
@@ -160,6 +192,13 @@
         }
       }
     }
+    
+    function toggleSidenav() {
+      var sidenav = document.querySelector('.sidenav');
+      var content = document.querySelector('.content');
+      sidenav.classList.toggle('show');
+      content.classList.toggle('show'); // Toggle the 'show' class on content
+    }
   </script>
 </head>
 <body>
@@ -175,6 +214,10 @@
       <input type="text" id="searchInput" placeholder="Search...">
       <button onclick="search()">Search</button>
     </div>
+    <a href="javascript:void(0);" class="icon" onclick="toggleSidenav()">
+      <i class="fa fa-bars"></i>
+      <span class="show-text"></span>
+    </a>
   </div>
   
   <div class="sidenav">
