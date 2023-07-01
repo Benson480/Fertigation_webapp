@@ -159,53 +159,18 @@
     
     /* Responsive Styles for Small Phone Screens */
     @media only screen and (max-width: 480px) {
-      .topnav {
-        position: static;
-      }
-
-      .search-container {
-        float: none;
-        margin: 10px auto;
-        text-align: center;
-      }
-
       .sidenav {
-        position: fixed;
-        left: -200px;
-        top: 58px; /* Adjusted to accommodate the height of the topnav */
-        width: 200px;
-        height: calc(100% - 58px);
-        transition: 0.5s;
-        z-index: 999;
-        background-color: #8292ee;
-      }
-
-      .sidenav a {
-        padding: 20px 8px 6px 16px;
-      }
-
-      .sidenav a:hover {
-        color: #f1f1f1;
+        position: relative;
+        top: 0;
+        width: 100%;
+        height: auto;
+        padding-top: 0;
       }
 
       .content {
         margin-left: 0;
         margin-top: 0;
-        padding-top: 80px; /* Adjust the padding to make space for the fixed topnav */
-      }
-
-      .sidenav.show {
-        left: 0;
-      }
-
-      /* Move content to the right when side navigation is shown */
-      .content.show {
-        margin-left: 200px;
-      }
-
-      /* Show the "show" button only when the screen is small */
-      .topnav .icon {
-        display: block;
+        padding-top: 130px; /* Adjust the padding to make space for the fixed topnav */
       }
     }
     
