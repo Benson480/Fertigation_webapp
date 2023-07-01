@@ -20,7 +20,6 @@
       left: 0;
       width: 100%;
       z-index: 9999;
-
     }
     
     .topnav a {
@@ -51,7 +50,6 @@
     
     .sidenav {
       width: 200px;
-      height: 100%;
       position: fixed;
       top: 58px; /* Adjusted to accommodate the height of the topnav */
       left: 0;
@@ -59,6 +57,7 @@
       padding-top: 20px;
       z-index: 999; /* Increased z-index to ensure sidenav is displayed above content */
       background-color: #8292ee;
+      height: calc(100vh - 58px); /* Adjusted to accommodate the height of the topnav */
     }
     
     .sidenav a {
@@ -76,9 +75,9 @@
     .content {
       margin-left: 200px;
       padding: 16px;
-      margin-top: 50px;
+      margin-top: 58px; /* Adjusted to accommodate the height of the topnav */
       /* overflow-y: auto; */
-      height: calc(100vh - 50px);
+      height: calc(100vh - 58px); /* Adjusted to accommodate the height of the topnav */
       background-color: rgb(243, 248, 246);
     }
 
