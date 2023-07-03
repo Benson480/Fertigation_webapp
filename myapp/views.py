@@ -104,12 +104,21 @@ def deleteprice(request, id):
 
 
 def details(request):
-  mymember = Fertilizer_Detail.objects.all()
-  template = loader.get_template('details.html')
-  context = {
+    context ={}
+ 
+    # create object of form
+    mymember = Fertilizer_Amount.objects.all()
+    membercost = Fertilizer_Cost.objects.all()
+     
+
+    context = {
     'mymember': mymember,
-  }
-  return HttpResponse(template.render(context, request))
+    'membercost': membercost, 
+    }
+
+
+    return render(request, "details.html", context)
+  
 
 
 def elements(request):
