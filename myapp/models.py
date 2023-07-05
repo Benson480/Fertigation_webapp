@@ -62,8 +62,9 @@ class Fertilizer_Amount(models.Model):
                   choices=MEDIA_CHOICES
                   )
     
-    def __str__(self):
-        return str(self.Fertilizer)
+    def get_date_and_fertilizer(self):
+        return f"{self.Date.strftime('%d/%m/%Y')}, {self.Fertilizer}"
+
 
     @property
     def total_cost(self):

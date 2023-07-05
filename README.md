@@ -72,3 +72,10 @@ python3 -m venv env #create virtual environment
 source env/bin/activate #activate virtual environment
 cd deploy_on_pythonanywhere #navigate inside your project 
 pip install -r requirements.txt #installing dependencies using requirements.txt
+
+
+AI NAME
+fertppm_ai_key
+
+AI KEY
+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

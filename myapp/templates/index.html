@@ -255,7 +255,54 @@
         margin-top: 20px;
       }
     }
-  </style>
+
+  #chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 250px;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#chatbot-frame {
+  width: 100%;
+  height: 100%;
+}
+
+#chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  background-color: #244c0c;
+  color: #ffffff;
+  border: none;
+}
+
+#chatbot-toggle:hover {
+  cursor: pointer;
+  background-color: #A4BE7B;
+}
+
+.message {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .user {
+      background-color: #f1f1f1;
+    }
+
+    .assistant {
+      background-color: #e5e5ff;
+    }
+</style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
   <!-- Include jQuery -->
@@ -338,6 +385,79 @@
   <!-- js -->
   <!-- bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-z3gFVY5Ed5R9I8+fYjv8Xg7YiMw5+ZpOZBpFJtTBhI932AdHTZHKiQgV4jMMwwgh" crossorigin="anonymous"></script>
+
+  <div id="chatbot-container">
+    <div id="chatbot-frame" style="display: none;">
+      <div id="chatbot-messages"></div>
+      <input type="text" id="chatbot-input" placeholder="Type your message..." />
+      <button id="chatbot-send" onclick="sendMessage()">Send</button>
+    </div>
+    <button id="chatbot-toggle" onclick="toggleChatbot()">Chat</button>
+  </div>
+  
+  <!-- Add the following JavaScript code below the HTML content -->
+  <script>
+    // Get the necessary DOM elements
+    const chatbotFrame = document.getElementById("chatbot-frame");
+    const chatbotToggle = document.getElementById("chatbot-toggle");
+    const chatbotMessages = document.getElementById("chatbot-messages");
+    const inputElement = document.getElementById("chatbot-input");
+  
+    function toggleChatbot() {
+      if (chatbotFrame.style.display === "none") {
+        chatbotFrame.style.display = "block";
+        chatbotToggle.innerHTML = "Close Chat";
+      } else {
+        chatbotFrame.style.display = "none";
+        chatbotToggle.innerHTML = "Chat";
+      }
+    }
+  
+    function appendMessage(sender, message) {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add("message", sender === "user" ? "user" : "assistant");
+      messageElement.innerText = message;
+      chatbotMessages.appendChild(messageElement);
+    }
+  
+    async function sendMessage() {
+      const message = inputElement.value;
+  
+      // Append user message to the chatbot messages
+      appendMessage("user", message);
+      inputElement.value = "";
+  
+      // Send user message to ChatGPT API
+      try {
+        const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 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',
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: [{ role: 'system', content: 'You are a helpful assistant.' }, { role: 'user', content: message }],
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to receive response from the chatbot.');
+        }
+  
+        const data = await response.json();
+        const assistantReply = data.choices[0].message.content;
+        // Append assistant reply to the chatbot messages
+        appendMessage("assistant", assistantReply);
+      } catch (error) {
+        console.error('Error:', error);
+        // In case of error, show a fallback message to the user
+        appendMessage("assistant", "Sorry, something went wrong while processing your request.");
+      }
+    }
+  </script>
+  
+
 </body>
 
 </html>
