@@ -175,6 +175,7 @@
     }
     
   </style>
+
   <script>
     function search() {
       var input = document.getElementById('searchInput').value.toLowerCase();
@@ -222,8 +223,8 @@
   </div>
   
   <div class="sidenav">
-    <a href="/members">Dashboard</a>
-    <a href="/details">Fertilizers</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/Fertilizers">Fertilizers</a>
     <a href="/prices">Prices</a>
     <a href="support.html">Support</a>
     <a href="Education.html">Laboratories Test</a>
@@ -238,7 +239,6 @@
     <a href="{% url 'register' %}">Register</a>
     {% endif %}
   </div>
-  
   <div class="content">
     {% block content %}
     {% endblock %}

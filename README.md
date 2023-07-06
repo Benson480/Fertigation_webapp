@@ -27,7 +27,7 @@ End of Foundations Year
 
 Authors:
 <Benson Mwangi 
-bensonmwangi102@gmail.com
+bensonmwangi101@gmail.com
 bensonmwangi102@gmail.com
 backend
 >
@@ -78,4 +78,7 @@ AI NAME
 fertppm_ai_key
 
 AI KEY
-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
+<!-- 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 -->
+
+
+git clone https://TOKEN@github.com/username/repository.git

@@ -1,279 +1,312 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FETILIZERS DASHBOARD
+  FERTILIZERS DASHBOARD
 {% endblock %}
 
+{% block styles %}
 <style>
-.mycard ul
-{
-list-style-type: none;
-padding: 0;
-margin: 0;
-text-align: right;
-}
-.mycard
-{
-width: 10%;
-}
-
-.Fertresults h1 {
-  position: sticky;
-}
-.mycard #id01 li{
-    text-align: right;
-    list-style-position: inside;
-}
-
-table {
-  counter-reset: rowNumber;
-}
-
-table tr::before {
-  display: table-cell;
-  counter-increment: rowNumber;
-  content: counter(rowNumber) ".";
-  padding-right: 0.3em;
-  text-align: right;
-}
-li {
-    list-style-type: none; 
-    display : inline;
+  .post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0 auto;
+    background-color: #72f766; /* Change the background color */
+    margin-top: 50px; /* Adjust the margin-top value as needed */
+    color: blue;
   }
 
+  h1 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
 
-  #myInput {
-  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 100%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
+  p {
+    margin-bottom: 10px;
+    text-align: center;
+    border: gold;
+    color: blue;
+  }
 
-#myTable2 {
-  border-collapse: collapse; /* Collapse borders */
-  width: 100%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
-  font-size: 18px; /* Increase font-size */
-}
+  small {
+    color: grey;
+  }
 
-#myTable2 th, #myTable td {
-  text-align: left; /* Left-align text */
-  padding: 12px; /* Add padding */
-}
+  span.error {
+    color: red;
+  }
 
-#myTable2 tr {
-  /* Add a bottom border to all table rows */
-  border-bottom: 1px solid #ddd;
-}
+  button {
+    margin-top: 10px;
+    background-color: #72f766;
+  }
 
-#myTable2 tr.header, #myTable tr:hover {
-  /* Add a grey background color to the table header and on hover */
-  background-color: #f1f1f1;
-}
+  .image-container {
+    position: fixed;
+    bottom: -10%;
+    left: -41%;
+    float: left;
+    opacity: 0.6;
+    padding: 0em 3.1em;
+  }
+  .image-container img {
+    width: 100%;
+    height: auto;
+    opacity: 0.4;
+  }
+  .form-container {
+    max-width: 50%;
+    flex-basis: 50%;
+    float: left;
+  }
+
+  .table-container {
+    max-width: 45%;
+    flex-basis: 45%;
+    float: right;
+  }
+
+  /* Responsive styles */
+  @media only screen and (max-width: 600px) {
+    .image-container {
+      position: static;
+      padding: 0;
+    }
+
+    .form-container,
+    .table-container {
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+  }
+
+  /* Additional responsive styles */
+  @media only screen and (max-width: 800px) {
+    .post-form {
+      padding: 20px;
+    }
+  }
 </style>
+
+{% endblock %}
+
 {% block content %}
-<div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%; height: 550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display: block; overflow-x: hidden;">
-  <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right: 70%; top: 10px; z-index: 0; float: left; vertical-align: bottom; overflow-x: hidden; margin-bottom: 0em;">
-    <ul id="id00">
-      {% load crispy_forms_tags %}
-      <br>
-      <form method="POST" class="post-form">
-        {% csrf_token %}
-        <h1>Fertilizers Element</h1>
+<div class="container">
+  <P>To add new items please click this button</P>
+  <button id="toggleButton" style="margin-bottom: 10px; height: 40px; width: 40px; color: rgb(248, 13, 13); font-weight: bold;" title="ADD">
+    <i class="fa fa-plus"></i> <!-- Font Awesome icon for "ADD" -->
+  </button>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <div class="form-container" style="display: none;">
+    <form method="POST" class="post-form" id="myForm">
+      {% csrf_token %}
+      <h1>Fertilizers Element</h1>
+      
+      <p>
+        {% if fertelementform.Fertilizer.help_text %}
+        <small style="color: grey">{{ fertelementform.Fertilizer.help_text }}</small>
+        {% endif %}
+        {{ fertelementform.Fertilizer.label_tag }}*
+        {{ fertelementform.Fertilizer }}
+        {% for error in fertelementform.Fertilizer.errors %}
+        <span style="color: red">{{ error }}</span>
+        {% endfor %}
+      </p>
+      <div class="input-row">
         <p>
-          {% if fertelementform.Fertilizer.help_text %}
-          <small style="color: grey">{{ fertelementform.Fertilizer.help_text }}</small>
+          {% if fertelementform.Element_1.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_1.help_text }}</small>
           {% endif %}
-          {{ fertelementform.Fertilizer.label_tag }}*
-          {{ fertelementform.Fertilizer }}
-          {% for error in fertelementform.Fertilizer.errors %}
+          {{ fertelementform.Element_1.label_tag }} 
+          {{ fertelementform.Element_1 }}
+          {% for error in fertelementform.Element_1.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_1.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_1.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_1.label_tag }} 
+          {{ fertelementform.Composition_1 }}
+          {% for error in fertelementform.Composition_1.errors %}
           <span style="color: red">{{ error }}</span>
           {% endfor %}
         </p>
-        <div class="input-row">
-          <p>
-            {% if fertelementform.Element_1.help_text %}
-            <small style="color: grey">{{ fertelementform.Element_1.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Element_1.label_tag }} 
-            {{ fertelementform.Element_1 }}
-            {% for error in fertelementform.Element_1.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-
-            {% if fertelementform.Composition_1.help_text %}
-            <small style="color: grey">{{ fertelementform.Composition_1.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Composition_1.label_tag }} 
-            {{ fertelementform.Composition_1 }}
-            {% for error in fertelementform.Composition_1.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-          </p>
-        </div>
-        <div class="input-row">
-          <p>
-            {% if fertelementform.Element_2.help_text %}
-            <small style="color: grey">{{ fertelementform.Element_2.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Element_2.label_tag }}
-            {{ fertelementform.Element_2 }}
-            {% for error in fertelementform.Element_2.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-
-            {% if fertelementform.Composition_2.help_text %}
-            <small style="color: grey">{{ fertelementform.Composition_2.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Composition_2.label_tag }} 
-            {{ fertelementform.Composition_2 }}
-            {% for error in fertelementform.Composition_2.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-          </p>
-        </div>
-        <div class="input-row">
-          <p>
-            {% if fertelementform.Element_3.help_text %}
-            <small style="color: grey">{{ fertelementform.Element_3.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Element_3.label_tag }} 
-            {{ fertelementform.Element_3 }}
-            {% for error in fertelementform.Element_3.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-
-            {% if fertelementform.Composition_3.help_text %}
-            <small style="color: grey">{{ fertelementform.Composition_3.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Composition_3.label_tag }} 
-            {{ fertelementform.Composition_3 }}
-            {% for error in fertelementform.Composition_3.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-          </p>
-        </div>
-        <div class="input-row">
-          <p>
-            {% if fertelementform.Element_4.help_text %}
-            <small style="color: grey">{{ fertelementform.Element_4.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Element_4.label_tag }} 
-            {{ fertelementform.Element_4 }}
-            {% for error in fertelementform.Element_4.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-
-            {% if fertelementform.Composition_4.help_text %}
-            <small style="color: grey">{{ fertelementform.Composition_4.help_text }}</small>
-            {% endif %}
-            {{ fertelementform.Composition_4.label_tag }} 
-            {{ fertelementform.Composition_4 }}
-            {% for error in fertelementform.Composition_4.errors %}
-            <span style="color: red">{{ error }}</span>
-            {% endfor %}
-          </p>
-        </div>
-
+      </div>
+      <div class="input-row">
         <p>
-          <button style="float: left; background-color: hwb(from color h w b);" type="submit" class="save btn btn-default">Add</button>
+          {% if fertelementform.Element_2.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_2.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_2.label_tag }}
+          {{ fertelementform.Element_2 }}
+          {% for error in fertelementform.Element_2.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_2.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_2.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_2.label_tag }} 
+          {{ fertelementform.Composition_2 }}
+          {% for error in fertelementform.Composition_2.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
         </p>
-      </form>
-    </ul>
+      </div>
+      <div class="input-row">
+        <p>
+          {% if fertelementform.Element_3.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_3.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_3.label_tag }} 
+          {{ fertelementform.Element_3 }}
+          {% for error in fertelementform.Element_3.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_3.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_3.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_3.label_tag }} 
+          {{ fertelementform.Composition_3 }}
+          {% for error in fertelementform.Composition_3.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
+      </div>
+      <div class="input-row">
+        <p>
+          {% if fertelementform.Element_4.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_4.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_4.label_tag }} 
+          {{ fertelementform.Element_4 }}
+          {% for error in fertelementform.Element_4.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_4.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_4.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_4.label_tag }} 
+          {{ fertelementform.Composition_4 }}
+          {% for error in fertelementform.Composition_4.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
+      
+      <p>
+        <button style="background-color: yellow;" type="submit" class="save btn btn-default">Save</button>
+        <button style="background-color: hwb(241 5% 63%); color: hsl(0, 0%, 99%);" onclick="window.location.href='/members';">Back</button>
+        <button style="background-color: hsl(177, 83%, 14%); color: #f0f0f7;" onclick="window.location.href='/details';">Reports</button>
+      </p>
+    </form>
+  </div>
+  
+  <script>
+    window.onload = function() {
+      var form = document.getElementById('myForm');
+      form.reset();
+    };
+  </script>
+  
+  <div class="table-container">
+
+    <h1>Fertilizers records</h1>
+    
+    <h3>
+      ---------
+      <button onclick="window.location.href='/members';">Back</button>
+      <button onclick="sortTable(0)">Sort with number</button>
+      <button onclick="sortnameTable(2)">Sort with Name</button>
+      <input type="button" id="btnExport1" value="PDF" />
+      <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
+      <button id="toggleButton" onclick="toggleTable()">Fertilizer Usage</button>
+      <div>
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput">
+
+        <button onclick="showTable();">Load Fertilizer</button>
+        <button id="toggleButton1" style="margin-bottom: 10px;">Select Usage Date</button>
+        <div class="container"> 
+          <div id="codeBlock" style="display: none;">
+            <label for="startDateInput">From Date:</label>
+            <input type="date" id="startDateInput">
+            <label for="endDateInput">To Date:</label>
+            <input type="date" id="endDateInput">
+            <button onclick="toggleTable(); myFunction1();">Filter</button>
+        </div>
+      </div>
+      </div>
+    </h3>
+    
+    <ul id="id01">
+      <table id="myTable2" border="1" style="display: none;">
+        <tr>
+          <th>No.</th>
+          <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
+          <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
+          <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
+          <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
+          <th>COST</th>
+          <th>CHANGE</th>
+          <th>REMOVE</th>
+        </tr>
+      {% for x in mymember %}
+      <tr>
+            {% if x.Fertilizer is not None %}
+            <td>{{ "" }}</td>
+            <td>{{ x.Media}}</td>
+            <td>{{ x.Date}}</td>
+            <td>{{ x.Fertilizer }}</td>
+            <td>{{ x.Amount }}</td>
+            {% if x.total_cost is None %}
+              <td>{{ 0 }}</td>
+            {% else %}
+              <td>{{ x.total_cost }}</td>
+            {% endif %}
+            <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
+            <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
+            {% endif %}
+      </tr>     
+        {% endfor %}
+      </table>
+    </ul> 
   </div>
 </div>
 
 
-<script>
-  function toggleField(fieldId) {
-    var field = document.getElementById(fieldId);
-    if (field.style.display === "none") {
-      field.style.display = "block";
-    } else {
-      field.style.display = "none";
-    }
-  }
+
+
+<!-- Jquery to print to download pdf File from the table -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
+    $("body").on("click", "#btnExport1", function () {
+        html2canvas($('#myTable2')[0], {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("Fertilizer records.pdf");
+            }
+        });
+    });
 </script>
-
-    
-
-
-    <div class="Fertresults" style="float: right; width: 70%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-      <div style="background-color: hwb(0 98% 1%); width: 70%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-        <h1>Fertilizers records</h1>
-        
-          <h3>---------<button onclick="window.location.href='/members';">
-           Back
-          </button>
-        <button onclick="sortTable(0)">Sort with number</button>
-        <button onclick="sortnameTable(2)">Sort with Name</button>
-        <input type="button" id="btnExport1" value="PDF" />
-        <!-- <input type="button" id="btnExport" value="Excel" /> -->
-        <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
-  
-        </h3>
-        <ul id="id01">
-      
-        
-          <body>
-          <table id="myTable2" border="1">
-          <tr>
-            <th>No.</th>
-            <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
-            <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-            <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
-            <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-            <th>COST</th>
-            <th>CHANGE</th>
-            <th>REMOVE</th>
-          </tr>
-        {% for x in mymember %}
-        <tr>
-              {% if x.Fertilizer is not None %}
-              <td>{{ "" }}</td>
-              <td>{{ x.Media}}</td>
-              <td>{{ x.Date}}</td>
-              <td>{{ x.Fertilizer }}</td>
-              <td>{{ x.Amount }}</td>
-              {% if x.total_cost is None %}
-                <td>{{ 0 }}</td>
-              {% else %}
-                <td>{{ x.total_cost }}</td>
-              {% endif %}
-              <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-              <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
-              {% endif %}
-        </tr>     
-          {% endfor %}
-        </table>
-        </ul> 
-      </body>
-
-
-      <!-- Jquery to print to download pdf File from the table -->
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-      <script type="text/javascript">
-          $("body").on("click", "#btnExport1", function () {
-              html2canvas($('#myTable2')[0], {
-                  onrendered: function (canvas) {
-                      var data = canvas.toDataURL();
-                      var docDefinition = {
-                          content: [{
-                              image: data,
-                              width: 500
-                          }]
-                      };
-                      pdfMake.createPdf(docDefinition).download("Fertilizer records.pdf");
-                  }
-              });
-          });
-      </script>
 
 
 
@@ -289,6 +322,103 @@ function ExportToExcel(type, fn, dl) {
 </script>
 
 <script>
+
+
+
+
+window.onload = function() {
+var table = document.getElementById("myTable2");
+table.innerHTML = "";
+}            
+
+const toggleButton = document.getElementById('toggleButton');
+const formContainer = document.querySelector('.form-container');
+
+  toggleButton.addEventListener('click', () => {
+    if (formContainer.style.display === 'none') {
+      formContainer.style.display = 'block';
+    } else {
+      formContainer.style.display = 'none';
+    }
+  });
+
+
+  const dateInput = document.getElementById('dateInput');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.value = today;
+
+
+
+  const toggleButton1 = document.getElementById('toggleButton1');
+  const codeBlock = document.getElementById('codeBlock');
+
+  toggleButton1.addEventListener('click', () => {
+    if (codeBlock.style.display === 'none') {
+      codeBlock.style.display = 'block';
+    } else {
+      codeBlock.style.display = 'none';
+    }
+  });
+
+
+function toggleTable() {
+    var table = document.getElementById("myTable2");
+    if (table.style.display === "none") {
+      table.style.display = "table"; // show the table
+    } else {
+      table.style.display = "none"; // hide the table
+    }
+  }
+
+
+
+  function showTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("dateInput");
+  filter = formatDate(input.value); // Convert date input value to desired format
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = formatDate(td.textContent || td.innerText); // Convert table date to desired format
+      if (txtValue === filter) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+// Helper function to format the date as "m/d/year"
+function formatDate(dateString) {
+  var date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric"
+  });
+}
+
+
+
+
+
+  // clear form on toLocaleDateString
+
+  window.onload = function() {
+    var form = document.getElementById("myForm");
+    form.reset();
+  };
+
+  window.onload = function() {
+    toggleTable();
+    showTable();
+  };
 
 // Export table to excel
 function htmlTableToExcel(type, tableId) {
@@ -347,12 +477,11 @@ function myFunction() {
 }
 
 
-
 // Search table with Date
-function myFunction1() {
+function myFunction0() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput1");
+  input = document.getElementById("myInput3");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable2");
   tr = table.getElementsByTagName("tr");
@@ -371,6 +500,35 @@ function myFunction1() {
   }
 }
 
+
+// Search table within a date range
+function myFunction1() {
+  // Declare variables
+  var startDateInput, endDateInput, startDate, endDate, table, tr, td, i, txtValue;
+  startDateInput = document.getElementById("startDateInput");
+  endDateInput = document.getElementById("endDateInput");
+  startDate = startDateInput.valueAsDate; // Retrieve the start date value
+  endDate = endDateInput.valueAsDate; // Retrieve the end date value
+
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the date range
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      // Retrieve the date from the table cell
+      var tableDate = new Date(td.textContent || td.innerText);
+
+      // Check if the table date is within the specified range
+      if (tableDate >= startDate && tableDate <= endDate) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
 
 // Search table with Fertilizer
 function myFunction2() {
@@ -555,6 +713,9 @@ for (var i = 1, len = rows.length; i < len; i++) {
   rows[i].children[0][text] = i + rows[i].children[0][text];
 }
 
+
+
+
 function sortListDir() {
   var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
   list = document.getElementById("id01");
@@ -606,8 +767,5 @@ function sortListDir() {
   }
 }
 </script>
-</div>
-</div>
 
 {% endblock %}
-

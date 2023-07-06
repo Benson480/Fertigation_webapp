@@ -36,7 +36,7 @@ def login_view(request):
             user = form.get_user()
             messages.success(request, "Login successful.")
             login(request, user)
-            return redirect('/members/')
+            return redirect('/dashboard/')
         
     else:
         messages.success(request, "Login not Sucessful try again!")
@@ -53,7 +53,40 @@ def logout_view(request):
         return redirect("/login/")
     return render(request, "accounts/logout.html", {})
 
-def members(request):
+def dashboard(request):
+  template = loader.get_template('dashboard.html')
+  return HttpResponse(template.render())
+  
+
+def update(request, id):
+  mymember = Fertilizer_Amount.objects.get(id=id)
+  template = loader.get_template('update.html')
+  context = {
+    'mymember': mymember,
+  }
+  return HttpResponse(template.render(context, request))
+
+def updaterecord(request, id):
+  Date = request.POST['Date']
+  # amount = request.POST['amount', False]
+  member = Fertilizer_Amount.objects.get(id=id)
+  member.Date = Date
+  # member.amount = amount
+  member.save()
+  return HttpResponseRedirect(reverse('Fertilizers'))
+
+def delete(request, id):
+  member = Fertilizer_Amount.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("Fertilizers"))
+
+def deleteprice(request, id):
+  member = Fertilizer_Price.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("prices"))
+
+
+def Fertilizers(request):
     context ={}
  
     # create object of form
@@ -72,52 +105,7 @@ def members(request):
   }
 
 
-    return render(request, "all_members.html", context)
-  
-
-def update(request, id):
-  mymember = Fertilizer_Amount.objects.get(id=id)
-  template = loader.get_template('update.html')
-  context = {
-    'mymember': mymember,
-  }
-  return HttpResponse(template.render(context, request))
-
-def updaterecord(request, id):
-  Date = request.POST['Date']
-  # amount = request.POST['amount', False]
-  member = Fertilizer_Amount.objects.get(id=id)
-  member.Date = Date
-  # member.amount = amount
-  member.save()
-  return HttpResponseRedirect(reverse('members'))
-
-def delete(request, id):
-  member = Fertilizer_Amount.objects.get(id=id)
-  member.delete()
-  return HttpResponseRedirect(reverse("members"))
-
-def deleteprice(request, id):
-  member = Fertilizer_Price.objects.get(id=id)
-  member.delete()
-  return HttpResponseRedirect(reverse("prices"))
-
-
-def details(request):
-    context ={}
- 
-    # create object of form
-    mymember = Fertilizer_Amount.objects.all()
-    membercost = Fertilizer_Cost.objects.all()
-     
-
-    context = {
-    'mymember': mymember,
-    'membercost': membercost, 
-    }
-
-
-    return render(request, "details.html", context)
+    return render(request, "Fertilizers.html", context)
   
 
 
@@ -155,7 +143,8 @@ def main(request):
 
 
 def home(request):
-   ...
+  template = loader.get_template('home.html')
+  return HttpResponse(template.render())
 
 
 def testing(request):
@@ -172,6 +161,10 @@ def template(request):
 
 def index(request):
   template = loader.get_template('index.html')
+  return HttpResponse(template.render())
+
+def dashboard(request):
+  template = loader.get_template('dashboard.html')
   return HttpResponse(template.render())
 
 def about(request):
@@ -204,4 +197,7 @@ def prices(request):
 
 
     return render(request, "prices.html", context)
+
+
+
   

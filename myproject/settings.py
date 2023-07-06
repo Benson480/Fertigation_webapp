@@ -197,7 +197,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 }
 """
 
-LOGIN_REDIRECT_URL = 'members'
+LOGIN_REDIRECT_URL = 'dasboard'
 LOGOUT_REDIRECT_URL = '/login'
 
 

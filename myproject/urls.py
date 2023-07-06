@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 from myapp.views import (
-    register_view, login_view, index,logout_view, members, details, elements, home, testing,template
+    register_view, login_view, index,logout_view, dashboard, Fertilizers, elements, home, testing,template
     )
 
 
