@@ -1,0 +1,121 @@
+{% extends "master.html" %}
+
+{% block title %}
+  FERTILIZERS DASHBOARD
+{% endblock %}
+
+{% block styles %}
+<style>
+  /* Add your custom styles here */
+
+  /* Dashboard container */
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 20px;
+    height: 100vh;
+    padding: 20px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background-color: #007f46;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar li {
+    margin-bottom: 10px;
+  }
+
+  .sidebar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+
+  /* Main content */
+  .content {
+    background-color: #f1f1f1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  /* Charts */
+  .chart-container {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .chart {
+    flex: 1;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 20px;
+    margin-right: 10px;
+  }
+
+  /* Tables */
+  .table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+</style>
+{% endblock %}
+
+{% block content %}
+<button style="background-color: hsl(177, 83%, 14%); color: #f0f0f7;" onclick="window.location.href='/dashboard';">Go to Dashboard</button>
+<a href="/Fertlizer_dealers" class="image-link" style="position: relative; display: inline-block; width: 100%; height: 800px; margin-bottom: 40px; margin-right: 10px">
+  <iframe src="https://cropnuts.com/" frameborder="0" style="width: 100%; height: 100%;" allowfullscreen></iframe>
+  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: rgb(35, 218, 117); font-size: 30px; font-weight: bold;"></span>
+</a>
+{% endblock %}

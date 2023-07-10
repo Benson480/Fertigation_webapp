@@ -200,4 +200,19 @@ def prices(request):
 
 
 
+def Fertlizer_dealers(request):
+  template = loader.get_template('fertilizer_dealers.html')
+  return HttpResponse(template.render())
+
+def laboratory(request):
+  template = loader.get_template('laboratory.html')
+  return HttpResponse(template.render())
+
+def weather(request):
+  template = loader.get_template('weather.html')
+  return HttpResponse(template.render())
+
+def research(request):
+  template = loader.get_template('research.html')
+  return HttpResponse(template.render())
   
