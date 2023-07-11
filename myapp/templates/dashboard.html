@@ -138,6 +138,22 @@
       margin-right: 0;
       margin-bottom: 20px;
     }
+    
+    .sidebar a.image-link {
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    .sidebar a.image-link img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .sidebar a.image-link span {
+      position: static;
+      transform: none;
+      font-size: 20px;
+    }
   }
 </style>
 {% endblock %}
@@ -167,7 +183,7 @@
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #e633bfea; font-size: 30px; font-weight: bold;">WEATHER</span>
       </a>
 
-     <a href="/Fertlizer_dealers" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 00px">
+      <a href="/Fertlizer_dealers" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 00px">
         <img src="https://img.freepik.com/premium-vector/vektor-illustration-fertilizer-bag-rice-sack-sand-bag-agriculture-product_734922-35.jpg" width="348px" height="200px" alt="LABORATORY TEST" title="FERTILIZER DEALERS">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: rgba(255, 0, 0, 0.918); font-size: 30px; font-weight: bold;">FERTILIZER DEALERS</span>
       </a>
@@ -176,10 +192,10 @@
         <img src="https://m.media-amazon.com/images/I/61tFP0dFIRL.jpg" width="348px" height="200px" alt="FERTILIZER REGIME" title="FERTILIZER REGIME">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 94%, 53%, 0.918); font-size: 40px; font-weight: bold;">REPORTS</span>
       </a>
-
     </ul>
   </div>
 </div>
+
 
   <div class="content">
     <h2>Fertigation System Dashboard</h2>
