@@ -98,15 +98,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <P>To add new items please click this button</P>
-  <button id="toggleButton" style="margin-bottom: 10px; height: 40px; width: 40px; color: rgb(248, 13, 13); font-weight: bold;" title="ADD">
-    <i class="fa fa-plus"></i> <!-- Font Awesome icon for "ADD" -->
+<div class="container" style="height: 100%;">
+  <button id="toggleButtonadd" >
+    <i class="fa fa-plus"></i>
   </button>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <div class="form-container" style="display: none;">
-    <form method="POST" class="post-form" id="myForm">
+  <div class="form-container" style="float: left; background-color: bisque; width: 41%;">
+    <form method="POST" class="post-form" id="myForm" style="padding: 5px;">
       {% csrf_token %}
       <h1>Fertilizers Amount</h1>
       
@@ -213,7 +212,7 @@
     };
   </script>
   
-  <div class="table-container">
+  <div class="table-container" style="float: right; background-color: #d4fdfd; width: 56.2%; padding: 5px;">
 
     <h1>Fertilizers records</h1>
     
@@ -303,7 +302,7 @@
 </script>
 
 
-
+<!-- Export data to excel file -->
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js">
 
 function ExportToExcel(type, fn, dl) {
@@ -325,7 +324,7 @@ var table = document.getElementById("myTable2");
 table.innerHTML = "";
 }            
 
-const toggleButton = document.getElementById('toggleButton');
+const toggleButton = document.getElementById('toggleButtonadd');
 const formContainer = document.querySelector('.form-container');
 
   toggleButton.addEventListener('click', () => {
@@ -354,7 +353,7 @@ const formContainer = document.querySelector('.form-container');
     }
   });
 
-
+//Show or hide tabel upon button press
 function toggleTable() {
     var table = document.getElementById("myTable2");
     if (table.style.display === "none") {
@@ -409,6 +408,7 @@ function formatDate(dateString) {
     form.reset();
   };
 
+// Show function when the window loads
   window.onload = function() {
     toggleTable();
     showTable();
