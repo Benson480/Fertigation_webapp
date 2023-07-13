@@ -44,43 +44,31 @@ class Fertilizer_AmountForm(forms.ModelForm):
 
 
 class Fertilizer_ElementsForm(forms.ModelForm):
-    Element_1 = forms.CharField(
-        required=True,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': "Element 1 *", 'style': 'width:15ch'})
-    )
+    # Element_1 = forms.CharField(
+    #     required=True,
+    #     label="",
+    #     widget=forms.TextInput(attrs={'placeholder': "Element 1 *", 'style': 'width:15ch'})
+    # )
     Composition_1 = forms.DecimalField(
         required=True,
         label="",
         widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
     )
-    Element_2 = forms.CharField(
-        required=True,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': "Element 2 *", 'style': 'width:15ch'})
-    )
+
     Composition_2 = forms.DecimalField(
-        required=True,
+        required=False,
         label="",
         widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
     )
-    Element_3 = forms.CharField(
-        required=True,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': "Element 3 *", 'style': 'width:15ch'})
-    )
+
     Composition_3 = forms.DecimalField(
-        required=True,
+        required=False,
         label="",
         widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
     )
-    Element_4 = forms.CharField(
-        required=True,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': "Element 4 *", 'style': 'width:15ch'})
-    )
+
     Composition_4 = forms.DecimalField(
-        required=True,
+        required=False,
         label="",
         widget=forms.NumberInput(attrs={'placeholder': "%", 'style': 'width:10ch'})
     )
@@ -88,7 +76,7 @@ class Fertilizer_ElementsForm(forms.ModelForm):
     class Meta:
         model = Fertilizer_Element
         fields = [
-            'Fertilizer', 'Element_1', 'Composition_1', 'Element_2', 'Composition_2', 'Element_3',
+            'Date','Fertilizer', 'Element_1', 'Composition_1', 'Element_2', 'Composition_2', 'Element_3',
             'Composition_3', 'Element_4', 'Composition_4'
         ]
         widgets = {

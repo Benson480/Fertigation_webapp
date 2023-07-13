@@ -1,203 +1,109 @@
-{% extends "master.html" %}
-
-{% block title %}
-  FERTILIZERS DASHBOARD
-{% endblock %}
-
-{% block styles %}
-<style>
-  .post-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    margin: 0 auto;
-    background-color: #72f766; /* Change the background color */
-    margin-top: 50px; /* Adjust the margin-top value as needed */
-    color: blue;
-  }
-
-  h1 {
-    font-size: 24px;
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
-  }
-
-  p {
-    margin-bottom: 10px;
-    text-align: center;
-    border: gold;
-    color: blue;
-  }
-
-  small {
-    color: grey;
-  }
-
-  span.error {
-    color: red;
-  }
-
-  button {
-    margin-top: 10px;
-    background-color: #72f766;
-  }
-
-  .image-container {
-    position: fixed;
-    bottom: -10%;
-    left: -41%;
-    float: left;
-    opacity: 0.6;
-    padding: 0em 3.1em;
-  }
-  .image-container img {
-    width: 100%;
-    height: auto;
-    opacity: 0.4;
-  }
-  .form-container {
-    max-width: 50%;
-    flex-basis: 50%;
-    float: left;
-  }
-
-  .table-container {
-    max-width: 45%;
-    flex-basis: 45%;
-    float: right;
-  }
-
-  /* Responsive styles */
-  @media only screen and (max-width: 600px) {
-    .image-container {
-      position: static;
-      padding: 0;
-    }
-
-    .form-container,
-    .table-container {
-      max-width: 100%;
-      flex-basis: 100%;
-    }
-  }
-
-  /* Additional responsive styles */
-  @media only screen and (max-width: 800px) {
-    .post-form {
-      padding: 20px;
-    }
-  }
-</style>
-
-{% endblock %}
-
-{% block content %}
+<button id="toggleButton" title="SHOW/HIDE FORM" >
+  <i class="fa fa-plus"></i>
+</button>
 <div class="container">
-  <P>To add new items please click this button</P>
-  <button id="toggleButton" style="margin-bottom: 10px; height: 40px; width: 40px; color: rgb(248, 13, 13); font-weight: bold;" title="ADD">
-    <i class="fa fa-plus"></i> <!-- Font Awesome icon for "ADD" -->
-  </button>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <div class="form-container" style="display: none;">
-    <form method="POST" class="post-form" id="myForm">
+  <div class="form-container">
+    <form method="POST" class="post-form" id="myForm" style="text-align: center;">
       {% csrf_token %}
-      <h1>Fertilizers Amount</h1>
-      
+      <h1>Fertilizers Element</h1>
       <p>
-        {% if form.Date.help_text %}
-        <small>{{ form.Date.help_text }}</small>
+        {% if fertelementform.Date.help_text %}
+        <small style="color: grey">{{ fertelementform.Date.help_text }}</small>
         {% endif %}
-        {{ form.Date.label_tag }}*
-        {{ form.Date }}
-        {% for error in form.Date.errors %}
-        <span class="error">{{ error }}</span>
+        {{ fertelementform.Date.label_tag }}*
+        {{ fertelementform.Date }}
+        {% for error in fertelementform.Date.errors %}
+        <span style="color: red">{{ error }}</span>
         {% endfor %}
       </p>
-      
       <p>
-        {% if form.Media.help_text %}
-        <small>{{ form.Media.help_text }}</small>
+        {% if fertelementform.Fertilizer.help_text %}
+        <small style="color: grey">{{ fertelementform.Fertilizer.help_text }}</small>
         {% endif %}
-        {{ form.Media.label_tag }}*
-        {{ form.Media }} 
-        {% for error in form.Media.errors %}
-        <span class="error">{{ error }}</span>
+        {{ fertelementform.Fertilizer.label_tag }}*
+        {{ fertelementform.Fertilizer }}
+        {% for error in fertelementform.Fertilizer.errors %}
+        <span style="color: red">{{ error }}</span>
         {% endfor %}
       </p>
-      
-      <p>
-        {% if form.Area_Ha.help_text %}
-        <small>{{ form.Area_Ha.help_text }}</small>
-        {% endif %}
-        {{ form.Area_Ha.label_tag }}*
-        {{ form.Area_Ha }} 
-        {% for error in form.Area_Ha.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </p>
-      
-      <p>
-        {% if form.Tank_mix_Volume.help_text %}
-        <small>{{ form.Tank_mix_Volume.help_text }}</small>
-        {% endif %}
-        {{ form.Tank_mix_Volume.label_tag }}*
-        {{ form.Tank_mix_Volume }} 
-        {% for error in form.Tank_mix_Volume.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </p>
-      
-      <p>
-        {% if form.H2O_m3_Per_Ha.help_text %}
-        <small>{{ form.H2O_m3_Per_Ha.help_text }}</small>
-        {% endif %}
-        {{ form.H2O_m3_Per_Ha.label_tag }}*
-        {{ form.H2O_m3_Per_Ha }}
-        {% for error in form.H2O_m3_Per_Ha.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </p>
-      
-      <p>
-        {% if form.UV_percent.help_text %}
-        <small>{{ form.UV_percent.help_text }}</small>
-        {% endif %}
-        {{ form.UV_percent.label_tag }}*
-        {{ form.UV_percent }} 
-        {% for error in form.UV_percent.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </p>
-      
-      <p>
-        {% if form.Fertilizer.help_text %}
-        <small>{{ form.Fertilizer.help_text }}</small>
-        {% endif %}
-        {{ form.Fertilizer.label_tag }}*
-        {{ form.Fertilizer }} 
-        {% for error in form.Fertilizer.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </p>
-      
-      <p>
-        {% if form.Amount.help_text %}
-        <small>{{ form.Amount.help_text }}</small>
-        {% endif %}
-        {{ form.Amount.label_tag }}*
-        {{ form.Amount }} 
-        {% for error in form.Amount.errors %}
-        <span class="error">{{ error }}</span>
-        {% endfor %}
-      </p>
-      
+        <p>
+          {% if fertelementform.Element_1.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_1.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_1.label_tag }} 
+          {{ fertelementform.Element_1 }}
+          {% for error in fertelementform.Element_1.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_1.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_1.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_1.label_tag }} 
+          {{ fertelementform.Composition_1 }}
+          {% for error in fertelementform.Composition_1.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {% if fertelementform.Element_2.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_2.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_2.label_tag }}
+          {{ fertelementform.Element_2 }}
+          {% for error in fertelementform.Element_2.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_2.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_2.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_2.label_tag }} 
+          {{ fertelementform.Composition_2 }}
+          {% for error in fertelementform.Composition_2.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {% if fertelementform.Element_3.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_3.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_3.label_tag }} 
+          {{ fertelementform.Element_3 }}
+          {% for error in fertelementform.Element_3.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_3.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_3.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_3.label_tag }} 
+          {{ fertelementform.Composition_3 }}
+          {% for error in fertelementform.Composition_3.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {% if fertelementform.Element_4.help_text %}
+          <small style="color: grey">{{ fertelementform.Element_4.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Element_4.label_tag }} 
+          {{ fertelementform.Element_4 }}
+          {% for error in fertelementform.Element_4.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+
+          {% if fertelementform.Composition_4.help_text %}
+          <small style="color: grey">{{ fertelementform.Composition_4.help_text }}</small>
+          {% endif %}
+          {{ fertelementform.Composition_4.label_tag }} 
+          {{ fertelementform.Composition_4 }}
+          {% for error in fertelementform.Composition_4.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
       <p>
         <button style="background-color: yellow;" type="submit" class="save btn btn-default">Save</button>
         <button style="background-color: hwb(241 5% 63%); color: hsl(0, 0%, 99%);" onclick="window.location.href='/members';">Back</button>
@@ -205,6 +111,8 @@
       </p>
     </form>
   </div>
+</div>
+
   
   <script>
     window.onload = function() {
@@ -213,553 +121,82 @@
     };
   </script>
   
-  <div class="table-container">
-
-    <h1>Fertilizers records</h1>
-    
-    <h3>
-      ---------
-      <button onclick="window.location.href='/members';">Back</button>
-      <button onclick="sortTable(0)">Sort with number</button>
-      <button onclick="sortnameTable(2)">Sort with Name</button>
-      <input type="button" id="btnExport1" value="PDF" />
-      <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
-      <button id="toggleButton" onclick="toggleTable()">Fertilizer Usage</button>
-      <div>
-        <label for="dateInput">Date:</label>
-        <input type="date" id="dateInput">
-
-        <button onclick="showTable();">Load Fertilizer</button>
-        <button id="toggleButton1" style="margin-bottom: 10px;">Select Usage Date</button>
-        <div class="container"> 
-          <div id="codeBlock" style="display: none;">
-            <label for="startDateInput">From Date:</label>
-            <input type="date" id="startDateInput">
-            <label for="endDateInput">To Date:</label>
-            <input type="date" id="endDateInput">
-            <button onclick="toggleTable(); myFunction1();">Filter</button>
+  <div style="overflow-x: auto; overflow-y: auto;">
+    <div class="table-container" style="overflow-x: auto; overflow-y: auto; float: right; background-color: #d4fdfd; width: 100%; height: auto; padding: 0px 0px 5px 25px; text-align: center;">
+  
+      <h1>Fertilizers records</h1>
+      
+      <h3>
+        ---------
+        <button onclick="window.location.href='/dashboard';">Back</button>
+        <button onclick="sortTable(0)">Sort with number</button>
+        <button onclick="sortnameTable(2)">Sort with Name</button>
+        <input type="button" id="btnExport1" value="PDF" />
+        <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
+        <button id="toggleButton" onclick="toggleTable()">Fertilizer Usage</button>
+        <div>
+          <label for="dateInput">Date:</label>
+          <input type="date" id="dateInput">
+  
+          <button onclick="showTable();">Load Fertilizer</button>
+          <button id="toggleButton1" style="margin-bottom: 10px;">Select Usage Date</button>
+          <div class="container"> 
+            <div id="codeBlock" style="display: none;">
+              <label for="startDateInput">From Date:</label>
+              <input type="date" id="startDateInput">
+              <label for="endDateInput">To Date:</label>
+              <input type="date" id="endDateInput">
+              <button onclick="myFunction1();">Filter</button>
+          </div>
         </div>
+        </div>
+      </h3>
+      
+      <ul id="id01">
+        <div class="search Items" style="padding: 0px; margin-left: 0%; display: flex; justify-content: center; float: left;">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="12">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
       </div>
-      </div>
-    </h3>
-    
-    <ul id="id01">
-      <table id="myTable2" border="1" style="display: none;">
-        <tr>
-          <th>No.</th>
-          <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
-          <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-          <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
-          <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-          <th>COST</th>
-          <th>CHANGE</th>
-          <th>REMOVE</th>
-        </tr>
-        {% for x in mymember %}
-        <tr>
-          {% if x.Fertilizer is not None %}
-          <td>{{ "" }}</td>
-          <td>{{ x.Media}}</td>
-          <td>{{ x.Date|date:"m/d/Y" }}</td>
-          <td>{{ x.Fertilizer }}</td>
-          <td>{{ x.Amount }}</td>
-          {% if x.total_cost is None %}
-            <td>{{ 0 }}</td>
-          {% else %}
-            <td>{{ x.total_cost }}</td>
-          {% endif %}
-          <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-          <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></td>
-          {% endif %}
-        </tr>     
-        {% endfor %}
-      </table>
-    </ul> 
+        <div style="overflow-x: auto; overflow-y: auto; float: left;">
+          <div style="display: flex; justify-content: center;">
+            <table id="myTable2" border="1" style="display: none;">
+              <tr>
+                <th>No.</th>
+                <th>Date</th>
+                <th>Fertilizer</th>
+                <th>Element 1</th>
+                <th>Compound 1</th>
+                <th>Element_2</th>
+                <th>Compound 2</th>
+                <th>Element_3</th>
+                <th>Compound 3</th>
+                <th>Element_4</th>
+                <th>Compound 4</th>
+              </tr>
+              {% for x in mymember %}
+              <tr>
+                {% if x.Fertilizer is not None %}
+                <td>{{ "" }}</td>
+                <td>{{ x.Date|date:"m/d/Y" }}</td>
+                <td>{{ x.Fertilizer }}</td>
+                <td>{{ x.Amount }}</td>
+                {% if x.total_cost is None %}
+                  <td>{{ 0 }}</td>
+                {% else %}
+                  <td>{{ x.total_cost }}</td>
+                {% endif %}
+                <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
+                <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></td>
+                {% endif %}
+              </tr>     
+              {% endfor %}
+            </table>
+          </div>          
+        </div>
+      </ul> 
+    </div>
   </div>
 </div>
-
-
-
-
-<!-- Jquery to print to download pdf File from the table -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-<script type="text/javascript">
-    $("body").on("click", "#btnExport1", function () {
-        html2canvas($('#myTable2')[0], {
-            onrendered: function (canvas) {
-                var data = canvas.toDataURL();
-                var docDefinition = {
-                    content: [{
-                        image: data,
-                        width: 500
-                    }]
-                };
-                pdfMake.createPdf(docDefinition).download("Fertilizer records.pdf");
-            }
-        });
-    });
-</script>
-
-
-
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js">
-
-function ExportToExcel(type, fn, dl) {
-  var elt = document.getElementById('myTable2');
-  var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-  return dl ?
-    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-    XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
-}
-</script>
-
-<script>
-
-
-
-
-window.onload = function() {
-var table = document.getElementById("myTable2");
-table.innerHTML = "";
-}            
-
-const toggleButton = document.getElementById('toggleButton');
-const formContainer = document.querySelector('.form-container');
-
-  toggleButton.addEventListener('click', () => {
-    if (formContainer.style.display === 'none') {
-      formContainer.style.display = 'block';
-    } else {
-      formContainer.style.display = 'none';
-    }
-  });
-
-
-  const dateInput = document.getElementById('dateInput');
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.value = today;
-
-
-
-  const toggleButton1 = document.getElementById('toggleButton1');
-  const codeBlock = document.getElementById('codeBlock');
-
-  toggleButton1.addEventListener('click', () => {
-    if (codeBlock.style.display === 'none') {
-      codeBlock.style.display = 'block';
-    } else {
-      codeBlock.style.display = 'none';
-    }
-  });
-
-
-function toggleTable() {
-    var table = document.getElementById("myTable2");
-    if (table.style.display === "none") {
-      table.style.display = "table"; // show the table
-    } else {
-      table.style.display = "none"; // hide the table
-    }
-  }
-
-
-
-  function showTable() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("dateInput");
-  filter = formatDate(input.value); // Convert date input value to desired format
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those that don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = formatDate(td.textContent || td.innerText); // Convert table date to desired format
-      if (txtValue === filter) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-// Helper function to format the date as "m/d/year"
-function formatDate(dateString) {
-  var date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric"
-  });
-}
-
-
-
-
-
-  // clear form on toLocaleDateString
-
-  window.onload = function() {
-    var form = document.getElementById("myForm");
-    form.reset();
-  };
-
-  window.onload = function() {
-    toggleTable();
-    showTable();
-  };
-
-// Export table to excel
-function htmlTableToExcel(type, tableId) {
-  const table = document.getElementById(tableId);
-  const data = document.createElement('table');
-  data.innerHTML = table.innerHTML;
-  data.querySelectorAll('tr').forEach(row => { 
-    if (row.hidden || (row.closest('tbody') && row.matches('.header'))) row.remove() 
-  })
-  for(i = 0 ; i < data.rows.length ; i++) 
-  {    
-      var row = data.rows[i];
-      var numberOfCells = row.cells.length;
-      row.deleteCell(numberOfCells - 1);
-
-      var row = data.rows[i];
-      var numberOfCells = row.cells.length;
-      row.deleteCell(numberOfCells - 1);
-
-  }
-  console.log(data.outerHTML)
-  var excelFile = XLSX.utils.table_to_book(data, {
-    
-    sheet: "sheet1"
-  });
-  XLSX.write(excelFile, {
-    bookType: type,
-    bookSST: true,
-    type: 'base64'
-  });
-  
-  XLSX.writeFile(excelFile, 'Fertilizer records.' + type);
-}
-
-// Search table with name
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-
-// Search table with Date
-function myFunction0() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput3");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-
-// Search table within a date range
-function myFunction1() {
-  // Declare variables
-  var startDateInput, endDateInput, startDate, endDate, table, tr, td, i, txtValue;
-  startDateInput = document.getElementById("startDateInput");
-  endDateInput = document.getElementById("endDateInput");
-  startDate = startDateInput.valueAsDate; // Retrieve the start date value
-  endDate = endDateInput.valueAsDate; // Retrieve the end date value
-
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those that don't match the date range
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      // Retrieve the date from the table cell
-      var tableDate = new Date(td.textContent || td.innerText);
-
-      // Check if the table date is within the specified range
-      if (tableDate >= startDate && tableDate <= endDate) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-// Search table with Fertilizer
-function myFunction2() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput2");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-
-// Search table with Fertilizer
-function myFunction3() {
-  // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput3");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable2");
-  tr = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[4];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-
-
-
-
-// Sort table with name
-
-function sortnameTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable2");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-
-
-
-
-
-
-// sort table with number
-
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable2");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc";
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
-    for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (Number(x.innerHTML) > Number(y.innerHTML)) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-
-
-
-
-
-// Insert numbers on table
-
-var table = document.getElementsByTagName('table')[0],
-  rows = table.getElementsByTagName('tr'),
-  text = 'textContent' in document ? 'textContent' : 'innerText';
-
-for (var i = 1, len = rows.length; i < len; i++) {
-  rows[i].children[0][text] = i + rows[i].children[0][text];
-}
-
-
-
-
-function sortListDir() {
-  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
-  list = document.getElementById("id01");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc"; 
-  // Make a loop that will continue until no switching has been done:
-  while (switching) {
-    // start by saying: no switching is done:
-    switching = false;
-    b = list.getElementsByTagName("LI");
-    // Loop through all list-items:
-    for (i = 0; i < (b.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /* check if the next item should switch place with the current item,
-      based on the sorting direction (asc or desc): */
-      if (dir == "asc") {
-        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-          /* if next item is alphabetically lower than current item,
-          mark as a switch and break the loop: */
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
-          /* if next item is alphabetically higher than current item,
-          mark as a switch and break the loop: */
-          shouldSwitch= true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      b[i].parentNode.insertBefore(b[i + 1], b[i]);
-      switching = true;
-      // Each time a switch is done, increase switchcount by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-</script>
-
-{% endblock %}

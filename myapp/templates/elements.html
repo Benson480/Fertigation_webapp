@@ -98,17 +98,26 @@
 {% endblock %}
 
 {% block content %}
+<button id="toggleButton" title="SHOW/HIDE FORM" >
+  <i class="fa fa-plus"></i>
+</button>
 <div class="container">
-  <P>To add new items please click this button</P>
-  <button id="toggleButton" style="margin-bottom: 10px; height: 40px; width: 40px; color: rgb(248, 13, 13); font-weight: bold;" title="ADD">
-    <i class="fa fa-plus"></i> <!-- Font Awesome icon for "ADD" -->
-  </button>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <div class="form-container" style="display: none;">
-    <form method="POST" class="post-form" id="myForm">
+  <div class="form-container">
+    <form method="POST" class="post-form" id="myForm" style="text-align: center;">
       {% csrf_token %}
       <h1>Fertilizers Element</h1>
+      <p>
+        {% if fertelementform.Date.help_text %}
+        <small style="color: grey">{{ fertelementform.Date.help_text }}</small>
+        {% endif %}
+        {{ fertelementform.Date.label_tag }}*
+        {{ fertelementform.Date }}
+        {% for error in fertelementform.Date.errors %}
+        <span style="color: red">{{ error }}</span>
+        {% endfor %}
+      </p>
       
       <p>
         {% if fertelementform.Fertilizer.help_text %}
@@ -211,6 +220,8 @@
       </p>
     </form>
   </div>
+</div>
+
   
   <script>
     window.onload = function() {
@@ -219,70 +230,88 @@
     };
   </script>
   
-  <div class="table-container">
-
-    <h1>Fertilizers records</h1>
-    
-    <h3>
-      ---------
-      <button onclick="window.location.href='/members';">Back</button>
-      <button onclick="sortTable(0)">Sort with number</button>
-      <button onclick="sortnameTable(2)">Sort with Name</button>
-      <input type="button" id="btnExport1" value="PDF" />
-      <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
-      <button id="toggleButton" onclick="toggleTable()">Fertilizer Usage</button>
-      <div>
-        <label for="dateInput">Date:</label>
-        <input type="date" id="dateInput">
-
-        <button onclick="showTable();">Load Fertilizer</button>
-        <button id="toggleButton1" style="margin-bottom: 10px;">Select Usage Date</button>
-        <div class="container"> 
-          <div id="codeBlock" style="display: none;">
-            <label for="startDateInput">From Date:</label>
-            <input type="date" id="startDateInput">
-            <label for="endDateInput">To Date:</label>
-            <input type="date" id="endDateInput">
-            <button onclick="toggleTable(); myFunction1();">Filter</button>
+  <div style="overflow-x: auto; overflow-y: auto;">
+    <div class="table-container" style="overflow-x: auto; overflow-y: auto; float: right; background-color: #d4fdfd; width: 100%; height: auto; padding: 0px 0px 5px 25px; text-align: center;">
+  
+      <h1>Fertilizers records</h1>
+      
+      <h3>
+        ---------
+        <button onclick="window.location.href='/dashboard';">Back</button>
+        <button onclick="sortTable(0)">Sort with number</button>
+        <button onclick="sortnameTable(2)">Sort with Name</button>
+        <input type="button" id="btnExport1" value="PDF" />
+        <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
+        <button id="toggleButton" onclick="toggleTable()">Fertilizer Usage</button>
+        <div>
+          <label for="dateInput">Date:</label>
+          <input type="date" id="dateInput">
+  
+          <button onclick="showTable();">Load Fertilizer</button>
+          <button id="toggleButton1" style="margin-bottom: 10px;">Select Usage Date</button>
+          <div class="container"> 
+            <div id="codeBlock" style="display: none;">
+              <label for="startDateInput">From Date:</label>
+              <input type="date" id="startDateInput">
+              <label for="endDateInput">To Date:</label>
+              <input type="date" id="endDateInput">
+              <button onclick="myFunction1();">Filter</button>
+          </div>
         </div>
+        </div>
+      </h3>
+      
+      <ul id="id01">
+        <div class="search Items" style="padding: 0px; margin-left: 0%; display: flex; justify-content: center; float: left;">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="12">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Fertilizer" size="15">
       </div>
-      </div>
-    </h3>
-    
-    <ul id="id01">
-      <table id="myTable2" border="1" style="display: none;">
-        <tr>
-          <th>No.</th>
-          <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
-          <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-          <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
-          <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-          <th>COST</th>
-          <th>CHANGE</th>
-          <th>REMOVE</th>
-        </tr>
-      {% for x in mymember %}
-      <tr>
-            {% if x.Fertilizer is not None %}
-            <td>{{ "" }}</td>
-            <td>{{ x.Media}}</td>
-            <td>{{ x.Date}}</td>
-            <td>{{ x.Fertilizer }}</td>
-            <td>{{ x.Amount }}</td>
-            {% if x.total_cost is None %}
-              <td>{{ 0 }}</td>
-            {% else %}
-              <td>{{ x.total_cost }}</td>
-            {% endif %}
-            <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-            <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
-            {% endif %}
-      </tr>     
-        {% endfor %}
-      </table>
-    </ul> 
+        <div style="overflow-x: auto; overflow-y: auto; float: left;">
+          <div style="display: flex; justify-content: center;">
+            <table id="myTable2" border="1" style="display: none;">
+              <tr>
+                <th>No.</th>
+                <th>Date</th>
+                <th>Fertilizer</th>
+                <th>Element 1</th>
+                <th>Compound 1</th>
+                <th>Element_2</th>
+                <th>Compound 2</th>
+                <th>Element_3</th>
+                <th>Compound 3</th>
+                <th>Element_4</th>
+                <th>Compound 4</th>
+              </tr>
+              {% for x in mymember %}
+              <tr>
+                {% if x.Fertilizer is not None %}
+                <td>{{ "" }}</td>
+                <td>{{ x.Date}}</td>
+                <td>{{ x.Date|date:"m/d/Y" }}</td>
+                <td>{{ x.Fertilizer }}</td>
+                <td>{{ x.Amount }}</td>
+                {% if x.total_cost is None %}
+                  <td>{{ 0 }}</td>
+                {% else %}
+                  <td>{{ x.total_cost }}</td>
+                {% endif %}
+                <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
+                <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></td>
+                {% endif %}
+              </tr>     
+              {% endfor %}
+            </table>
+          </div>          
+        </div>
+      </ul> 
+    </div>
   </div>
 </div>
+
+
 
 
 

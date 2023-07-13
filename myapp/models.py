@@ -12,14 +12,30 @@ class Fertilizer(models.Model):
     
 
 class Fertilizer_Element(models.Model):
+    ELEMENT_CHOICES = (
+        ("Nitrate", "Nitrate [NO3N]"),
+        ("Phosphorus", "Phosphorus [P]"),
+        ("Potassium", "Potassium [K]"),
+        ("Calcium", "Cacium [Ca]"),
+        ("Magnesium",  "Magnesium [Mg]"),
+        ("Sulphur", "Sulphur [S]"),
+        ("Ammoniacal N", "Ammoniacal N [NH4N]"),
+        ("Iron", "Iron [Fe]"),
+        ("Manganese", "Manganese [Mn]"),
+        ("Copper", "Copper [Cu]"),
+        ("Boron", "Boron [B]"),
+        ("Zinc", "Zinc [Zn]"), 
+        ("Molybdenum", "Molybdenum [Mo]"),
+        )
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
-    Element_1       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Date = models.DateField(null=True,db_index=True)
+    Element_1       = models.CharField(max_length=200, choices=ELEMENT_CHOICES,db_index=True,null=True,blank=True)
     Composition_1     = models.CharField(max_length=200, db_index=True,null=True,blank=True)
-    Element_2       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Element_2       = models.CharField(max_length=200, choices=ELEMENT_CHOICES, db_index=True,null=True,blank=True)
     Composition_2     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
-    Element_3       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Element_3       = models.CharField(max_length=200, choices=ELEMENT_CHOICES, db_index=True,null=True,blank=True)
     Composition_3     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
-    Element_4       = models.CharField(max_length=200, db_index=True,null=True,blank=True)
+    Element_4       = models.CharField(max_length=200, choices=ELEMENT_CHOICES, db_index=True,null=True,blank=True)
     Composition_4     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
     def __str__(self):
         return str(self.Fertilizer)

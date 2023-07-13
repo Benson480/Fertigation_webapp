@@ -108,7 +108,6 @@ def Fertilizers(request):
     return render(request, "Fertilizers.html", context)
   
 
-
 def elements(request):
     context ={}
     # create object of form
@@ -122,7 +121,7 @@ def elements(request):
     context = {
     'fertelementform':fertelementform,
     'mymember': mymember,
-  }
+    }
 
 
     return render(request, "elements.html", context)
