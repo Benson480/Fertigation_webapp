@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price, Fertilizer_Element
+from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price, Fertilizer_Element, Fertilizer
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 
@@ -95,6 +95,15 @@ class Fertilizer_PricesForm(forms.ModelForm):
 			
 		}
 
+class Fertilizer_Form(forms.ModelForm):
+	# specify the name of model to use
+	class Meta:
+		model = Fertilizer
+		fields = ['Date','name']
+		widgets = {
+			'Date': DateInput(),
+			
+		}
 
 class DeleteFertilizerForm(forms.ModelForm):
     class Meta:

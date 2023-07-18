@@ -13,11 +13,20 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
 from .forms import (Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm, 
-                    Fertilizer_ElementsForm)
+                    Fertilizer_ElementsForm, Fertilizer_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import get_token
 
+
+
+def regenerate_csrf_token(request):
+    if request.method == 'GET':
+        csrf_token = get_token(request)
+        return HttpResponse(csrf_token)
+    
 def register_view(request):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
@@ -80,6 +89,12 @@ def delete(request, id):
   member.delete()
   return HttpResponseRedirect(reverse("Fertilizers"))
 
+def delete_elements(request, id):
+  member = Fertilizer_Element.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("elements"))
+
+
 def deleteprice(request, id):
   member = Fertilizer_Price.objects.get(id=id)
   member.delete()
@@ -93,6 +108,8 @@ def Fertilizers(request):
     mymember = Fertilizer_Amount.objects.all()
     membercost = Fertilizer_Cost.objects.all()
     fertform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
+    fertaddform = Fertilizer_Form(request.POST or None, request.FILES or None)
+    
      
     # check if form data is valid
     if fertform.is_valid():
@@ -102,12 +119,36 @@ def Fertilizers(request):
     'form':fertform,
     'mymember': mymember,
     'membercost': membercost, 
+    'fertaddform':fertaddform,
   }
 
 
     return render(request, "Fertilizers.html", context)
-  
 
+@csrf_protect  
+def fertilizer_list(request):
+    context ={}
+ 
+    # create object of form
+    mymember = Fertilizer_Amount.objects.all()
+    membercost = Fertilizer_Cost.objects.all()
+    fertaddform = Fertilizer_Form(request.POST or None, request.FILES or None)
+    fertform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
+    
+     
+    # check if form data is valid
+    if fertaddform.is_valid():
+        # save the form data to model
+        fertaddform.save()
+    context = {
+    'fertaddform':fertaddform,
+    'form':fertform,
+    'mymember': mymember,
+    'membercost': membercost, 
+  }
+
+    return render(request, "Fertilizers.html", context)
+    
 def elements(request):
     context ={}
     # create object of form
@@ -126,7 +167,16 @@ def elements(request):
 
     return render(request, "elements.html", context)
   
+def delete_multiple_items(request):
+    if request.method == 'GET':
+        selected_ids = request.GET.getlist('selected_ids[]')
+        
+        # Perform the necessary deletion logic using the selected_ids
+        # Example: Delete items from the database based on the selected IDs
+        Fertilizer_Amount.objects.filter(id__in=selected_ids).delete()
 
+        # Redirect to the appropriate URL after deletion
+        return redirect('/Fertilizers')
 
 def ppm(request): 
   mymember = Fertilizer_Element.objects.all()

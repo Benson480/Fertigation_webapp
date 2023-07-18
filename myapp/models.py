@@ -7,6 +7,7 @@ from django.db.models.functions import Coalesce
 
 class Fertilizer(models.Model):
     name = models.CharField(max_length=255)
+    Date = models.DateField(null=True,db_index=True)
     def __str__(self):
             return f"{self.name}"
     
@@ -71,8 +72,8 @@ class Fertilizer_Amount(models.Model):
 
     # Fertilizers_Cost_USD = models.FloatField(null=True,db_index=True)
     MEDIA_CHOICES = (
-    ("HYDROPONICS", "HYDROPONICS"),
-    ("SOIL", "SOIL"),
+    ("Hydroponics", "Hydroponics"),
+    ("Soil", "Soil"),
     )
     Media = models.CharField(max_length=255,
                   choices=MEDIA_CHOICES
