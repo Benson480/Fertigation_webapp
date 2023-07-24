@@ -75,7 +75,7 @@ pip install -r requirements.txt #installing dependencies using requirements.txt
 
 
 AI NAME
-fertppm_ai_key
+fertppm_ai_key 
 
 AI KEY
 <!-- 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 -->
