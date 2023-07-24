@@ -10,9 +10,10 @@
 
 {% block content %}
   <h1>Uploaded Images</h1>
+  <div>
   <ul>
     {% for image in images %}
-      <li><img src="{{ image.image.url }}" alt="Uploaded Image"></li>
+      <img src="{{ image.image.url }}" alt="Uploaded Image">
     {% endfor %}
   </ul>
 {% endblock %}

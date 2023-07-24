@@ -15,6 +15,8 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.urls import path, include, re_path
 from myapp.views import (
@@ -24,14 +26,18 @@ from myapp.views import (
 
 urlpatterns = [
     path('', index),
-    path('login/', login_view),
     path('logout/', logout_view),
     path('admin/login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('',include('myapp.urls')),
+    path('images/', include('myapp.urls')),
 ]
 
+
+# Serving media files during development (Not recommended for production)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Admin Site Config
 admin.sites.AdminSite.site_header = 'FERTIGATION SITE ADMINISTRATION'

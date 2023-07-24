@@ -13,9 +13,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import platform
 import os
+from myproject.redirect_middleware import LoginRequiredMiddleware
+from myproject.middleware import AutoLogoutMiddleware
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'flat', # only if django version < 1.9
     'colorfield',
     'admin_menu',
+    'axes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,15 +60,33 @@ INSTALLED_APPS = [
 X_FRAME_OPTIONS='SAMEORIGIN' # only if django version >= 3.0
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Static file handling
+    'django.middleware.security.SecurityMiddleware',  # Security-related headers
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Session management
+    'django.middleware.common.CommonMiddleware',  # Common processing (e.g., URL handling)
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # User authentication
+    'myproject.redirect_middleware.LoginRequiredMiddleware',  # Your custom middleware (Authentication-related?)
+    'axes.middleware.AxesMiddleware',  # IP blocking for suspicious login attempts
+    'myproject.middleware.AutoLogoutMiddleware',  # Automatic logout after inactivity
+    'django.contrib.messages.middleware.MessageMiddleware',  # Message handling
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Clickjacking protection
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'axes.backends.AxesStandaloneBackend',  # Use the new name
+    # ...
+]
+
+
+# Configure the automatic logout time after inactivity (in seconds)
+AUTO_LOGOUT_TIME = 300  # 5 minutes (adjust the value as needed)
+
+# Configure Django Axes to track user activity for auto-logout
+AXES_KEEP_RECORD = True
+AXES_LOCK_OUT_AT_FAILURE = False
+
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -197,8 +219,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 }
 """
 
-LOGIN_REDIRECT_URL = 'dasboard'
-LOGOUT_REDIRECT_URL = '/login'
+# LOGIN_REDIRECT_URL = 'dasboard'
+# LOGOUT_REDIRECT_URL = 'login'
+
+LOGIN_URL = '/login/'
 
 
 SECURE_SSL_REDIRECT=False
@@ -220,4 +244,5 @@ ADMIN_STYLE = {
     'backgound-color': 'black',
 }
 
-MEDIA_URL = 'C:/Django/images/FERTPPM.jpeg/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

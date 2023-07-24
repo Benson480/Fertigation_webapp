@@ -131,3 +131,10 @@ class Fertilizer_Cost(models.Model):
     #         self.fertcost = 0
     #         return str(0)
     #     return str(self.fertcost)
+
+class UploadedImage(models.Model):
+    image = models.ImageField(upload_to='images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image uploaded at {self.uploaded_at}"   

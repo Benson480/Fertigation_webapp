@@ -308,6 +308,45 @@
         <button style="background-color: yellow;" type="submit" class="save btn btn-default">Save</button>
         <button onclick="closeModal();clearFormFields1();">Close</button>
         <button style="background-color: red; color: white;" type="button" onclick="clearFormFields1()">Clear</button>
+        <button style="background-color: hsl(177, 83%, 14%); color: #f0f0f7;" onclick="clearFormFields1();openModal1();" title="ADD FERTILIZERS TO LIST">Delete Fertilizers</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div id="overlay1" class="overlay1" style="display: none; background-color: #b2d5f5;">
+    <div class="modal1">
+      <!-- Add your content for the modal here -->
+      <h2>Delete Fertilizers</h2>
+      <form method="POST" class="post-form1" action="{% url 'fertilizer_list' %}" id="myForm1" style="padding: 5px;">
+        {% csrf_token %}
+        <h1>Add Fertilizers</h1>
+        
+        <p>
+          {% if fertaddform.Date.help_text %}
+          <small>{{ fertaddform.Date.help_text }}</small>
+          {% endif %}
+          {{ fertaddform.Date.label_tag }}*
+          {{ fertaddform.Date }}
+          {% for error in fertaddform.Date.errors %}
+          <span class="error">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {% if fertaddform.name.help_text %}
+          <small>{{ fertaddform.name.help_text }}</small>
+          {% endif %}
+          {{ fertaddform.name.label_tag }}*
+          {{ fertaddform.name }}
+          {% for error in fertaddform.name.errors %}
+          <span class="error">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <p>
+        <button style="background-color: yellow;" type="submit" class="save btn btn-default">Save</button>
+        <button onclick="closeModal1();clearFormFields1();">Close</button>
+        <button style="background-color: red; color: white;" type="button" onclick="clearFormFields1()">Clear</button>
+        <button style="background-color: red; color: white;" type="button" onclick="clearFormFields1()">Clear</button>
         </p>
       </form>
     </div>
@@ -321,6 +360,22 @@
   
     function closeModal() {
       var overlay = document.getElementById('overlay');
+      overlay.style.display = 'none';
+    }
+  </script>  
+  <script>
+    window.onload = function() {
+      var form = document.getElementById('myForm');
+      form.reset();
+    };
+
+    function openModal1() {
+      var overlay = document.getElementById('overlay1');
+      overlay.style.display = 'flex';
+    }
+  
+    function closeModal1() {
+      var overlay = document.getElementById('overlay1');
       overlay.style.display = 'none';
     }
   </script>  

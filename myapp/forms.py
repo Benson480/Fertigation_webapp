@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price, Fertilizer_Element, Fertilizer
+from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price, Fertilizer_Element, Fertilizer, UploadedImage
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 
@@ -109,3 +109,8 @@ class DeleteFertilizerForm(forms.ModelForm):
     class Meta:
         model = Fertilizer_Amount
         fields = []
+	
+class ImageUploadForm(forms.ModelForm):
+    class Meta:
+        model = UploadedImage
+        fields = ['image']

@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Fertilizer, Fertilizer_Detail, 
-Fertilizer_Element, Fertilizer_Amount, Fertilizer_Price, Fertilizer_Cost)
+Fertilizer_Element, Fertilizer_Amount, Fertilizer_Price, Fertilizer_Cost, UploadedImage)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib.auth import login
@@ -13,13 +13,15 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
 from .forms import (Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm, 
-                    Fertilizer_ElementsForm, Fertilizer_Form)
+                    Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import get_token
-
+from django.contrib.auth.decorators import login_required
+import datetime
+# from .decorators import login_required
 
 
 def regenerate_csrf_token(request):
@@ -47,6 +49,7 @@ def login_view(request):
             login(request, user)
             return redirect('/dashboard/')
         
+        
     else:
         messages.success(request, "Login not Sucessful try again!")
         form = AuthenticationForm(request)
@@ -60,12 +63,7 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect("/login/")
-    return render(request, "accounts/logout.html", {})
-
-def dashboard(request):
-  template = loader.get_template('dashboard.html')
-  return HttpResponse(template.render())
-  
+    return render(request, "accounts/logout.html", {})  
 
 def update(request, id):
   mymember = Fertilizer_Amount.objects.get(id=id)
@@ -100,13 +98,14 @@ def deleteprice(request, id):
   member.delete()
   return HttpResponseRedirect(reverse("prices"))
 
-
+@login_required #(redirect_to='/login/')
 def Fertilizers(request):
     context ={}
  
     # create object of form
     mymember = Fertilizer_Amount.objects.all()
     membercost = Fertilizer_Cost.objects.all()
+    Fertilizer_list = Fertilizer.objects.all()
     fertform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
     fertaddform = Fertilizer_Form(request.POST or None, request.FILES or None)
     
@@ -118,10 +117,12 @@ def Fertilizers(request):
     context = {
     'form':fertform,
     'mymember': mymember,
+    'Fertilizer_list':Fertilizer_list,
     'membercost': membercost, 
     'fertaddform':fertaddform,
   }
-
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
     return render(request, "Fertilizers.html", context)
 
@@ -148,7 +149,8 @@ def fertilizer_list(request):
   }
 
     return render(request, "Fertilizers.html", context)
-    
+
+@login_required   
 def elements(request):
     context ={}
     # create object of form
@@ -166,7 +168,8 @@ def elements(request):
 
 
     return render(request, "elements.html", context)
-  
+
+@login_required  
 def delete_multiple_items(request):
     if request.method == 'GET':
         selected_ids = request.GET.getlist('selected_ids[]')
@@ -178,6 +181,7 @@ def delete_multiple_items(request):
         # Redirect to the appropriate URL after deletion
         return redirect('/Fertilizers')
 
+@login_required
 def ppm(request): 
   mymember = Fertilizer_Element.objects.all()
   template = loader.get_template('ppm.html')
@@ -186,16 +190,17 @@ def ppm(request):
   }
   return HttpResponse(template.render(context, request))
 
+@login_required
 def main(request):
   template = loader.get_template('main.html')
   return HttpResponse(template.render())
 
-
+@login_required
 def home(request):
   template = loader.get_template('home.html')
   return HttpResponse(template.render())
 
-
+@login_required
 def testing(request):
   mymembers= Fertilizer.objects.all().order_by('lastname', '-id').values()
   template = loader.get_template('template.html')
@@ -204,6 +209,7 @@ def testing(request):
   }
   return HttpResponse(template.render(context, request))
 
+@login_required
 def template(request):
   template = loader.get_template('template.html')
   return HttpResponse(template.render())
@@ -212,8 +218,13 @@ def index(request):
   template = loader.get_template('index.html')
   return HttpResponse(template.render())
 
+@login_required #(redirect_to='/index/')
 def dashboard(request):
   template = loader.get_template('dashboard.html')
+  # Update user activity in the session
+  if request.user.is_authenticated:
+    request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
   return HttpResponse(template.render())
 
 def about(request):
@@ -228,6 +239,7 @@ def contacts(request):
   template = loader.get_template('contacts.html')
   return HttpResponse(template.render())
 
+@login_required
 def prices(request):
     context ={}
  
@@ -248,20 +260,40 @@ def prices(request):
     return render(request, "prices.html", context)
 
 
-
+@login_required
 def Fertlizer_dealers(request):
   template = loader.get_template('fertilizer_dealers.html')
   return HttpResponse(template.render())
 
+@login_required
 def laboratory(request):
   template = loader.get_template('laboratory.html')
   return HttpResponse(template.render())
 
+@login_required
 def weather(request):
   template = loader.get_template('weather.html')
   return HttpResponse(template.render())
 
+@login_required
 def research(request):
   template = loader.get_template('research.html')
   return HttpResponse(template.render())
+
+
+@login_required
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('image_list')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'upload_image.html', {'form': form})
+
+@login_required
+def image_list(request):
+    images = UploadedImage.objects.all()
+    return render(request, 'image_list.html', {'images': images})
   
