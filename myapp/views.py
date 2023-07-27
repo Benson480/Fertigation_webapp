@@ -87,6 +87,11 @@ def delete(request, id):
   member.delete()
   return HttpResponseRedirect(reverse("Fertilizers"))
 
+def delete_fertilizers(request, id):
+  member = Fertilizer.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("Fertilizers"))
+
 def delete_elements(request, id):
   member = Fertilizer_Element.objects.get(id=id)
   member.delete()
@@ -126,15 +131,18 @@ def Fertilizers(request):
 
     return render(request, "Fertilizers.html", context)
 
-@csrf_protect  
+
+@csrf_protect
+@login_required   
 def fertilizer_list(request):
     context ={}
  
     # create object of form
     mymember = Fertilizer_Amount.objects.all()
     membercost = Fertilizer_Cost.objects.all()
-    fertaddform = Fertilizer_Form(request.POST or None, request.FILES or None)
+    Fertilizer_list = Fertilizer.objects.all()
     fertform = Fertilizer_AmountForm(request.POST or None, request.FILES or None)
+    fertaddform = Fertilizer_Form(request.POST or None, request.FILES or None)
     
      
     # check if form data is valid
@@ -142,13 +150,17 @@ def fertilizer_list(request):
         # save the form data to model
         fertaddform.save()
     context = {
-    'fertaddform':fertaddform,
     'form':fertform,
     'mymember': mymember,
+    'Fertilizer_list':Fertilizer_list,
     'membercost': membercost, 
+    'fertaddform':fertaddform,
   }
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
-    return render(request, "Fertilizers.html", context)
+
+    return render(request, "Fertilizers_addition.html", context)
 
 @login_required   
 def elements(request):
@@ -177,6 +189,18 @@ def delete_multiple_items(request):
         # Perform the necessary deletion logic using the selected_ids
         # Example: Delete items from the database based on the selected IDs
         Fertilizer_Amount.objects.filter(id__in=selected_ids).delete()
+
+        # Redirect to the appropriate URL after deletion
+        return redirect('/Fertilizers')
+    
+@login_required  
+def delete_multiple_fertilizers(request):
+    if request.method == 'GET':
+        selected_ids = request.GET.getlist('selected_ids[]')
+        
+        # Perform the necessary deletion logic using the selected_ids
+        # Example: Delete items from the database based on the selected IDs
+        Fertilizer.objects.filter(id__in=selected_ids).delete()
 
         # Redirect to the appropriate URL after deletion
         return redirect('/Fertilizers')

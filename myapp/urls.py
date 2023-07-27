@@ -16,6 +16,7 @@ urlpatterns = [
     path('template/', views.template, name='template'),
     path('index/', views.index, name='index'),
     path('Fertilizers/delete/<int:id>', views.delete, name='delete'),
+    path('Fertilizers/delete_fertilizers/<int:id>', views.delete_fertilizers, name='delete_fertilizers'),
     path('elements/delete_elements/<int:id>', views.delete_elements, name='delete_elements'),
     path('fertilizer_list/delete/<int:id>', views.delete, name='delete'),
     path('Fertilizers/deleteprice/<int:id>', views.deleteprice, name='deleteprice'),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('fertilizer_list/', views.fertilizer_list, name='fertilizer_list'),
     path('regenerate_csrf_token/', views.regenerate_csrf_token, name='regenerate_csrf_token'),
     path('delete_multiple/', views.delete_multiple_items, name='delete_multiple_items'),
+    path('delete_multiple_fertilizers/', views.delete_multiple_fertilizers, name='delete_multiple_fertilizers'),
     path('upload/', views.upload_image, name='upload_image'),
     path('list/', views.image_list, name='image_list'),
     
