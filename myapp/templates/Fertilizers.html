@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FERTILIZERS DASHBOARD
+  Fertilizers Regime
 {% endblock %}
 
 {% block styles %}
@@ -199,6 +199,16 @@
         <span class="error">{{ error }}</span>
         {% endfor %}
       </p>
+      <p>
+        {% if form.Fertigation_line.help_text %}
+        <small>{{ form.Fertigation_line.help_text }}</small>
+        {% endif %}
+        {{ form.Fertigation_line.label_tag }}*
+        {{ form.Fertigation_line }} 
+        {% for error in form.Fertigation_line.errors %}
+        <span class="error">{{ error }}</span>
+        {% endfor %}
+      </p>
       
       <p>
         {% if form.Area_Ha.help_text %}
@@ -306,28 +316,37 @@
     
     <ul id="id01">
       <div style="overflow-x: auto; overflow-y: auto;">
-        <table id="myTable2" border="1" style="display: none;">
+        <table id="myTable2" border="1" style="display: flex; border: 1px solid black; border-collapse: collapse;">
           <tr>
-            <th>No.</th>
-            <th>
+            <th> 
               <input type="checkbox" id="selectAllCheckbox" onchange="selectAllRows()">
+              DATE
+            </th>
+            <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9">
+            <th>
+              FEED LINE
+            </th>
+            <input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9">
+            <th>
               MEDIA
-            </th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
-            <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9">
+            </th>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
+            <th>MACHINE INJECTION</th>
             <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
             <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-            <th>COST</th>
+            <th>COST USD</th>
             <th>CHANGE</th>
             <th>REMOVE</th>
           </tr>
           {% for x in mymember %}
             {% if x.Fertilizer is not None %}
-            <td>{{ "" }}</td>
             <td>
               <input type="checkbox" class="rowCheckbox">
-              {{ x.Media }}
+              {{ x.Date|date:"m/d/Y" }}
             </td>
-            <td>{{ x.Date|date:"m/d/Y" }}</td>
+            <td>{{ x.Fertigation_line }}</td>
+            <td>{{ x.Media }}</td>
+            <td>{{ x.Grams_Per_m3.Injection_ratio }}</td>
             <td>{{ x.Fertilizer }}</td>
             <td>{{ x.Amount }}</td>
             {% if x.total_cost is None %}
@@ -405,25 +424,25 @@
         <script>
 
 
-          // Function to add row numbers to the table
-          function addRowNumbers() {
-            const table = document.getElementById('myTable2');
-            const rows = table.getElementsByTagName('tr');
+          // // Function to add row numbers to the table
+          // function addRowNumbers() {
+          //   const table = document.getElementById('myTable2');
+          //   const rows = table.getElementsByTagName('tr');
             
-            // Start the row number from 1 (excluding the header row)
-            let rowNumber = 1;
-            for (let i = 1; i < rows.length; i++) {
-              const row = rows[i];
-              const cells = row.getElementsByTagName('td');
+          //   // Start the row number from 1 (excluding the header row)
+          //   let rowNumber = 1;
+          //   for (let i = 1; i < rows.length; i++) {
+          //     const row = rows[i];
+          //     const cells = row.getElementsByTagName('td');
               
-              // Update the first cell (index 0) with the row number
-              cells[0].innerText = rowNumber;
-              rowNumber++;
-            }
-          }
+          //     // Update the first cell (index 0) with the row number
+          //     cells[0].innerText = rowNumber;
+          //     rowNumber++;
+          //   }
+          // }
 
           // Call the function to add row numbers when the page loads
-          addRowNumbers();
+          // addRowNumbers();
 
 
 
@@ -506,7 +525,7 @@
 
 
         <script>
-              function selectAllRows1() {
+        function selectAllRows1() {
         var selectAllCheckbox = document.getElementById('selectAllCheckbox1');
         var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
 
@@ -787,15 +806,17 @@ const formContainer = document.querySelector('.form-container');
     }
   });
 
-//Show or hide tabel upon button press
-function toggleTable() {
-    var table = document.getElementById("myTable2");
-    if (table.style.display === "none") {
-      table.style.display = "table"; // show the table
-    } else {
-      table.style.display = "none"; // hide the table
-    }
-  }
+//Show or hide table upon button press
+
+
+// function toggleTable() {
+//     var table = document.getElementById("myTable2");
+//     if (table.style.display === "none") {
+//       table.style.display = "table"; // show the table
+//     } else {
+//       table.style.display = "none"; // hide the table
+//     }
+//   }
 
 
 
@@ -1133,13 +1154,13 @@ function sortTable(n) {
 
 // Insert numbers on table
 
-var table = document.getElementsByTagName('table')[0],
-  rows = table.getElementsByTagName('tr'),
-  text = 'textContent' in document ? 'textContent' : 'innerText';
+// var table = document.getElementsByTagName('table')[0],
+//   rows = table.getElementsByTagName('tr'),
+//   text = 'textContent' in document ? 'textContent' : 'innerText';
 
-for (var i = 1, len = rows.length; i < len; i++) {
-  rows[i].children[0][text] = i + rows[i].children[0][text];
-}
+// for (var i = 1, len = rows.length; i < len; i++) {
+//   rows[i].children[0][text] = i + rows[i].children[0][text];
+// }
 
 
 

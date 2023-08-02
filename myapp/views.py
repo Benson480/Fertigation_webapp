@@ -21,6 +21,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import get_token
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.http import JsonResponse
 # from .decorators import login_required
 
 
@@ -75,12 +76,29 @@ def update(request, id):
 
 def updaterecord(request, id):
   Date = request.POST['Date']
-  # amount = request.POST['amount', False]
+  amount = request.POST['amount', False]
   member = Fertilizer_Amount.objects.get(id=id)
   member.Date = Date
   # member.amount = amount
   member.save()
   return HttpResponseRedirect(reverse('Fertilizers'))
+
+def update_list(request, id):
+  mymember = Fertilizer.objects.get(id=id)
+  template = loader.get_template('update.html')
+  context = {
+    'mymember': mymember,
+  }
+  return HttpResponse(template.render(context, request))
+
+def UpdateFertilizerList(request, id):
+  Date = request.POST['Date']
+  amount = request.POST['name', False]
+  member = Fertilizer.objects.get(id=id)
+  member.Date = Date
+  # member.amount = amount
+  member.save()
+  return HttpResponseRedirect(reverse('fertilizer_list'))
 
 def delete(request, id):
   member = Fertilizer_Amount.objects.get(id=id)
@@ -90,7 +108,7 @@ def delete(request, id):
 def delete_fertilizers(request, id):
   member = Fertilizer.objects.get(id=id)
   member.delete()
-  return HttpResponseRedirect(reverse("Fertilizers"))
+  return HttpResponseRedirect(reverse("fertilizer_list"))
 
 def delete_elements(request, id):
   member = Fertilizer_Element.objects.get(id=id)
@@ -195,19 +213,26 @@ def delete_multiple_items(request):
     
 @login_required  
 def delete_multiple_fertilizers(request):
-    if request.method == 'GET':
-        selected_ids = request.GET.getlist('selected_ids[]')
+    if request.method == 'POST':
+        selected_ids = request.POST.getlist('selectedIds[]')
         
+        # Check if the user has the necessary permissions to delete the selected items.
+        # For example, you can use Django's built-in permissions or any custom checks.
+        # Replace 'can_delete_fertilizers' with the appropriate permission.
+        if not request.user.has_perm('myapp.can_delete_fertilizers'):
+            return JsonResponse({'error': 'Permission denied.'}, status=403)
+
         # Perform the necessary deletion logic using the selected_ids
         # Example: Delete items from the database based on the selected IDs
         Fertilizer.objects.filter(id__in=selected_ids).delete()
 
-        # Redirect to the appropriate URL after deletion
-        return redirect('/Fertilizers')
+        return JsonResponse({'message': 'Items deleted successfully.'})
+
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
 @login_required
 def ppm(request): 
-  mymember = Fertilizer_Element.objects.all()
+  mymember = Fertilizer_Amount.objects.all()
   template = loader.get_template('ppm.html')
   context = {
     'mymember': mymember,

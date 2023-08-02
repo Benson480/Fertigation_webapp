@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FERTILIZERS DASHBOARD
+  FERTILIZERS
 {% endblock %}
 
 {% block styles %}
@@ -167,10 +167,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" style="height: 100%; display: flex; ">
+<div class="container" style="height: 100%; display: flex; padding: 0px; ">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <div id="overlay" class="overlay" style="display: block; background-color: #b2d5f5; width: 50%;">
+  <div id="overlay" class="overlay" style="display: block; background-color: #b2d5f5; width: 50%; padding: 10px;">
     <div class="modal">
       <!-- Add your content for the modal here -->
       <h2>Fertilizers Addition</h2>
@@ -199,6 +199,16 @@
           {% endfor %}
         </p>
         <p>
+          {% if fertaddform.Supplier.help_text %}
+          <small>{{ fertaddform.Supplier.help_text }}</small>
+          {% endif %}
+          {{ fertaddform.Supplier.label_tag }}*
+          {{ fertaddform.Supplier }}
+          {% for error in fertaddform.Supplier.errors %}
+          <span class="error">{{ error }}</span>
+          {% endfor %}
+        </p>
+        <p>
         <button style="background-color: yellow;" type="submit" class="save btn btn-default">Save</button>
         <button onclick="closeModal();clearFormFields1();">Close</button>
         <button style="background-color: red; color: white;" type="button" onclick="clearFormFields1()">Clear</button>
@@ -206,41 +216,41 @@
       </form>
     </div>
   </div>
-
-  <div id="overlay1" class="overlay1" style="display: block; background-color: hsl(182, 77%, 83%); width: 50%;">
+  {% csrf_token %}
+  <div id="overlay1" class="overlay1" style="display: block; background-color: hsl(182, 77%, 83%); width: 50%; padding: 15px;">
     <div class="modal1">
       <!-- Add your content for the modal here -->
       <h2>Fertilizers</h2>
-      <table id="myTable3" border="1" style="display: block;">
+      <table id="myTable3" border="1" style="display: flex; border: 1px solid black; border-collapse: collapse;">
         <tr>
-          <th>No.</th>
           <th>
             <input type="checkbox" id="selectAllCheckbox1" onchange="selectAllRows1()">
             DATE
           </th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Date" size="15">
           <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
+          <th>SUPPLIER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Supplier" size="13.5">
           <th>CHANGE</th>
           <th>REMOVE</th>
         </tr>
         {% for x in Fertilizer_list %}
         <tr class="pagination-row">
           {% if x.name is not None %}
-          <td>{{ "" }}</td>
           <td>
-            <input type="checkbox" class="rowCheckbox1">
+            <input type="checkbox" class="rowCheckbox1" data-id="{{ x.id }}">
               {{ x.Date|date:"m/d/Y" }}
           </td>
           <td>{{ x.name }}</td>
-          <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-          <td><a style="color: red;" href="delete/{{ x.id }}" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></td>
+          <td>{{ x.Supplier }}</td>
+          <td><a style="color: green;" href="update_list/UpdateFertilizerList/{{ x.id }}">Edit</a></td>
+          <td><a style="color: red;" href="#" onclick="deleteSelected1()">Delete</a></td>
           {% endif %}
         </tr>
         {% endfor %}
       </table>
         <p>
-        <button onclick="closeModal1();clearFormFields1();">Close</button>
-        <button onclick="deleteSelectedItems1()">Delete Selected</button>
-        <button onclick="performOperationOnSelected1()">Perform Operation on Selected</button>
+        <!-- <button onclick="closeModal1();clearFormFields1();">Close</button> -->
+        <button onclick="deleteSelected1()">Delete Selected</button>
+        <button onclick="performOperationOnSelected()">Perform Operation on Selected</button>
         <div>
           <button id="prevBtn" onclick="showPrevPage()">Previous</button>
           <button id="nextBtn" onclick="showNextPage()">Next</button>
@@ -364,77 +374,6 @@
 
           // Call the function to add row numbers when the page loads
           addRowNumbers();
-
-
-
-
-
-
-        function selectAllRows() {
-          var selectAllCheckbox = document.getElementById('selectAllCheckbox');
-          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
-        
-          // Set the checked state of row checkboxes based on the select all checkbox
-          for (var i = 0; i < rowCheckboxes.length; i++) {
-            rowCheckboxes[i].checked = selectAllCheckbox.checked;
-          }
-        }
-        
-        function deleteSelectedItems() {
-          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
-
-          // Collect the IDs of the selected rows
-          var selectedIds = [];
-          for (var i = 0; i < rowCheckboxes.length; i++) {
-            if (rowCheckboxes[i].checked) {
-              var row = rowCheckboxes[i].parentNode.parentNode;
-              var id = row.querySelector('a[href^="delete/"]').getAttribute('href').split('/')[1];
-              selectedIds.push(id);
-            }
-          }
-
-          // Perform the delete action with the selected IDs
-          if (selectedIds.length > 0) {
-            var confirmed = confirm('Are you sure you want to delete the selected items?');
-            if (confirmed) {
-              // Use AJAX to send the delete request to the server
-              var xhr = new XMLHttpRequest();
-              xhr.open('GET', '/delete_multiple/?selected_ids[]=' + selectedIds.join('&selected_ids[]='), true);
-              xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                  // Handle the response if needed
-                  window.location.href = '/Fertilizers';
-                }
-              };
-              xhr.send();
-            }
-          } else {
-            alert('No items selected.');
-          }
-        }
-        
-        function performOperationOnSelected() {
-          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
-        
-          // Collect the IDs of the selected rows
-          var selectedIds = [];
-          for (var i = 0; i < rowCheckboxes.length; i++) {
-            if (rowCheckboxes[i].checked) {
-              var row = rowCheckboxes[i].parentNode.parentNode;
-              var id = row.querySelector('a[href^="update/"]').getAttribute('href').split('/')[1];
-              selectedIds.push(id);
-            }
-          }
-        
-          // Perform the desired operation with the selected IDs
-          if (selectedIds.length > 0) {
-            // You can customize this function to perform the desired operation on the selected items
-            // Example: Redirect to a specific endpoint with the selected IDs
-            window.location.href = '/perform_operation/' + selectedIds.join(',');
-          } else {
-            alert('No items selected.');
-          }
-        }
         </script>   
         
         
@@ -445,8 +384,15 @@
 
 
 
-        <script>
-              function selectAllRows1() {
+
+      <script>
+      
+      function getCSRFToken() {
+        const cookieValue = document.cookie.match(/(^|;) ?csrftoken=([^;]*)(;|$)/);
+        return cookieValue ? cookieValue[2] : null;
+      }
+
+      function selectAllRows1() {
         var selectAllCheckbox = document.getElementById('selectAllCheckbox1');
         var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
 
@@ -456,16 +402,14 @@
         }
       }
 
-      function deleteSelectedItems1() {
+      function deleteSelected1() {
         var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
 
         // Collect the IDs of the selected rows
         var selectedIds = [];
         for (var i = 0; i < rowCheckboxes.length; i++) {
           if (rowCheckboxes[i].checked) {
-            var row = rowCheckboxes[i].parentNode.parentNode;
-            var id = row.querySelector('a[href^="delete_multiple_fertilizers/"]').getAttribute('href').split('/')[1];
-            selectedIds.push(id);
+            selectedIds.push(rowCheckboxes[i].getAttribute('data-id'));
           }
         }
 
@@ -473,10 +417,17 @@
         if (selectedIds.length > 0) {
           var confirmed = confirm('Are you sure you want to delete the selected items?');
           if (confirmed) {
-            // Use AJAX to send the delete request to the server
+           // Use AJAX to send the delete request to the server
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/delete_multiple_fertilizers/', true); // Replace with the appropriate endpoint for deleting multiple items
             xhr.setRequestHeader('Content-Type', 'application/json');
+
+            // Get the CSRF token and set it as a header in the AJAX request
+            var csrfToken = getCSRFToken();
+            if (csrfToken) {
+              xhr.setRequestHeader('X-CSRFToken', csrfToken);
+            }
+
             xhr.onreadystatechange = function() {
               if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
@@ -502,9 +453,7 @@
         var selectedIds = [];
         for (var i = 0; i < rowCheckboxes.length; i++) {
           if (rowCheckboxes[i].checked) {
-            var row = rowCheckboxes[i].parentNode.parentNode;
-            var id = row.querySelector('a[href^="update/"]').getAttribute('href').split('/')[1];
-            selectedIds.push(id);
+            selectedIds.push(rowCheckboxes[i].getAttribute('data-id'));
           }
         }
 
@@ -517,7 +466,8 @@
           alert('No items selected.');
         }
       }
-          </script>    
+    </script>
+
 
 
 

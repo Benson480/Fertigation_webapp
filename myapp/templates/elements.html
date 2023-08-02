@@ -1,7 +1,7 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FERTILIZERS DASHBOARD
+  Fertilizer Elements
 {% endblock %}
 
 {% block styles %}
@@ -104,11 +104,11 @@
 <div class="container" style="background-image: url('https://as1.ftcdn.net/v2/jpg/05/59/78/06/1000_F_559780659_ONnOruZU6tcYbz6ceFqiqiS4k3wJDsj3.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <div class="form-container" style="display: none; color: #ffffff; font-size: 18px; font-weight: bold; background-color: rgba(0, 0, 0, 0.4);">
+  <div class="form-container" style="display: block; color: #ffffff; font-size: 18px; font-weight: bold; background-color: rgba(0, 0, 0, 0.4);">
 
     <form method="POST" class="post-form" id="myForm" style="text-align: center;">
       {% csrf_token %}
-      <h1>Fertilizers Element</h1>
+      <h1>Fertilizer Elements</h1>
       <p>
         {% if fertelementform.Date.help_text %}
         <small style="color: grey">{{ fertelementform.Date.help_text }}</small>
@@ -234,7 +234,7 @@
   <div style="overflow-x: auto; overflow-y: auto;">
     <div class="table-container" style="overflow-x: auto; overflow-y: auto; float: right; background-color: #d4fdfd; width: 100%; height: auto; padding: 0px 0px 5px 25px; text-align: center;">
   
-      <h1>Fertilizers records</h1>
+      <h1>Fertilizer Elements</h1>
       
       <h3>
         ---------
@@ -272,18 +272,18 @@
       </div>
         <div style="overflow-x: auto; overflow-y: auto; float: left;">
           <div style="display: flex; justify-content: center;">
-            <table id="myTable2" border="1" style="display: none;">
+            <table id="myTable2" border="1" style="display: none; border: 1px solid black; border-collapse: collapse;">
               <tr>
                 <th>No.</th>
                 <th>Date</th>
                 <th>Fertilizer</th>
                 <th>Element 1</th>
                 <th>Compound 1</th>
-                <th>Element_2</th>
+                <th>Element 2</th>
                 <th>Compound 2</th>
-                <th>Element_3</th>
+                <th>Element 3</th>
                 <th>Compound 3</th>
-                <th>Element_4</th>
+                <th>Element 4</th>
                 <th>Compound 4</th>
                 <th>Edit</th>
                 <th>Delete</th>

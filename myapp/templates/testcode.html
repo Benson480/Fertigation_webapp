@@ -1,18 +1,30 @@
-{% extends "master.html" %}
-
-{% block title %}
-  NUTRIENT DEFICIENCY
-{% endblock %}
-
-{% block styles %}
-
-{% endblock %}
-
-{% block content %}
-  <h1>Uploaded Images</h1>
-  <ul>
-    {% for image in images %}
-      <li><img src="{{ image.image.url }}" alt="Uploaded Image"></li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+<table id="myTable2" border="1">
+  <tr>
+    <th>No.</th>
+    <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
+    <th>ELEMENT</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
+    <th>REGIME PPM</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
+    <th>LAB PROPOSED PPM</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
+    <th>LAB VS REGIME</th>
+    <th>CHANGE</th>
+    <th>REMOVE</th>
+  </tr>
+{% for x in mymember %}
+<tr>
+      {% if x.Fertilizer is not None %}
+      <td>{{ "" }}</td>
+      <td>{{ x.Media}}</td>
+      <td>{{ x.Date}}</td>
+      <td>{{ x.Fertilizer }}</td>
+      <td>{{ x.Amount }}</td>
+      {% if x.total_cost is None %}
+        <td>{{ 0 }}</td>
+      {% else %}
+        <td>{{ x.total_cost }}</td>
+      {% endif %}
+      <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
+      <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
+      {% endif %}
+</tr>     
+  {% endfor %}
+</table>

@@ -36,7 +36,7 @@ class Fertilizer_AmountForm(forms.ModelForm):
         model = Fertilizer_Amount
         model2 = Fertilizer_Cost
         fields = ['Date', 'H2O_m3_Per_Ha', 'UV_percent', 'Tank_mix_Volume','Fertilizer',
-	     'Amount', 'Media','Area_Ha']
+	     'Amount', 'Media','Area_Ha', 'Fertigation_line']
         widgets = {
             'Date': DateInput(),
 	    
@@ -99,7 +99,7 @@ class Fertilizer_Form(forms.ModelForm):
 	# specify the name of model to use
 	class Meta:
 		model = Fertilizer
-		fields = ['Date','name']
+		fields = ['Date','name', 'Supplier']
 		widgets = {
 			'Date': DateInput(),
 			

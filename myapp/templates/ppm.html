@@ -1,205 +1,685 @@
 {% extends "master.html" %}
 
 {% block title %}
-  FETILIZERS ELEMENTS
+  Fertilizers PPM
 {% endblock %}
 
+{% block styles %}
 <style>
-.mycard ul
-{
-list-style-type: none;
-padding: 0;
-margin: 0;
-text-align: right;
-}
-.mycard
-{
-width: 10%;
-}
-
-.Fertresults h1 {
-  position: sticky;
-}
-.mycard #id01 li{
-    text-align: right;
-    list-style-position: inside;
-}
-
-table {
-  counter-reset: rowNumber;
-}
-
-table tr::before {
-  display: table-cell;
-  counter-increment: rowNumber;
-  content: counter(rowNumber) ".";
-  padding-right: 0.3em;
-  text-align: right;
-  border-color: #96D4D4;
-}
-li {
-    list-style-type: none; 
-    display : inline;
+  .post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0 auto;
+    background-color: #72f766; /* Change the background color */
+    margin-top: 50px; /* Adjust the margin-top value as needed */
+    color: blue;
   }
 
+  h1 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
 
-  #myInput {
-  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 100%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
+  p {
+    margin-bottom: 10px;
+    text-align: center;
+    border: gold;
+    color: blue;
+  }
+
+  small {
+    color: grey;
+  }
+
+  span.error {
+    color: red;
+  }
+
+  button {
+    margin-top: 10px;
+    background-color: #72f766;
+  }
+
+  .image-container {
+    position: fixed;
+    bottom: -10%;
+    left: -41%;
+    float: left;
+    opacity: 0.6;
+    padding: 0em 3.1em;
+  }
+  .image-container img {
+    width: 100%;
+    height: auto;
+    opacity: 0.4;
+  }
+  .form-container {
+    max-width: 50%;
+    flex-basis: 50%;
+    float: left;
+  }
+
+  .table-container {
+    max-width: 45%;
+    flex-basis: 45%;
+    float: right;
+  }
+
+  /* Responsive styles */
+  @media only screen and (max-width: 600px) {
+    .image-container {
+      position: static;
+      padding: 0;
+    }
+
+    .form-container,
+    .table-container {
+      max-width: 100%;
+      flex-basis: 100%;
+    }
+  }
+
+  /* Additional responsive styles */
+  @media only screen and (max-width: 800px) {
+    .post-form {
+      padding: 20px;
+    }
+  }
+  #myTable2 {
+  width: 100%;
 }
 
-#myTable2 {
-  border-collapse: collapse; /* Collapse borders */
-  width: 100%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
-  font-size: 18px; /* Increase font-size */
-  border-color: #96D4D4;
+#myTable2 th,
+#myTable2 td {
+  padding: 8px;
 }
 
-#myTable2 th, #myTable td {
-  text-align: left; /* Left-align text */
-  padding: 12px; /* Add padding */
-  border-color: #96D4D4;
+@media (max-width: 768px) {
+  #myTable2 {
+    display: block;
+    overflow-x: auto;
+  }
 }
 
-#myTable2 tr {
-  /* Add a bottom border to all table rows */
-  border-bottom: 1px solid #ddd;
-  border-color: #96D4D4;
+@media (max-width: 480px) {
+  #myTable2 th,
+  #myTable2 td {
+    white-space: nowrap;
+    font-size: 12px;
+  }
 }
 
-#myTable2 tr.header, #myTable tr:hover {
-  /* Add a grey background color to the table header and on hover */
-  background-color: #f1f1f1;
+.table-container {
+  float: right;
+  background-color: #d4fdfd;
+  padding: 5px;
 }
+
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .table-container {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1201px) {
+  .table-container {
+    width: 61%;
+  }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  /* Styles for the modal content */
+  .modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+  }
 </style>
+
+
+
+{% endblock %}
+
 {% block content %}
-  <div class="myentry" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 30%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-  <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-
+<div class="container" style="height: 100%; display: flex; align-items: center;">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  {% csrf_token %}
+<div style="overflow-x: auto; overflow-y: auto;">
+ 
+    <h1>FERTILIZERS PPM</h1>
     
-    <ul id="id00">   
-      <br>
-        <class="elements" style="left: 13%; background-color: hsl(0, 67%, 43%); width: 50%;height:550px; position: fixed; float: left; top: 62px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-          <div style="background-color: #d5d0d0; width: 62.5%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 550px; position: static; margin: 0px auto; padding: 0px 30px 0px; right:70%; top: 10px; z-index: 0; float: left; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-            <div><h1>Fertilizers elements</h1></div>
-            <ul id="id01">
-              {% for x in mymember %}
-                  <h3>{{x.Fertilizer}}</h3>
-                  <ul id="id01">
-                    {% if x.element1 is not None %}
-                      <li onclick="window.location">{{ x.element1 }} : {{ x.composition1 }}</li>
-                    {% endif %}
-                    {% if x.element2 is not None %}
-                      <li onclick="window.location">{{ x.element2 }} : {{ x.composition2 }}</li>
-                    {% endif %}
-                    {% if x.element3 is not None %}
-                      <li onclick="window.location">{{ x.element3 }} : {{ x.composition3 }}</li>
-                    {% endif %}
-                    {% if x.element4 is not None %}
-                      <li onclick="window.location">{{ x.element4 }} : {{ x.composition4 }}</li>
-                    {% endif %}
-                    {% if x.element5 is not None %}
-                      <li onclick="window.location">{{ x.element5 }} : {{ x.composition5 }}</li>
-                    {% endif %}
-                  </ul>
-              {% endfor %}
-              <p></p>
-              <p></p>
-              <button onclick="window.location.href='/members';">
-                Back
-              </button>
-          </div> 
-        <button onclick="window.location.href='/members';">
-          Back
-        </button>
-      </p>  
+    <h3>
+      ---------
+      <button onclick="window.location.href='/dashboard';">Back</button>
+      <button onclick="sortTable(0)">Sort with number</button>
+      <button onclick="sortnameTable(2)">Sort with Name</button>
+      <input type="button" id="btnExport1" value="PDF" />
+      <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
+      <button id="toggleButton" onclick="toggleTable()">Fertilizer Usage</button>
+      <div>
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput">
+
+        <button onclick="showTable();">Load Fertilizer</button>
+        <button id="toggleButton1" style="margin-bottom: 10px;">Select Usage Date</button>
+        <div class="container"> 
+          <div id="codeBlock" style="display: none;">
+            <label for="startDateInput">From Date:</label>
+            <input type="date" id="startDateInput">
+            <label for="endDateInput">To Date:</label>
+            <input type="date" id="endDateInput">
+            <button onclick="myFunction1();">Filter</button>
+        </div>
       </div>
-    </form>
+      </div>
+    </h3>
     
-
-    </ul> 
-    <div class="Fertresults" style="float: right; width: 92%; height:550px; position: fixed; float: right; top: 14px; right: -19px; z-index: 0; display:block; overflow-x: hidden;">
-      <div style="background-color: hwb(0 98% 1%); width: 92%; min-height: 1.62em; line-height: normal; vertical-align: initial; height: 570px; position: static; margin: 0px auto; padding: 0px 30px 20px; right:70%; top: 10px; z-index: 0; float: right; vertical-align:bottom; overflow-x: hidden; margin-bottom: 0em;">
-        <h1>REGIME GUIDE</h1>
-        
-          <h3><button onclick="window.location.href='/members';">
-           Back
-          </button>
-        <button onclick="sortTable(0)">Sort with number</button>
-        <button onclick="sortnameTable(2)">Sort with PPM</button>
-        <input type="button" id="btnExport1" value="PDF" />
-        <!-- <input type="button" id="btnExport" value="Excel" /> -->
-        <button onclick="htmlTableToExcel('xlsx', 'myTable2')">Excel</button>
-  
-        </h3>
-        <ul id="id01">
-      
-        
-          <body>
-          <table id="myTable2" border="1">
+    <ul id="id01">
+      <div style="overflow-x: auto; overflow-y: auto;">
+        <table id="myTable2" border="1" style="display: flex; font-size: small; border: 1px solid black; border-collapse: collapse;">
           <tr>
-            <th>No.</th>
             <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-            <th>ELEMENT</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
-            <th>REGIME PPM</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
-            <th>LAB PROPOSED PPM</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-            <th>LAB VS REGIME</th>
+            <th>MEDIA</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
+            <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
+            <th>ELEMENT 1</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Element" size="10">
+            <th>REGIME PPM</th>
+            <th>LAB PPM</th>
+            <th>ELEMENT 2</th>
+            <th>REGIME PPM</th>
+            <th>LAB PPM</th>
+            <th>ELEMENT 3</th>
+            <th>REGIME PPM</th>
+            <th>LAB PPM</th>
+            <th>ELEMENT 4</th>
+            <th>REGIME PPM</th>
+            <th>LAB PPM</th>
             <th>CHANGE</th>
             <th>REMOVE</th>
           </tr>
-        {% for x in mymember %}
-        <tr>
+          {% for x in mymember %}
+          <tr>
               {% if x.Fertilizer is not None %}
-              <td>{{ "" }}</td>
-              <td>{{ x.Media}}</td>
-              <td>{{ x.Date}}</td>
+              <td>{{ x.Date|date:"m/d/Y" }}</td>
+              <td>{{ x.Media }}</td>
               <td>{{ x.Fertilizer }}</td>
-              <td>{{ x.Amount }}</td>
-              {% if x.total_cost is None %}
-                <td>{{ 0 }}</td>
+              {% if x.Grams_Per_m3.element_1 is None %}
+                <td>{{ "" }}</td>
               {% else %}
-                <td>{{ x.total_cost }}</td>
+                <td>{{ x.Grams_Per_m3.element_1 }}</td>
+              {% endif %}
+              {% if x.Grams_Per_m3.fertppm1 is 0 %}
+                <td>{{ "" }}</td>
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.fertppm1 }}</td>
+                <td>{{ "" }}</td>
+              {% endif %}
+
+              {% if x.Grams_Per_m3.element_2 is None %}
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.element_2 }}</td>
+              {% endif %}
+              {% if x.Grams_Per_m3.fertppm2 is 0 %}
+                <td>{{ "" }}</td>
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.fertppm2 }}</td>
+                <td>{{ "" }}</td>
+              {% endif %}
+              {% if x.Grams_Per_m3.element_3 is None %}
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.element_3 }}</td>
+              {% endif %}
+              {% if x.Grams_Per_m3.fertppm3 is 0 %}
+                <td>{{ "" }}</td>
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.fertppm3 }}</td>
+                <td>{{ "" }}</td>
+              {% endif %}
+              {% if x.Grams_Per_m3.element_4 is None %}
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.element_4 }}</td>
+              {% endif %}
+              {% if x.Grams_Per_m3.fertppm4 is 0 %}
+                <td>{{ "" }}</td>
+                <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Grams_Per_m3.fertppm4 }}</td>
+                <td>{{ "" }}</td>
               {% endif %}
               <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
               <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
               {% endif %}
-        </tr>     
+          </tr>
           {% endfor %}
         </table>
-        </ul> 
-      </body>
+      </div>
+    </ul>
+        
+    <button onclick="deleteSelectedItems()">Delete Selected</button>
+    <button onclick="performOperationOnSelected()">Perform Operation on Selected</button>
+    <div id="paginationButtons">
+      <button onclick="showPreviousPage1()">Previous</button>
+      <button onclick="showNextPage1()">Next</button>
+    </div>
+    
+    <script>
+      const itemsPerPage = 15;
+      let currentPaginationPage = 1;
+      const tableRows = document.querySelectorAll("#myTable2 tr");
+
+      function showPage(pageNumber) {
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        tableRows.forEach((row, index) => {
+          if (index === 0) { // Skip the first row (table header)
+            return;
+          }
+
+          if (index >= startIndex && index < endIndex) {
+            row.style.display = "table-row";
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        currentPaginationPage = pageNumber;
+        updatePaginationButtons();
+      }
+
+      function updatePaginationButtons() {
+        const prevButton = document.querySelector("#paginationButtons button:first-child");
+        const nextButton = document.querySelector("#paginationButtons button:last-child");
+
+        prevButton.disabled = currentPaginationPage === 1;
+        nextButton.disabled = (currentPaginationPage * itemsPerPage) >= (tableRows.length - 1); // Exclude the header row
+      }
+
+      function showPreviousPage1() {
+        if (currentPaginationPage > 1) {
+          showPage(currentPaginationPage - 1);
+        }
+      }
+
+      function showNextPage1() {
+        if ((currentPaginationPage * itemsPerPage) < (tableRows.length - 1)) { // Exclude the header row
+          showPage(currentPaginationPage + 1);
+        }
+      }
+
+      // Show the first page initially with 15 items
+      showPage(1);
 
 
-      <!-- Jquery to print to download pdf File from the table -->
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-      <script type="text/javascript">
-          $("body").on("click", "#btnExport1", function () {
-              html2canvas($('#myTable2')[0], {
-                  onrendered: function (canvas) {
-                      var data = canvas.toDataURL();
-                      var docDefinition = {
-                          content: [{
-                              image: data,
-                              width: 500
-                          }]
-                      };
-                      pdfMake.createPdf(docDefinition).download("Fertilizer records.pdf");
-                  }
-              });
-          });
-      </script>
+    </script>
+        
+        <script>
+
+
+          // // Function to add row numbers to the table
+          // function addRowNumbers() {
+          //   const table = document.getElementById('myTable2');
+          //   const rows = table.getElementsByTagName('tr');
+            
+          //   // Start the row number from 1 (excluding the header row)
+          //   let rowNumber = 1;
+          //   for (let i = 1; i < rows.length; i++) {
+          //     const row = rows[i];
+          //     const cells = row.getElementsByTagName('td');
+              
+          //     // Update the first cell (index 0) with the row number
+          //     cells[0].innerText = rowNumber;
+          //     rowNumber++;
+          //   }
+          // }
+
+          // Call the function to add row numbers when the page loads
+          // addRowNumbers();
 
 
 
+
+
+
+        function selectAllRows() {
+          var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
+        
+          // Set the checked state of row checkboxes based on the select all checkbox
+          for (var i = 0; i < rowCheckboxes.length; i++) {
+            rowCheckboxes[i].checked = selectAllCheckbox.checked;
+          }
+        }
+        
+        function deleteSelectedItems() {
+          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
+
+          // Collect the IDs of the selected rows
+          var selectedIds = [];
+          for (var i = 0; i < rowCheckboxes.length; i++) {
+            if (rowCheckboxes[i].checked) {
+              var row = rowCheckboxes[i].parentNode.parentNode;
+              var id = row.querySelector('a[href^="delete/"]').getAttribute('href').split('/')[1];
+              selectedIds.push(id);
+            }
+          }
+
+          // Perform the delete action with the selected IDs
+          if (selectedIds.length > 0) {
+            var confirmed = confirm('Are you sure you want to delete the selected items?');
+            if (confirmed) {
+              // Use AJAX to send the delete request to the server
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', '/delete_multiple/?selected_ids[]=' + selectedIds.join('&selected_ids[]='), true);
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                  // Handle the response if needed
+                  window.location.href = '/Fertilizers';
+                }
+              };
+              xhr.send();
+            }
+          } else {
+            alert('No items selected.');
+          }
+        }
+        
+        function performOperationOnSelected() {
+          var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
+        
+          // Collect the IDs of the selected rows
+          var selectedIds = [];
+          for (var i = 0; i < rowCheckboxes.length; i++) {
+            if (rowCheckboxes[i].checked) {
+              var row = rowCheckboxes[i].parentNode.parentNode;
+              var id = row.querySelector('a[href^="update/"]').getAttribute('href').split('/')[1];
+              selectedIds.push(id);
+            }
+          }
+        
+          // Perform the desired operation with the selected IDs
+          if (selectedIds.length > 0) {
+            // You can customize this function to perform the desired operation on the selected items
+            // Example: Redirect to a specific endpoint with the selected IDs
+            window.location.href = '/perform_operation/' + selectedIds.join(',');
+          } else {
+            alert('No items selected.');
+          }
+        }
+        </script>   
+        
+        
+
+
+
+
+
+
+
+        <script>
+        function selectAllRows1() {
+        var selectAllCheckbox = document.getElementById('selectAllCheckbox1');
+        var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
+
+        // Set the checked state of row checkboxes based on the select all checkbox
+        for (var i = 0; i < rowCheckboxes.length; i++) {
+          rowCheckboxes[i].checked = selectAllCheckbox.checked;
+        }
+      }
+
+      function deleteSelectedItems1() {
+        var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
+
+        // Collect the IDs of the selected rows
+        var selectedIds = [];
+        for (var i = 0; i < rowCheckboxes.length; i++) {
+          if (rowCheckboxes[i].checked) {
+            var row = rowCheckboxes[i].parentNode.parentNode;
+            var id = row.querySelector('a[href^="delete_multiple_fertilizers/"]').getAttribute('href').split('/')[1];
+            selectedIds.push(id);
+          }
+        }
+
+        // Perform the delete action with the selected IDs
+        if (selectedIds.length > 0) {
+          var confirmed = confirm('Are you sure you want to delete the selected items?');
+          if (confirmed) {
+            // Use AJAX to send the delete request to the server
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/delete_multiple_fertilizers/', true); // Replace with the appropriate endpoint for deleting multiple items
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                  // Handle the response if needed
+                  window.location.reload(); // Refresh the page after successful deletion
+                } else {
+                  // Handle errors
+                  alert('Failed to delete selected items.');
+                }
+              }
+            };
+            xhr.send(JSON.stringify({ selectedIds: selectedIds }));
+          }
+        } else {
+          alert('No items selected.');
+        }
+      }
+
+      function performOperationOnSelected1() {
+        var rowCheckboxes = document.getElementsByClassName('rowCheckbox1');
+
+        // Collect the IDs of the selected rows
+        var selectedIds = [];
+        for (var i = 0; i < rowCheckboxes.length; i++) {
+          if (rowCheckboxes[i].checked) {
+            var row = rowCheckboxes[i].parentNode.parentNode;
+            var id = row.querySelector('a[href^="update/"]').getAttribute('href').split('/')[1];
+            selectedIds.push(id);
+          }
+        }
+
+        // Perform the desired operation with the selected IDs
+        if (selectedIds.length > 0) {
+          // You can customize this function to perform the desired operation on the selected items
+          // Example: Redirect to a specific endpoint with the selected IDs
+          window.location.href = '/perform_operation/' + selectedIds.join(',');
+        } else {
+          alert('No items selected.');
+        }
+      }
+          </script>    
+
+
+
+
+        <script>
+          // JavaScript variables to track current page and rows per page
+          let currentPage = 1;
+          const rowsPerPage = 15;
+
+          // Function to show the relevant rows for the current page
+          function showRowsByPage() {
+            const rows = document.getElementsByClassName('pagination-row');
+
+            // Calculate the starting and ending row indexes for the current page
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const endIndex = startIndex + rowsPerPage;
+
+            // Show or hide rows based on the current page
+            for (let i = 0; i < rows.length; i++) {
+              if (i >= startIndex && i < endIndex) {
+                rows[i].style.display = 'table-row';
+              } else {
+                rows[i].style.display = 'none';
+              }
+            }
+          }
+
+          // Function to show the next page
+          function showNextPage() {
+            const totalRows = document.getElementsByClassName('pagination-row').length;
+            const maxPage = Math.ceil(totalRows / rowsPerPage);
+
+            if (currentPage < maxPage) {
+              currentPage++;
+              showRowsByPage();
+            }
+          }
+
+          // Function to show the previous page
+          function showPrevPage() {
+            if (currentPage > 1) {
+              currentPage--;
+              showRowsByPage();
+            }
+          }
+
+          // Initial call to show the rows for the first page
+          showRowsByPage();
+        </script>
+
+
+
+        
+      </div>
+    </ul> 
+  </div>
+</div>
+</div>
+<script>
+  //Clear form field form1 and form2
+  function clearFormFields() {
+    var form = document.getElementById('myForm');
+    var inputs = form.getElementsByTagName('input');
+    var selects = form.getElementsByTagName('select');
+    var textareas = form.getElementsByTagName('textarea');
+
+    // Clear the form fields
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = '';
+    }
+
+    for (var i = 0; i < selects.length; i++) {
+      selects[i].selectedIndex = 0;
+    }
+
+    for (var i = 0; i < textareas.length; i++) {
+      textareas[i].value = '';
+    }
+
+    // Regenerate the CSRF token
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/regenerate_csrf_token/', true);  // Replace with your server-side endpoint for regenerating CSRF token
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var newToken = xhr.responseText;
+        // Update the CSRF token input field
+        var csrfInput = form.querySelector('input[name="csrfmiddlewaretoken"]');
+        if (csrfInput) {
+          csrfInput.value = newToken;
+        }
+      }
+    };
+    xhr.send();
+}
+
+  function clearFormFields1() {
+  var form = document.getElementById('myForm1');
+  var inputs = form.getElementsByTagName('input');
+  var selects = form.getElementsByTagName('select');
+  var textareas = form.getElementsByTagName('textarea');
+
+  // Clear the form fields
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].value = '';
+  }
+
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].selectedIndex = 0;
+  }
+
+  for (var i = 0; i < textareas.length; i++) {
+    textareas[i].value = '';
+  }
+
+  // Regenerate the CSRF token
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/regenerate_csrf_token/', true);  // Replace with your server-side endpoint for regenerating CSRF token
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      var newToken = xhr.responseText;
+      // Update the CSRF token input field
+      var csrfInput = form.querySelector('input[name="csrfmiddlewaretoken"]');
+      if (csrfInput) {
+        csrfInput.value = newToken;
+      }
+    }
+  };
+  xhr.send();
+}
+
+
+
+
+</script>
+
+
+<!-- Jquery to print to download pdf File from the table -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
+    $("body").on("click", "#btnExport1", function () {
+        html2canvas($('#myTable2')[0], {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("Fertilizer records.pdf");
+            }
+        });
+    });
+</script>
+
+
+<!-- Export data to excel file -->
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js">
 
 function ExportToExcel(type, fn, dl) {
@@ -212,6 +692,106 @@ function ExportToExcel(type, fn, dl) {
 </script>
 
 <script>
+
+
+
+
+window.onload = function() {
+  window.onload = clearFormFields1();
+}
+   
+
+const toggleButton = document.getElementById('toggleButtonadd');
+const formContainer = document.querySelector('.form-container');
+
+  toggleButton.addEventListener('click', () => {
+    if (formContainer.style.display === 'none') {
+      formContainer.style.display = 'block';
+    } else {
+      formContainer.style.display = 'none';
+    }
+  });
+
+
+  const dateInput = document.getElementById('dateInput');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.value = today;
+
+
+
+  const toggleButton1 = document.getElementById('toggleButton1');
+  const codeBlock = document.getElementById('codeBlock');
+
+  toggleButton1.addEventListener('click', () => {
+    if (codeBlock.style.display === 'none') {
+      codeBlock.style.display = 'block';
+    } else {
+      codeBlock.style.display = 'none';
+    }
+  });
+
+//Show or hide table upon button press
+
+
+// function toggleTable() {
+//     var table = document.getElementById("myTable2");
+//     if (table.style.display === "none") {
+//       table.style.display = "table"; // show the table
+//     } else {
+//       table.style.display = "none"; // hide the table
+//     }
+//   }
+
+
+
+  function showTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("dateInput");
+  filter = formatDate(input.value); // Convert date input value to desired format
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = formatDate(td.textContent || td.innerText); // Convert table date to desired format
+      if (txtValue === filter) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+// Helper function to format the date as "m/d/year"
+function formatDate(dateString) {
+  var date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric"
+  });
+}
+
+
+
+
+
+  // clear form on toLocaleDateString
+
+  window.onload = function() {
+    var form = document.getElementById("myForm");
+    form.reset();
+  };
+
+// Show function when the window loads
+  window.onload = function() {
+    toggleTable();
+    showTable();
+  };
 
 // Export table to excel
 function htmlTableToExcel(type, tableId) {
@@ -270,12 +850,11 @@ function myFunction() {
 }
 
 
-
 // Search table with Date
-function myFunction1() {
+function myFunction0() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput1");
+  input = document.getElementById("myInput3");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable2");
   tr = table.getElementsByTagName("tr");
@@ -294,6 +873,35 @@ function myFunction1() {
   }
 }
 
+
+// Search table within a date range
+function myFunction1() {
+  // Declare variables
+  var startDateInput, endDateInput, startDate, endDate, table, tr, td, i, txtValue;
+  startDateInput = document.getElementById("startDateInput");
+  endDateInput = document.getElementById("endDateInput");
+  startDate = startDateInput.valueAsDate; // Retrieve the start date value
+  endDate = endDateInput.valueAsDate; // Retrieve the end date value
+
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those that don't match the date range
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      // Retrieve the date from the table cell
+      var tableDate = new Date(td.textContent || td.innerText);
+
+      // Check if the table date is within the specified range
+      if (tableDate >= startDate && tableDate <= endDate) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
 
 // Search table with Fertilizer
 function myFunction2() {
@@ -470,13 +1078,17 @@ function sortTable(n) {
 
 // Insert numbers on table
 
-var table = document.getElementsByTagName('table')[0],
-  rows = table.getElementsByTagName('tr'),
-  text = 'textContent' in document ? 'textContent' : 'innerText';
+// var table = document.getElementsByTagName('table')[0],
+//   rows = table.getElementsByTagName('tr'),
+//   text = 'textContent' in document ? 'textContent' : 'innerText';
 
-for (var i = 1, len = rows.length; i < len; i++) {
-  rows[i].children[0][text] = i + rows[i].children[0][text];
-}
+// for (var i = 1, len = rows.length; i < len; i++) {
+//   rows[i].children[0][text] = i + rows[i].children[0][text];
+// }
+
+
+
+
 
 function sortListDir() {
   var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
@@ -529,7 +1141,5 @@ function sortListDir() {
   }
 }
 </script>
-</div>
-</div>
 
 {% endblock %}
