@@ -79,7 +79,7 @@ class Fertilizer_Amount(models.Model):
     ("Line 05", "Line 05"),
     ("Line 06", "Line 06"),
     )
-    Fertigation_line = models.CharField(max_length=255,db_index=True,
+    Fertigation_line = models.CharField(max_length=255,null=True,db_index=True,
                   choices=Fertigation_line_choices
                   )
     
