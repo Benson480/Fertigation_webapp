@@ -1,30 +1,305 @@
-<table id="myTable2" border="1">
-  <tr>
-    <th>No.</th>
-    <th>DATE</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Date" size="9" >
-    <th>ELEMENT</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
-    <th>REGIME PPM</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
-    <th>LAB PROPOSED PPM</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
-    <th>LAB VS REGIME</th>
-    <th>CHANGE</th>
-    <th>REMOVE</th>
-  </tr>
-{% for x in mymember %}
-<tr>
-      {% if x.Fertilizer is not None %}
-      <td>{{ "" }}</td>
-      <td>{{ x.Media}}</td>
-      <td>{{ x.Date}}</td>
-      <td>{{ x.Fertilizer }}</td>
-      <td>{{ x.Amount }}</td>
-      {% if x.total_cost is None %}
-        <td>{{ 0 }}</td>
-      {% else %}
-        <td>{{ x.total_cost }}</td>
-      {% endif %}
-      <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-      <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
-      {% endif %}
-</tr>     
-  {% endfor %}
-</table>
+{% extends "master.html" %}
+
+{% block title %}
+  Fertigation Dashboard
+{% endblock %}
+
+{% block styles %}
+<style>
+  /* Add your custom styles here */
+
+  /* Dashboard container */
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 20px;
+    padding: 20px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    background-color: #007f46;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar li {
+    margin-bottom: 10px;
+  }
+
+  .sidebar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+
+  /* Main content */
+  .content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  /* Charts */
+  .chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .chart {
+    flex-basis: calc(50% - 10px);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* Tables */
+  .table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Responsive Styles */
+  
+  @media screen and (max-width: 768px) {
+    .dashboard-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .chart {
+      flex-basis: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .sidebar {
+      padding: 10px;
+    }
+    
+    .sidebar h2 {
+      font-size: 16px;
+    }
+    
+    .chart-container {
+      flex-direction: column;
+    }
+    
+    .chart {
+      flex-basis: 100%;
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+    
+    .sidebar a.image-link {
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    .sidebar a.image-link img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .sidebar a.image-link span {
+      position: static;
+      transform: none;
+      font-size: 20px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container" style="height: 100%; width: 100%; display: flex;" >
+  <div class="sidebar">
+    <h2>Fertigation System Dashboard</h2>
+    <ul>
+      <a href="/Fertilizers" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 10px;">
+        <img src="https://www.agrifarming.in/wp-content/uploads/2022/01/Wheat-Farming-Make-You-Rich-1-1024x683.jpg" width="348px" height="200px" alt="FERTILIZER REGIME" title="FERTILIZER REGIME">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 0%, 100%, 0.918); font-size: 30px; font-weight: bold;">FERTILIZER REGIME</span>
+      </a>
+
+      <a href="/fertilizer_list" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px;  margin-right: 10px;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2rhL7UeBUrRlQXqAiiuOtt3bBYTnffWkeZPMqwde4wX5uQKPD9bMospNUKDUAPjVw0nQ&usqp=CAU" width="348px" height="200px" alt="Farm Management" title="FERTILIZER MANAGEMENT">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hwb(0 100% 0% / 0.918); font-size: 30px; font-weight: bold;">FERTILIZER MANAGEMENT</span>
+      </a>
+
+      <a href="/laboratory" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 00px">
+        <img src="https://media.istockphoto.com/id/842452752/photo/science-laboratory-research-and-development-concept-microscope-with-test-tubes.jpg?s=612x612&w=0&k=20&c=0EblrK4k06_uXYcL_y_ozzKPUqD0jwvXK2QUikO0Ut0=" width="348px" height="200px" alt="LABORATORY TEST" title="LABORATORY TEST">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #131010ea; font-size: 30px; font-weight: bold;">LABORATORY TEST</span>
+      </a>
+
+      <a href="/weather" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 00px">
+        <img src="https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/legacy/image/2019/Jun/PHOTO-dark%20and%20stormy%20cloudscape-istock-1125x534-Landscape.jpg" width="348px" height="200px" alt="WEATHER" title="WEATHER">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #ffffffea; font-size: 30px; font-weight: bold;">WEATHER</span>
+      </a>
+
+      <a href="/Fertlizer_dealers" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 00px">
+        <img src="https://img.freepik.com/free-photo/beautiful-terraced-rice-field-water-season-top-view-rices-paddy-fieldthailand-generative-ai_1258-153055.jpg" width="348px" height="200px" alt="FERTILIZER DEALERS" title="FERTILIZER DEALERS">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: rgba(255, 255, 255, 0.918); font-size: 30px; font-weight: bold;">FERTILIZER DEALERS</span>
+      </a>
+
+      <a href="/reports" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px;">
+        <img src="https://m.media-amazon.com/images/I/61tFP0dFIRL.jpg" width="348px" height="200px" alt="REPORTS" title="REPORTS">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 94%, 53%, 0.918); font-size: 40px; font-weight: bold;">REPORTS</span>
+      </a>
+      
+    </ul>
+  </div>
+</div>
+
+
+  <div class="content">
+    <h2>Fertigation System Dashboard</h2>
+    <div class="chart-container">
+      <div class="chart">
+        <canvas id="moistureChart"></canvas>
+      </div>
+      <div class="chart">
+        <canvas id="phChart"></canvas>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Moisture Level</th>
+            <th>pH Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2023-07-01</td>
+            <td>08:00 AM</td>
+            <td>45%</td>
+            <td>6.8</td>
+          </tr>
+          <tr>
+            <td>2023-07-01</td>
+            <td>12:00 PM</td>
+            <td>50%</td>
+            <td>7.2</td>
+          </tr>
+          <tr>
+            <td>2023-07-01</td>
+            <td>04:00 PM</td>
+            <td>48%</td>
+            <td>7.0</td>
+          </tr>
+          <!-- Add more rows with dynamic data -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Example data for charts
+  var moistureData = {
+    labels: ["8 AM", "12 PM", "4 PM"],
+    datasets: [{
+      label: "Moisture Level",
+      data: [45, 50, 48],
+      backgroundColor: "rgba(75, 192, 192, 0.2)",
+      borderColor: "rgba(75, 192, 192, 1)",
+      borderWidth: 1
+    }]
+  };
+
+  var pHData = {
+    labels: ["8 AM", "12 PM", "4 PM"],
+    datasets: [{
+      label: "pH Level",
+      data: [6.8, 7.2, 7.0],
+      backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderColor: "rgba(255, 99, 132, 1)",
+      borderWidth: 1
+    }]
+  };
+
+  // Get chart canvas elements
+  var moistureChartCanvas = document.getElementById("moistureChart").getContext("2d");
+  var pHChartCanvas = document.getElementById("phChart").getContext("2d");
+
+  // Create charts
+  var moistureChart = new Chart(moistureChartCanvas, {
+    type: "line",
+    data: moistureData,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  var pHChart = new Chart(pHChartCanvas, {
+    type: "line",
+    data: pHData,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+{% endblock %}

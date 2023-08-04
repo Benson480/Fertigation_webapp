@@ -15,6 +15,7 @@ import platform
 import os
 from myproject.redirect_middleware import LoginRequiredMiddleware
 from myproject.middleware import AutoLogoutMiddleware
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -225,6 +226,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     }
 }
 """
+
+# Get the current host name
+hostname = socket.gethostname()
+
+# Define the base URL for your development server
+DEV_SERVER_BASE_URL = 'http://127.0.0.1:8000'
+
+# Define the base URL for your production server
+PROD_SERVER_BASE_URL = 'https://www.pythonanywhere.com/'
+
+# Determine the current server based on the hostname
+if hostname == 'http://127.0.0.1:8000':
+    BASE_URL = DEV_SERVER_BASE_URL
+else:
+    BASE_URL = PROD_SERVER_BASE_URL
+
+
+
+
 
 # LOGIN_REDIRECT_URL = 'dasboard'
 # LOGOUT_REDIRECT_URL = 'login'
