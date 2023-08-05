@@ -12,6 +12,8 @@
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Upload</button>
+    <button style="background-color: hsl(177, 83%, 14%); color: #f0f0f7;" type="submit">Upload</button>
+    <button style="background-color: hsl(177, 83%, 14%); color: #f0f0f7;" onclick="window.location.href='/diagnosis';">Back</button>
+
   </form>
 {% endblock %}

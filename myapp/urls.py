@@ -28,6 +28,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('anouncement/', views.anouncement, name='anouncement'),
     path('contacts/', views.contacts, name='contacts'),
+    path('contact/', views.contact, name='contact'),
     path('prices/', views.prices, name='prices'),
     path('weather/', views.weather, name='index'),
     path('Fertlizer_dealers/', views.Fertlizer_dealers, name='Fertlizer_dealers'),
@@ -38,6 +39,6 @@ urlpatterns = [
     path('delete_multiple/', views.delete_multiple_items, name='delete_multiple_items'),
     path('delete_multiple_fertilizers/', views.delete_multiple_fertilizers, name='delete_multiple_fertilizers'),
     path('upload/', views.upload_image, name='upload_image'),
-    path('list/', views.image_list, name='image_list'),
+    path('diagnosis/', views.image_list, name='image_list'),
     
 ]

@@ -285,7 +285,17 @@ def anouncement(request):
   return HttpResponse(template.render())
 
 def contacts(request):
+  #This is the outer contacts page
   template = loader.get_template('contacts.html')
+  return HttpResponse(template.render())
+
+def support(request):
+  template = loader.get_template('contacts.html')
+  return HttpResponse(template.render())
+
+def contact(request):
+  """This is the inner file contact page"""
+  template = loader.get_template('innercontact.html')
   return HttpResponse(template.render())
 
 @login_required

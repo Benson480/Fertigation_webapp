@@ -1,19 +1,75 @@
 {% extends "master.html" %}
 
 {% block title %}
-  NUTRIENT DEFICIENCY
+  Diagnosis
 {% endblock %}
 
 {% block styles %}
+  <style>
+    /* Add some basic styles for the images */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
 
+    li {
+      display: inline-block;
+      margin: 10px;
+      width: calc(25% - 20px); /* Set the width for four items per row (25% - 20px margin) */
+      box-sizing: border-box; /* Include padding and border within the width calculation */
+    }
+
+    img {
+      max-width: 100px; /* Set the maximum width of the images */
+      max-height: 100px; /* Set the maximum height of the images */
+      border: 1px solid #ccc;
+    }
+
+    /* Add a container to limit the page width */
+    .container {
+      max-width: 800px; /* Set the maximum width for the container */
+      margin: 0 auto; /* Center the container on the page */
+      padding: 20px; /* Optional: Add some padding around the content */
+    }
+
+    /* Responsive styles */
+    @media (max-width: 600px) {
+      .container {
+        max-width: 100%; /* Set the container width to 100% on small screens */
+        padding: 10px; /* Adjust the padding on small screens */
+      }
+
+      li {
+        width: 100%; /* Set the width to 100% on small screens for a vertical layout */
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-  <h1>Uploaded Images</h1>
-  <div>
-  <ul>
-    {% for image in images %}
-      <img src="{{ image.image.url }}" alt="Uploaded Image">
-    {% endfor %}
-  </ul>
+  <div class="container">
+    <div class="headear" style="display: flex; margin-right: 20px;">
+      <h1><a href="#" style="padding: 20px; text-decoration: none; "> Uploaded Images</a></h1>
+      <h1><a href="/upload" style="color: green; float: right; margin-right: 100px;"> Add Images</a></h1>
+    </div>
+    <div>
+      {% if images %}
+        <ul>
+          {% for image in images %}
+          <ul class="horizontal-list" style=" display: inline-block; padding: 10px;">
+            <li>
+              <a href="{{ image.image.url }}" target="_blank" style="display: flex;">
+                <img src="{{ image.image.url }}" alt="Uploaded Image" height="200px" width="250px" >
+              </a>
+              <p>Uploaded on: {{ image.upload_date }}</p>
+              <!-- Add more information about the image if needed -->
+            </li>
+          </ul>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No images uploaded yet.</p>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}
