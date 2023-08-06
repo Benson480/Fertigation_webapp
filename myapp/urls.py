@@ -17,6 +17,7 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('Fertilizers/delete/<int:id>', views.delete, name='delete'),
     path('delete_fertilizers/<int:id>', views.delete_fertilizers, name='delete_fertilizers'),
+    path('deleteimages/<int:id>', views.deleteimages, name='deleteimages'),
     path('deleteprice/<int:id>', views.deleteprice, name='deleteprice'),
     path('elements/delete_elements/<int:id>', views.delete_elements, name='delete_elements'),
     path('fertilizer_list/delete/<int:id>', views.delete, name='delete'),

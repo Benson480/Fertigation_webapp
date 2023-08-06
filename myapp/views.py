@@ -355,4 +355,9 @@ def upload_image(request):
 def image_list(request):
     images = UploadedImage.objects.all()
     return render(request, 'image_list.html', {'images': images})
+
+def deleteimages(request, id):
+  member = UploadedImage.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("image_list"))
   

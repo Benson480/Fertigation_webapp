@@ -82,7 +82,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 # Configure the automatic logout time after inactivity (in seconds)
-AUTO_LOGOUT_TIME = 300  # 5 minutes (adjust the value as needed)
+AUTO_LOGOUT_TIME = 600  # 10 minutes (adjust the value as needed)
 
 # Configure Django Axes to track user activity for auto-logout
 AXES_KEEP_RECORD = True
