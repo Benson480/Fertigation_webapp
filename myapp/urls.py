@@ -41,5 +41,6 @@ urlpatterns = [
     path('delete_multiple_fertilizers/', views.delete_multiple_fertilizers, name='delete_multiple_fertilizers'),
     path('upload/', views.upload_image, name='upload_image'),
     path('diagnosis/', views.image_list, name='image_list'),
+    path('Fertilizers_recycle/', views.UvElements, name='Fertilizers_recycle'),
     
 ]

@@ -51,6 +51,7 @@ class Fertilizer_Detail(models.Model):
 
     def __str__(self):
         return str(self.Fertilizer)
+    
 
 
 class Fertilizer_Price(models.Model):
@@ -61,6 +62,7 @@ class Fertilizer_Price(models.Model):
     def __str__(self):
         return str(self.Fertilizer)
 
+
 class Fertilizer_Amount(models.Model):
     Date = models.DateField(null=True,db_index=True)
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
@@ -69,8 +71,7 @@ class Fertilizer_Amount(models.Model):
     H2O_m3_Per_Ha = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
     Tank_mix_Volume = models.FloatField(null=True,db_index=True)
-
-
+    Observation = models.TextField(max_length=100, null=True, db_index=True, blank=True)
     Fertigation_line_choices = (
     ("Line 01", "Line 01"),
     ("Line 02", "Line 02"),
@@ -108,7 +109,6 @@ class Fertilizer_Amount(models.Model):
                 # updated_price = a.price_Usd[:-1]
                 fertcost = a.price_Usd * self.Amount
                 return str(fertcost)
-            
 
     @property
     def Grams_Per_m3(self):
@@ -161,6 +161,34 @@ class Fertilizer_Amount(models.Model):
             'Injection_ratio' : 'N/A',
         }
       
+class Fertilizer_Recycle(models.Model):
+    Date = models.DateField(null=True,db_index=True)
+    ELEMENT_CHOICES = (
+        ("Nitrate", "Nitrate [NO3N]"),
+        ("Phosphorus", "Phosphorus [P]"),
+        ("Potassium", "Potassium [K]"),
+        ("Calcium", "Cacium [Ca]"),
+        ("Magnesium",  "Magnesium [Mg]"),
+        ("Sulphur", "Sulphur [S]"),
+        ("Ammoniacal N", "Ammoniacal N [NH4N]"),
+        ("Iron", "Iron [Fe]"),
+        ("Manganese", "Manganese [Mn]"),
+        ("Copper", "Copper [Cu]"),
+        ("Boron", "Boron [B]"),
+        ("Zinc", "Zinc [Zn]"), 
+        ("Molybdenum", "Molybdenum [Mo]"),
+        )
+    Uv_Element       = models.CharField(max_length=200, choices=ELEMENT_CHOICES,db_index=True,null=True,blank=True)
+    Uv_PPM     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
+
+    @property
+    def UvElements(self):
+        getUvPercent = Fertilizer_Amount.objects.all()
+        for elements in getUvPercent:
+            percentConstant = 100
+            UvPercent = round(self.Uv_PPM * elements.UV_percent / percentConstant,2)
+            return str(UvPercent)   
+
 
 #Testing Models
 class Fertilizer_Cost(models.Model):

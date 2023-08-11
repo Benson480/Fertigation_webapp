@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse
 from django.template import loader
 from .models import (Fertilizer, Fertilizer_Detail, 
-Fertilizer_Element, Fertilizer_Amount, Fertilizer_Price, Fertilizer_Cost, UploadedImage)
+Fertilizer_Element, Fertilizer_Amount, Fertilizer_Price, Fertilizer_Cost, UploadedImage, Fertilizer_Recycle)
 from django.db.models import Q
 from .forms import NewUserForm
 from django.contrib.auth import login
@@ -13,7 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import Sum
 import itertools
 from .forms import (Fertilizer_AmountForm, DeleteFertilizerForm, Fertilizer_PricesForm, 
-                    Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm)
+                    Fertilizer_ElementsForm, Fertilizer_Form, ImageUploadForm, Fertilizer_Recycle_Form)
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -149,6 +149,26 @@ def Fertilizers(request):
 
     return render(request, "Fertilizers.html", context)
 
+
+@login_required #(redirect_to='/login/')
+def UvElements(request):
+    context ={}
+ 
+    # create object of form
+    mymember = Fertilizer_Recycle.objects.all()
+    fertform = Fertilizer_Recycle_Form(request.POST or None, request.FILES or None)
+    # check if form data is valid
+    if fertform.is_valid():
+        # save the form data to model
+        fertform.save()
+    context = {
+    'form':fertform,
+    'mymember': mymember,
+  }
+    if request.user.is_authenticated:
+      request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
+
+    return render(request, "UvElements.html", context)
 
 @csrf_protect
 @login_required   

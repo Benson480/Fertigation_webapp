@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price, Fertilizer_Element, Fertilizer, UploadedImage
+from .models import (Fertilizer_Amount, Fertilizer_Cost, Fertilizer_Price, Fertilizer_Element,
+                      Fertilizer, UploadedImage, Fertilizer_Recycle)
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 
@@ -30,13 +31,17 @@ class DateInput(forms.DateInput):
 # create a ModelForm
 class Fertilizer_AmountForm(forms.ModelForm):
     # Date = forms.DateField(input_formats=['%d-%m-%Y'])
+    Observation = forms.CharField(
+        required=False,
+        label="Observation",
+        widget=forms.Textarea(attrs={'placeholder': "", 'rows': 3, 'cols': 40}))
     Amount = forms.DecimalField(required=True,label= "amount", widget=forms.NumberInput(attrs={'placeholder': 0}))
     Tank_mix_Volume = forms.DecimalField(required=True,label= "Tank_mix_Volume", widget=forms.NumberInput(attrs={'placeholder': 1000}))
     class Meta:
         model = Fertilizer_Amount
         model2 = Fertilizer_Cost
         fields = ['Date', 'H2O_m3_Per_Ha', 'UV_percent', 'Tank_mix_Volume','Fertilizer',
-	     'Amount', 'Media','Area_Ha', 'Fertigation_line']
+	     'Amount', 'Media','Area_Ha', 'Fertigation_line', 'Observation']
         widgets = {
             'Date': DateInput(),
 	    
@@ -104,6 +109,16 @@ class Fertilizer_Form(forms.ModelForm):
 			'Date': DateInput(),
 			
 		}
+
+class Fertilizer_Recycle_Form(forms.ModelForm):
+	# specify the name of model to use
+	class Meta:
+		model = Fertilizer_Recycle
+		fields = ['Date','Uv_Element', 'Uv_PPM']
+		widgets = {
+			'Date': DateInput(),
+			
+		}               
 
 class DeleteFertilizerForm(forms.ModelForm):
     class Meta:
