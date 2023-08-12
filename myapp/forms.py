@@ -35,13 +35,13 @@ class Fertilizer_AmountForm(forms.ModelForm):
         required=False,
         label="Observation",
         widget=forms.Textarea(attrs={'placeholder': "", 'rows': 3, 'cols': 40}))
-    Amount = forms.DecimalField(required=True,label= "amount", widget=forms.NumberInput(attrs={'placeholder': 0}))
+    Fertilizer_Amount = forms.DecimalField(required=True,label= "Fertilizer Amount", widget=forms.NumberInput(attrs={'placeholder': 0}))
     Tank_mix_Volume = forms.DecimalField(required=True,label= "Tank_mix_Volume", widget=forms.NumberInput(attrs={'placeholder': 1000}))
     class Meta:
         model = Fertilizer_Amount
         model2 = Fertilizer_Cost
         fields = ['Date', 'H2O_m3_Per_Ha', 'UV_percent', 'Tank_mix_Volume','Fertilizer',
-	     'Amount', 'Media','Area_Ha', 'Fertigation_line', 'Observation']
+	     'Fertilizer_Amount', 'Media','Area_Ha', 'Fertigation_line', 'Observation']
         widgets = {
             'Date': DateInput(),
 	    
@@ -94,7 +94,7 @@ class Fertilizer_PricesForm(forms.ModelForm):
 	price_Usd = forms.DecimalField(required=True,label= "price_Usd", widget=forms.NumberInput(attrs={'placeholder': 0}))
 	class Meta:
 		model = Fertilizer_Price
-		fields = ['Date', 'Fertilizer', 'price_Usd']
+		fields = ['Date', 'Fertilizer','Unit_Of_Measure', 'price_Usd']
 		widgets = {
 			'Date': DateInput(),
 			

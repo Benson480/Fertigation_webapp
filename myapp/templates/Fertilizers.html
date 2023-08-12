@@ -160,6 +160,7 @@
     padding: 20px;
     border-radius: 5px;
   }
+  
 </style>
 
 
@@ -173,7 +174,8 @@
 <div class="container" style="height: 100%; display: flex; ">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <div class="form-container" style="float: left; background-color: bisque; width: 41%; padding: 10px; text-align: left;">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <div class="form-container" style="float: left; background-color: bisque; width: 38%; padding: 10px; text-align: left;">
     <form method="POST" class="post-form" action="{% url 'Fertilizers' %}" id="myForm" style="padding: 5px;">
       {% csrf_token %}
       <h1>Fertilizers Amount</h1>
@@ -266,12 +268,12 @@
       </p>
       
       <p>
-        {% if form.Amount.help_text %}
-        <small>{{ form.Amount.help_text }}</small>
+        {% if form.Fertilizer_Amount.help_text %}
+        <small>{{ form.Fertilizer_Amount.help_text }}</small>
         {% endif %}
-        {{ form.Amount.label_tag }}*
-        {{ form.Amount }} 
-        {% for error in form.Amount.errors %}
+        {{ form.Fertilizer_Amount.label_tag }}*
+        {{ form.Fertilizer_Amount }} 
+        {% for error in form.Fertilizer_Amount.errors %}
         <span class="error">{{ error }}</span>
         {% endfor %}
       </p>
@@ -281,13 +283,30 @@
         <small>{{ form.Observation.help_text }}</small>
         {% endif %}
         {{ form.Observation.label_tag }}*
-        <div class="small-textfield-wrapper" style="width: 100px;">
+        <div class="small-textfield-wrapper">
           {{ form.Observation }}
         </div>
         {% for error in form.Observation.errors %}
         <span class="error">{{ error }}</span>
         {% endfor %}
       </p>
+      <style>
+        .small-textfield-wrapper {
+          width: 100%;
+          box-sizing: border-box;
+        }
+      
+        @media (max-width: 768px) {
+          /* Adjust the maximum width and height for smaller screens */
+          .small-textfield-wrapper {
+            width: 100%;
+            max-width: 200px; /* Adjust as needed */
+            max-height: 100px; /* Adjust as needed */
+            overflow-y: auto;
+          }
+        }
+      </style>
+      
         
       
       <p>
@@ -300,7 +319,7 @@
     </form>
   </div>
 <div style="overflow-x: auto; overflow-y: auto;">
-  <div class="table-container" style="float: right; background-color: #d4fdfd; width: 100%; height: auto; padding: 0px 0px 5px 25px; text-align: center;">
+  <div class="table-container" style="float: right; background-color: #d4fdfd; width: 100%; height: auto; padding: 0px 0px 5px 20px; text-align: center;">
 
     <h1>Fertilizers records</h1>
     
@@ -349,6 +368,7 @@
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Media" size="15">
             <th>MACHINE INJECTION</th>
             <th>FERTILIZER</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
+            <th>U/M</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Fertilizer" size="13.5">
             <th>AMOUNT</th><input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search Am.." size="5">
             <th>COST USD</th>
             <th>OBSERVATION</th>
@@ -365,7 +385,8 @@
             <td>{{ x.Media }}</td>
             <td>{{ x.Grams_Per_m3.Injection_ratio }}</td>
             <td>{{ x.Fertilizer }}</td>
-            <td>{{ x.Amount }}</td>
+            <td>{{ x.UnitOfMeasure }}</td>
+            <td>{{ x.Fertilizer_Amount }}</td>
             {% if x.total_cost is None %}
               <td>{{ 0 }}</td>
             {% else %}
@@ -387,13 +408,14 @@
         
     <button onclick="deleteSelectedItems()">Delete Selected</button>
     <button onclick="performOperationOnSelected()">Perform Operation on Selected</button>
+    <button id="exportButton">Export to Excel</button>
     <div id="paginationButtons">
       <button onclick="showPreviousPage1()">Previous</button>
       <button onclick="showNextPage1()">Next</button>
     </div>
     
     <script>
-      const itemsPerPage = 15;
+      const itemsPerPage = 10;
       let currentPaginationPage = 1;
       const tableRows = document.querySelectorAll("#myTable2 tr");
 
@@ -514,11 +536,11 @@
           }
         }
         
+        // Your existing code for performing operations on selected items
         function performOperationOnSelected() {
           var rowCheckboxes = document.getElementsByClassName('rowCheckbox');
-        
-          // Collect the IDs of the selected rows
           var selectedIds = [];
+
           for (var i = 0; i < rowCheckboxes.length; i++) {
             if (rowCheckboxes[i].checked) {
               var row = rowCheckboxes[i].parentNode.parentNode;
@@ -526,16 +548,42 @@
               selectedIds.push(id);
             }
           }
-        
-          // Perform the desired operation with the selected IDs
+
           if (selectedIds.length > 0) {
-            // You can customize this function to perform the desired operation on the selected items
-            // Example: Redirect to a specific endpoint with the selected IDs
             window.location.href = '/perform_operation/' + selectedIds.join(',');
           } else {
             alert('No items selected.');
           }
         }
+
+        // Function to handle exporting to Excel
+        function exportToExcel(selectedIds) {
+          // You would need to implement Excel generation here using a library like xlsx.js
+          // This is a simplified example just for demonstration purposes
+          var excelData = "ID,Name,Description\n";
+
+          for (var i = 0; i < selectedIds.length; i++) {
+            // Replace this with your data retrieval logic
+            var id = selectedIds[i];
+            var name = "Item " + id;
+            var description = "Description of Item " + id;
+            excelData += id + "," + name + "," + description + "\n";
+          }
+
+          // Create a Blob and trigger the download
+          var blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = 'selected_data.xlsx';
+          link.click();
+        }
+
+        // Add a click event listener to the "Export to Excel" button
+        document.getElementById('exportButton').addEventListener('click', function () {
+          performOperationOnSelected(); // Call your existing function to get selected IDs
+          exportToExcel(selectedIds); // Call the function to export to Excel
+        });
+
         </script>   
         
         

@@ -197,18 +197,27 @@
           {% for error in form.Fertilizer.errors %}
           <span style="color: red">{{ error }}</span>
           {% endfor %}
-  </p>
-
-  <p>
-    {% if form.price_Usd.help_text %}
-        <small style="color: grey">{{ form.price_Usd.help_text }}</small>
+      </p>
+      <p>
+        {% if form.Unit_Of_Measure.help_text %}
+        <small style="color: grey">{{ form.Unit_Of_Measure.help_text }}</small>
         {% endif %}
-        {{ form.price_Usd.label_tag }}*
-        {{ form.price_Usd }} 
-        {% for error in form.price_Usd.errors %}
+        {{ form.Unit_Of_Measure.label_tag }}*
+        {{ form.Unit_Of_Measure }} 
+        {% for error in form.Unit_Of_Measure.errors %}
         <span style="color: red">{{ error }}</span>
         {% endfor %}
-      </p>
+    </p>
+    <p>
+      {% if form.price_Usd.help_text %}
+          <small style="color: grey">{{ form.price_Usd.help_text }}</small>
+          {% endif %}
+          {{ form.price_Usd.label_tag }}*
+          {{ form.price_Usd }} 
+          {% for error in form.price_Usd.errors %}
+          <span style="color: red">{{ error }}</span>
+          {% endfor %}
+        </p>
     <p>
         <button style="background-color: yellow;" type="submit" class="save btn btn-default">Save</button>
         <button style="background-color: hwb(241 5% 63%); color: hsl(0, 0%, 99%);" onclick="window.location.href='/dashboard';">Back</button>
@@ -255,6 +264,7 @@
           <tr>
             <th>DATE</th><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Date" size="14" >
             <th>FERTILIZER</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Fertilizer" size="13">
+            <th title="UNIT OF MEASURE">U/M</th><input type="text" id="myInput1" onkeyup="myFunction1()" placeholder="Search Fertilizer" size="13">
             <th>PRICE USD</th><input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search Price" size="3">
             <th>CHANGE</th>
             <th>REMOVE</th>
@@ -264,6 +274,11 @@
               {% if x.Fertilizer is not None %}
               <td>{{ x.Date|date:"m/d/Y" }}</td>
               <td>{{ x.Fertilizer }}</td>
+              {% if x.Unit_Of_Measure is None %}
+              <td>{{ "" }}</td>
+              {% else %}
+                <td>{{ x.Unit_Of_Measure }}</td>
+              {% endif %}
               <td>{{ x.price_Usd }}</td>
               <td><a style="color: green;" href="/update/{{ x.id }}">Edit</a></td>
               <td><a style="color: red;" href="/deleteprice/{{ x.id }}">Delete</a></td>
