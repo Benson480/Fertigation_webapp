@@ -82,3 +82,10 @@ AI KEY
 
 
 git clone https://TOKEN@github.com/username/repository.git
+
+
+
+Clear AXES Data: If you're testing and encountering these issues during development, you might want to clear the AXES data to reset the login attempts. Run the following command:
+
+Copy code
+python manage.py axes_reset

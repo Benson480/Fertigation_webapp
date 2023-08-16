@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'myapp',
     'crispy_forms',
     'crispy_bootstrap4',
-    # 'calculation',
     'widget_tweaks'
 ]
 
@@ -86,8 +85,12 @@ AUTO_LOGOUT_TIME = 600  # 10 minutes (adjust the value as needed)
 
 # Configure Django Axes to track user activity for auto-logout
 AXES_KEEP_RECORD = True
-AXES_LOCK_OUT_AT_FAILURE = False
-
+AXES_FAILURE_LIMIT = 5  # Number of allowed failures before blocking
+AXES_COOLOFF_TIME = 1   # Time period (in hours) before login attempts reset
+AXES_LOCK_OUT_AT_FAILURE = 10 #The number of failed login attempts after which a user's account is locked. 
+AXES_MAX_FAILURES = 30 #Maximum number of failed login attempts allowed before locking out the user.
+AXES_RESET_ON_SUCCESS = True #Reset
+AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = False #
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -118,22 +121,9 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 if platform.system() == 'Windows':
     DATABASES = {
         'default': {
-            # 'ENGINE': 'django.db.backends.mysql',
-            # 'NAME': 'fertppm$fertdatabase',
-            # 'USER': 'fertppm',
-            # 'PASSWORD': 'Sulu5542',
-            # 'HOST': 'fertppm.mysql.pythonanywhere-services.com',
-            # 'PORT': '3306',
-
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
 
-            # 'ENGINE': 'django.db.backends.postgresql',
-            # 'NAME': 'postgres',
-            # 'USER': 'masteruser',
-            # 'PASSWORD': 'Sulu5542',
-            # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
-            # 'PORT': '5432',
         }
     }
 elif platform.system() == 'Linux':
@@ -146,15 +136,6 @@ elif platform.system() == 'Linux':
             'HOST': 'fertppm.mysql.pythonanywhere-services.com',
             'PORT': '3306',
 
-            # 'ENGINE': 'django.db.backends.sqlite3',
-            # 'NAME': BASE_DIR / 'db.sqlite3',
-
-            # 'ENGINE': 'django.db.backends.postgresql',
-            # 'NAME': 'postgres',
-            # 'USER': 'masteruser',
-            # 'PASSWORD': 'Sulu5542',
-            # 'HOST': 'fertigation-project.cf7k6d2wcc3q.us-west-2.rds.amazonaws.com',
-            # 'PORT': '5432',
         }
     }
 
@@ -193,19 +174,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = '/mystaticfiles/'
-# STATIC_ROOT = BASE_DIR / 'productionfiles'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'mystaticfiles',
-# ]
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "mystaticfiles"),
@@ -256,7 +230,7 @@ SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 
-# ADMIN_LOGO = 'FERTPPM.jpeg'
+ADMIN_LOGO = 'FERTPPM.jpeg'
 MENU_WEIGHT = {
     'World': 20,
     'Auth': 4,

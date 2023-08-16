@@ -304,6 +304,9 @@
     }
 </style>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/175df408b4.js" crossorigin="anonymous"></script>
+
 
   <!-- Include jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -348,25 +351,151 @@
         </div>
       </nav>
 
-      <!-- login section -->
-      <div class="main-container">
-        <div class="login_section">
-          <div class="col-md-6">
-            <div class="login_area" style="background-color: hsl(0, 12%, 95%); color: #000000; font-size: large; margin-bottom: 20px;">
-              <form action="" method="post" style="color: #000;">
-                <h3 class="signup" style="color: #244c0c; display: flex; background-color: #ced4da;">Log in or Sign Up Here</h3>
-                <ul style="color: #000000;">
-                  {% csrf_token %}
-                  {{form.as_p}}
-                  <li>
-                    <button type="submit" style="color: #ffffff; background-color: rgb(6, 69, 68);">Sign in</button>
-                  </li>
-                  <h5>or</h5>
-                  <a href="/accounts/register" style="color: #ffffff; background-color: blue; font-weight: bold; font-size: larger;">Sign up</a>
-                </ul>
-              </form>
+      <section class="login_section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="login_area">
+                        <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
+                        <form action="" method="post">
+                            <h3 class="signup" style="color: white; text-align: center;">Sign in to your Account</h3>
+                            <h5 class="direct" style="color: white; text-align: center;">Register if you dont have a login account</h5>
+                            <ul>
+                                {% csrf_token %}
+                                {{ login_form.username.label_tag }} {{ login_form.username }}
+                                <div class="password-field">
+                                    <label for="{{ login_form.password.id_for_label }}">
+                                        {{ login_form.password.label_tag }}
+                                    </label>
+                                    {{ login_form.password }}
+                                    <button type="button" id="showPasswordToggle" onclick="togglePasswordVisibility()" title="Show Password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <li class="button" style="text-align: left; background-color: orange;">
+                                    <button type="submit" style="text-align: left; background-color: orange; color: white; font-weight: bold; font-family:Georgia, 
+                                    'Times New Roman', Times, serif;" title="Please Login Here">Log In</button>
+                                </li>
+                            </ul>
+                        </form>
+                        {% if login_form.errors %}
+                            <div class="error-message" style="color: rgb(185, 8, 8);">
+                                <p>Login not successful. Please try again.</p>
+                            </div>
+                        {% endif %}
+                        <div>
+                            <h5>Dont Have An Account ?</h5>
+                            <button id="showSignup" style="color: hsl(0, 0%, 100%); background-color: blue;" title="Register Here">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
+    
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
+            const passwordToggle = document.getElementById("showPasswordToggle");
+    
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+    </script>
+  
+    
+    <section class="signup_section" style="display: none;">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                  <div class="login_area">
+                      <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
+                      <h3 class="signup" style="color: #fff; text-align: center;">Register Here</h3>
+                      <h5 class="question" style="text-align: center;">Already Have An Account?
+                        <a href="/login" style="color: #8c97ff;">LogIn</a>
+                      </h5>
+                      <form method="post">
+                          {% csrf_token %}
+                          {% for field in signup_form %}
+                              <div class="form-group">
+                                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                  <div class="input-group">
+                                      {% if field.name != 'username' and field.name != 'email' %}
+                                          <input type="{{ field.field.widget.input_type }}"
+                                                 class="form-control"
+                                                 id="{{ field.id_for_label }}"
+                                                 name="{{ field.html_name }}"
+                                                 placeholder="{{ field.label }}"
+                                                 {% if field.field.required %} required{% endif %}>
+                                          <div class="input-group-append">
+                                              <button class="btn btn-outline-secondary toggle-password-button" type="button">
+                                                  <i class="fas fa-eye"></i>
+                                              </button>
+                                          </div>
+                                      {% else %}
+                                          <input type="{{ field.field.widget.input_type }}"
+                                                 class="form-control"
+                                                 id="{{ field.id_for_label }}"
+                                                 name="{{ field.html_name }}"
+                                                 placeholder="{{ field.label }}"
+                                                 {% if field.field.required %} required{% endif %}>
+                                      {% endif %}
+                                  </div>
+                                  {% if signup_form.errors %}
+                                      {% for error in field.errors %}
+                                          <div class="error-message">{{ error }}</div>
+                                      {% endfor %}
+                                  {% endif %}
+                              </div>
+                          {% endfor %}
+                          <button type="submit">Sign Up</button>
+                      </form>
+                  </div>
+              </div>
           </div>
+      </div>
+  </section>
+  
+  
+  <script>
+      const toggleButtons = document.querySelectorAll(".toggle-password-button");
+  
+      toggleButtons.forEach(button => {
+          button.addEventListener("click", function () {
+              const passwordInput = button.closest(".input-group").querySelector("input");
+              if (passwordInput.type === "password") {
+                  passwordInput.type = "text";
+                  button.innerHTML = '<i class="fas fa-eye-slash"></i>';
+              } else {
+                  passwordInput.type = "password";
+                  button.innerHTML = '<i class="fas fa-eye"></i>';
+              }
+          });
+      });
+  </script>
+  
+  
+    
+    <script>
+        document.getElementById("showSignup").addEventListener("click", function() {
+            document.querySelector(".login_section").style.display = "none";
+            document.querySelector(".signup_section").style.display = "block";
+        });
+    
+        function togglePassword() {
+            const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
+            const showCheckbox = document.getElementById("{{ login_form.password.id_for_label }}_show");
+    
+            passwordInput.type = showCheckbox.checked ? "text" : "password";
+        }
+    </script>
+    
+      
           <div>
             <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width: 100%;" height="40%">
             <h5>We Provide the Best Plant Nutritional Ideas</h5>

@@ -196,24 +196,29 @@
           <div class="row justify-content-center"> <!-- Center the login area horizontally -->
             <div class="col-md-6">
               <div class="login_area">
-                <form action="" method="post">
-                  <h3 class="signup">Sign Up Here</h3>
-                  <p>Already have an account? Please <a href='/login'>Login</a></p>
-                  <ul>
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <li class="button">
-                      <button type="submit">Sign in</button>
-                    </li>
-                  </ul>
-                </form>
+                <form method="post">
+                  {% csrf_token %}
+                  {{ signup_form.as_p }}
+                  <button type="submit">Sign Up</button>
+              </form>
+              
+              {% if signup_form.errors %}
+                  <div class="error-message">
+                      <p>There was an error with your submission:</p>
+                      <ul>
+                          {% for field in signup_form %}
+                              {% if field.errors %}
+                                  <li>{{ field.label }}: {{ field.errors|join:", " }}</li>
+                              {% endif %}
+                          {% endfor %}
+                      </ul>
+                  </div>
+              {% endif %}
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
-  </section>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
