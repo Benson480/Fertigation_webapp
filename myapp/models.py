@@ -85,7 +85,7 @@ class Fertilizer_Amount(models.Model):
     H2O_m3_Per_Ha = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
     Tank_mix_Volume = models.FloatField(null=True,db_index=True)
-    Observation = models.TextField(max_length=100, null=True, db_index=True, blank=True)
+    Observation = models.TextField(max_length=100, null=True, blank=True)
     Fertigation_line_choices = (
     ("Line 01", "Line 01"),
     ("Line 02", "Line 02"),
