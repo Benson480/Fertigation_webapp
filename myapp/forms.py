@@ -147,4 +147,4 @@ class DeleteFertilizerForm(forms.ModelForm):
 class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = UploadedImage
-        fields = ['image', 'about_Image']
+        fields = ['image', 'about_Image', 'title']

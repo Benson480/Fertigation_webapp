@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models.functions import Coalesce
+from django.template.defaultfilters import wordwrap
+import textwrap
 
 # Create your models here.
 
@@ -85,7 +87,7 @@ class Fertilizer_Amount(models.Model):
     H2O_m3_Per_Ha = models.FloatField(null=True,db_index=True)
     UV_percent = models.FloatField(null=True,db_index=True)
     Tank_mix_Volume = models.FloatField(null=True,db_index=True)
-    Observation = models.TextField(max_length=100, null=True, blank=True)
+    Observation = models.TextField(max_length=255, null=True, blank=True)
     Fertigation_line_choices = (
     ("Line 01", "Line 01"),
     ("Line 02", "Line 02"),
@@ -232,7 +234,14 @@ class Fertilizer_Cost(models.Model):
 class UploadedImage(models.Model):
     image = models.ImageField(upload_to='images/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    about_Image = models.TextField(max_length=200, null=True, db_index=True, blank=True)
+    title = models.CharField(max_length=200, null=True, db_index=True, blank=True)
+    about_Image = models.TextField(max_length=255, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        # Wrap the about_Image text before saving
+        if self.about_Image:
+            self.about_Image = textwrap.fill(self.about_Image, width=40)
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Image uploaded at {self.uploaded_at}"   
+        return f"Image uploaded at {self.uploaded_at}"
