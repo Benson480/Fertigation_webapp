@@ -105,7 +105,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             login(request, user)
             messages.success(request, 'Signup successful. You are now logged in.')
-            return redirect('dashboard')
+            return redirect('login')
     else:
         messages.error(request, 'Signup form is invalid. Please correct the errors.')
 

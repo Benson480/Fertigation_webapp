@@ -359,23 +359,24 @@
                         <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
                         <form action="" method="post">
                             <h3 class="signup" style="color: white; text-align: center;">Sign in to your Account</h3>
-                            <h5 class="direct" style="color: white; text-align: center;">Register if you dont have a login account</h5>
                             <ul>
                                 {% csrf_token %}
                                 {{ login_form.username.label_tag }} {{ login_form.username }}
-                                <div class="password-field">
                                     <label for="{{ login_form.password.id_for_label }}">
                                         {{ login_form.password.label_tag }}
                                     </label>
+                                    <div class="password-field">
                                     {{ login_form.password }}
-                                    <button type="button" id="showPasswordToggle" onclick="togglePasswordVisibility()" title="Show Password">
-                                        <i class="fas fa-eye"></i>
+                                    <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password">
+                                        <i class="fas fa-eye" style="background-color: #fff;"></i>
                                     </button>
-                                </div>
-                                <li class="button" style="text-align: left; background-color: orange;">
-                                    <button type="submit" style="text-align: left; background-color: orange; color: white; font-weight: bold; font-family:Georgia, 
+                                    </div>
+                                    <div>
+                                    <a class="forgotpassword" href="#" target="_blank" title="Forgot Password" style="color: white;">Forgot your password?</a>
+                                  </div>
+                                    <button type="submit" style="text-align: center; align-items: center; background-color: blue; color: white; font-weight: bold; font-family:Georgia, 
                                     'Times New Roman', Times, serif;" title="Please Login Here">Log In</button>
-                                </li>
+
                             </ul>
                         </form>
                         {% if login_form.errors %}
@@ -384,14 +385,31 @@
                             </div>
                         {% endif %}
                         <div>
-                            <h5>Dont Have An Account ?</h5>
-                            <button id="showSignup" style="color: hsl(0, 0%, 100%); background-color: blue;" title="Register Here">Sign Up</button>
+                            <h5>Dont Have An Account ? Register 
+                              <button id="showSignup" style="color: hsl(0, 0%, 1%); background-color: rgb(204, 204, 240); background-size: 5px;" title="Register Here">Here</button>
+                            </h5>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
+    <style>
+        .password-field {
+            display: flex;
+            align-items: center;
+        }
+    
+        .password-toggle-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+    </style>
+    
     
     <script>
         function togglePasswordVisibility() {
@@ -453,7 +471,7 @@
                                   {% endif %}
                               </div>
                           {% endfor %}
-                          <button type="submit">Sign Up</button>
+                          <button type="submit" style="background-color: blue; color: white; font-weight: bold;">Sign Up</button>
                       </form>
                   </div>
               </div>
