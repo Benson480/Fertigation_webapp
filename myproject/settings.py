@@ -63,9 +63,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Static file handling
     'django.middleware.security.SecurityMiddleware',  # Security-related headers
     'django.contrib.sessions.middleware.SessionMiddleware',  # Session management
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # User authentication
     'django.middleware.common.CommonMiddleware',  # Common processing (e.g., URL handling)
     'django.middleware.csrf.CsrfViewMiddleware',  # CSRF protection
-    'django.contrib.auth.middleware.AuthenticationMiddleware',  # User authentication
     'myproject.redirect_middleware.LoginRequiredMiddleware',  # Your custom middleware (Authentication-related?)
     'axes.middleware.AxesMiddleware',  # IP blocking for suspicious login attempts
     'myproject.middleware.AutoLogoutMiddleware',  # Automatic logout after inactivity
@@ -94,10 +94,17 @@ AXES_RESET_COOL_OFF_ON_FAILURE_DURING_LOCKOUT = False #
 
 ROOT_URLCONF = 'myproject.urls'
 
+
+LOGIN_EXEMPT_URLS = [
+    r'^about/$',         # URL patterns that should be exempt from authentication
+    r'^anouncement/$',
+    r'^contacts/$',
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,6 +120,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bensonmwangi101@gmail.com'  # Use your Gmail email address
+EMAIL_HOST_PASSWORD = 'Sulu5542'     # Use your Gmail password or app-specific password
+
 
 
 # Database

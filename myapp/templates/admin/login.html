@@ -222,7 +222,7 @@
         top: 60px;
         left: 0;
         right: 0;
-        background-color: rgb(255, 255, 255);
+        background-color: white;
       }
 
       .navbar-nav {
@@ -318,42 +318,16 @@
   <section class="image-section" id="title">
     <div class="container-fluid">
       <!-- navbar -->
-      <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar" style="align-items: center;">
+      <nav class="navbar navbar-expand-lg bg-transparent fixed-navbar">
         <div class="container">
-          <img class="logo-img" style="width: 80px; height: 90px; padding: 10px;"  src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
-          
-          <style>
-            .navbar-brand {
-              transition: 0.5s;
-            }
-          </style>
+          <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
           <a class="navbar-brand" href="#">FERTPPM</a>
-          <script>
-            document.addEventListener("DOMContentLoaded", function() {
-              const navbarBrand = document.querySelector(".navbar-brand");
-              const colors = ["red", "blue", "green", "purple", "orange"];
-              const fonts = ["Arial", "Times New Roman", "Verdana", "Courier New", "Georgia"];
-              let colorIndex = 0;
-              let fontIndex = 0;
-        
-              function updateStyle() {
-                navbarBrand.style.color = colors[colorIndex];
-                navbarBrand.style.fontFamily = fonts[fontIndex];
-                
-                colorIndex = (colorIndex + 1) % colors.length;
-                fontIndex = (fontIndex + 1) % fonts.length;
-              }
-        
-              setInterval(updateStyle, 2000);
-            });
-          </script>
-
-          <button class="navbar-toggler" style="background-color: white; text-align: center;" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             Menu
           </button>
-          <div class="collapse navbar-collapse" style="background-color: rgb(231, 231, 226);" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="color: yellow;">
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/index" style="color: #244c0c;">Home</a>
               </li>
@@ -381,27 +355,15 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                  <style>
-                    .login_area {
-                      background-color: rgba(255, 255, 255, 0.9);
-                      color: #000;
-                      background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%),
-                                        linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%),
-                                        linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.1) 75%),
-                                        linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.1) 75%);
-                      background-size: 10px 10px;
-                      background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
-                    }
-                  </style>
-                  <div class="login_area" >
-                        <img class="logo-img" style="padding: 20px;" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
+                    <div class="login_area">
+                        <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
                         <form action="" method="post">
-                            <h3 class="signup" style="color: rgb(255, 255, 255); text-align: center; background-color: #244c0c;" >Sign in to your Account</h3>
+                            <h3 class="signup" style="color: white; text-align: center;">Sign in to your Account</h3>
                             <ul>
                                 {% csrf_token %}
-                                <h5 style="font-weight: bold;">{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
+                                {{ login_form.username.label_tag }} {{ login_form.username }}
                                     <label for="{{ login_form.password.id_for_label }}">
-                                      <h5 style="font-weight: bold;">{{ login_form.password.label_tag }} </h5>
+                                        {{ login_form.password.label_tag }}
                                     </label>
                                     <div class="password-field">
                                     {{ login_form.password }}
@@ -410,7 +372,7 @@
                                     </button>
                                     </div>
                                     <div>
-                                    <a class="forgotpassword" href="#" target="_blank" title="Forgot Password" style="color: rgb(0, 0, 0); font-weight: bold;">Forgot your password?</a>
+                                    <a class="forgotpassword" href="#" target="_blank" title="Forgot Password" style="color: white;">Forgot your password?</a>
                                   </div>
                                     <button type="submit" style="text-align: center; align-items: center; background-color: blue; color: white; font-weight: bold; font-family:Georgia, 
                                     'Times New Roman', Times, serif;" title="Please Login Here">Log In</button>
@@ -424,7 +386,7 @@
                         {% endif %}
                         <div>
                             <h5>Dont Have An Account ? Register 
-                              <button id="showSignup" style="color: hsl(0, 0%, 1%); background-color: rgb(204, 204, 240); background-size: 5px; color: blue; text-decoration: underline; font-weight: bold;" title="Register Here">Here</button>
+                              <button id="showSignup" style="color: hsl(0, 0%, 1%); background-color: rgb(204, 204, 240); background-size: 5px;" title="Register Here">Here</button>
                             </h5>
                             
                         </div>
@@ -470,16 +432,16 @@
               <div class="col-md-6">
                   <div class="login_area">
                       <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
-                      <h3 class="signup" style="color: #000000; text-align: center; font-weight: bold;">Register Here</h3>
+                      <h3 class="signup" style="color: #fff; text-align: center;">Register Here</h3>
                       <h5 class="question" style="text-align: center;">Already Have An Account?
-                        <a href="/login" style="color: #0019fc;">LogIn</a>
+                        <a href="/login" style="color: #8c97ff;">LogIn</a>
                       </h5>
-                      <form method="post" style="font-weight: bold;">
+                      <form method="post">
                           {% csrf_token %}
                           {% for field in signup_form %}
                               <div class="form-group">
                                   <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                  <div class="input-group" style="font-weight: bold;">
+                                  <div class="input-group">
                                       {% if field.name != 'username' and field.name != 'email' %}
                                           <input type="{{ field.field.widget.input_type }}"
                                                  class="form-control"
@@ -503,7 +465,7 @@
                                   </div>
                                   {% if signup_form.errors %}
                                       {% for error in field.errors %}
-                                          <div class="error-message" style="color: red;">{{ error }}</div>
+                                          <div class="error-message">{{ error }}</div>
                                       {% endfor %}
                                   {% endif %}
                               </div>

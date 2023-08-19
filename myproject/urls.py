@@ -27,7 +27,7 @@ from myapp.views import (
 urlpatterns = [
     path('', login_view),
     path('logout/', logout_view),
-    path('admin/login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    # path('admin/login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('',include('myapp.urls')),

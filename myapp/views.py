@@ -23,7 +23,12 @@ import datetime
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .forms import SignupForm, LoginForm
-# from .decorators import login_required
+from django.utils import timezone
+import logging
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.urls import reverse_lazy
+from .decorators import public_view, login_exempt
 
 
 def regenerate_csrf_token(request):
@@ -76,45 +81,66 @@ def register_view(request):
 
 
 
+logger = logging.getLogger(__name__)
+
+logger = logging.getLogger(__name__)
+
 def login_view(request):
     if request.method == 'POST':
         login_form = AuthenticationForm(request, data=request.POST)
-
         if login_form.is_valid():
             user = login_form.get_user()
             login(request, user)
-            messages.success(request, 'Login successful.')
+            logger.warning(
+                f"Login Successful at {timezone.now()} by username: {request.POST.get('username')}"
+            )
+            messages.success(request, f"Login Successful at {timezone.now()} by username: {request.POST.get('username')}")
             return redirect('dashboard')  # Redirect to the dashboard or desired URL
         else:
-            messages.error(request, 'Login not successful. Please try again.')
+            logger.warning(
+                f"Login attempt failed at {timezone.now()} by username: {request.POST.get('username')}"
+            )
+            messages.error(request, f"Login attempt failed at {timezone.now()} by username: {request.POST.get('username')}")
 
     else:
         login_form = AuthenticationForm()
 
     signup_form = SignupForm(request.POST)  # Pass the POST data to the signup form
 
-    if signup_form.is_valid():
+    if request.method == 'POST' and signup_form.is_valid():
         username = signup_form.cleaned_data['username']
         email = signup_form.cleaned_data['email']
         password = signup_form.cleaned_data['password']
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, 'This username is already taken.')
+            messages.error(request, f"This Username {request.POST.get('username')} is already in taken!")
         else:
             user = User.objects.create_user(username=username, email=email, password=password)
             user = authenticate(request, username=username, password=password)
             login(request, user)
-            messages.success(request, 'Signup successful. You are now logged in.')
+            messages.success(request, f"SignUp Successful at {timezone.now()} by username: {request.POST.get('username')}")
             return redirect('login')
-    else:
-        messages.error(request, 'Signup form is invalid. Please correct the errors.')
+
+    password_reset_form = PasswordResetForm(request.POST or None)
+
+    if request.method == 'POST' and password_reset_form.is_valid():
+        user_email = password_reset_form.cleaned_data['email']
+        password_reset_form.save(
+            request=request,
+            from_email=None,  # Use the default email backend configured in settings
+            email_template_name='accounts/password_reset.html',
+        )
+        messages.success(request, f"A password reset email has been sent to {user_email}.")
+        return redirect('login')
 
     context = {
         'login_form': login_form,
         'signup_form': signup_form,
+        'password_reset_form': password_reset_form,
     }
-
     return render(request, 'accounts/login.html', context)
+
+
 
 
 
@@ -378,10 +404,12 @@ def dashboard(request):
 
   return HttpResponse(template.render())
 
+@public_view
 def about(request):
   template = loader.get_template('about.html')
   return HttpResponse(template.render())
 
+@login_exempt
 def anouncement(request):
   template = loader.get_template('anouncement.html')
   return HttpResponse(template.render())
