@@ -4,6 +4,10 @@
   Fertigation Dashboard
 {% endblock %}
 
+
+
+
+
 {% block styles %}
 <style>
   /* Add your custom styles here */
@@ -159,27 +163,39 @@
 {% endblock %}
 
 {% block content %}
-<div class="dashboard-container" style="height: 100%; width: 100%; display: flex;" >
-  <div class="sidebar">
-    <h2>Fertigation System Dashboard</h2>
+
+<header style="background-color: #007f46; padding: 5px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+  <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
+  <div>
+    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Fertigation System Dashboard</h2>
+    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Your cutting-edge solution for agricultural management</p>
+  </div>
+</header>
+
+
+
+
+
+
+<div class="dashboard-container" style="height: 100%; width: 100%; display: flex; " >
     <ul>
-      <a href="/Fertilizers" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 12px;">
-        <img src="https://www.agrifarming.in/wp-content/uploads/2022/01/Wheat-Farming-Make-You-Rich-1-1024x683.jpg" width="348px" height="200px" alt="FERTILIZER REGIME" title="FERTILIZER REGIME">
+      <a href="/Fertilizers" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 13px;">
+        <img src="https://www.agrifarming.in/wp-content/uploads/2022/01/Wheat-Farming-Make-You-Rich-1-1024x683.jpg" width="340px" height="200px" alt="FERTILIZER REGIME" title="FERTILIZER REGIME">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 0%, 100%, 0.918); font-size: 30px; font-weight: bold;">FERTILIZER REGIME</span>
       </a>
 
-      <a href="/fertilizer_list" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px;  margin-right: 12px;">
+      <a href="/fertilizer_list" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px;  margin-right: 10px;">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2rhL7UeBUrRlQXqAiiuOtt3bBYTnffWkeZPMqwde4wX5uQKPD9bMospNUKDUAPjVw0nQ&usqp=CAU" width="348px" height="200px" alt="Farm Management" title="FERTILIZER MANAGEMENT">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hwb(0 100% 0% / 0.918); font-size: 30px; font-weight: bold;">FERTILIZER MANAGEMENT</span>
       </a>
 
-      <a href="/laboratory" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 00px">
+      <a href="/laboratory" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 10px">
         <img src="https://media.istockphoto.com/id/842452752/photo/science-laboratory-research-and-development-concept-microscope-with-test-tubes.jpg?s=612x612&w=0&k=20&c=0EblrK4k06_uXYcL_y_ozzKPUqD0jwvXK2QUikO0Ut0=" width="348px" height="200px" alt="LABORATORY TEST" title="LABORATORY TEST">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #131010ea; font-size: 30px; font-weight: bold;">LABORATORY TEST</span>
       </a>
 
       <a href="/weather" class="image-link" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 12px">
-        <img src="https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/legacy/image/2019/Jun/PHOTO-dark%20and%20stormy%20cloudscape-istock-1125x534-Landscape.jpg" width="348px" height="200px" alt="WEATHER" title="WEATHER">
+        <img src="https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/legacy/image/2019/Jun/PHOTO-dark%20and%20stormy%20cloudscape-istock-1125x534-Landscape.jpg" width="340px" height="200px" alt="WEATHER" title="WEATHER">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #ffffffea; font-size: 30px; font-weight: bold;">WEATHER</span>
       </a>
 
@@ -194,7 +210,6 @@
       </a>
       
     </ul>
-  </div>
 </div>
 
 
