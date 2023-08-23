@@ -423,10 +423,10 @@
                             </div>
                         {% endif %}
                         <div>
-                            <h5>Dont Have An Account ? Register 
-                              <button id="showSignup" style="color: hsl(0, 0%, 1%); background-color: rgb(204, 204, 240); background-size: 5px; color: blue; text-decoration: underline; font-weight: bold;" title="Register Here">Here</button>
-                            </h5>
-                            
+                          <h5>
+                            Don't Have An Account ? Register 
+                            <a href="#" id="showSignup" style="color: blue; text-decoration: underline; font-weight: bold;" title="Register Here">Here</a>
+                        </h5>
                         </div>
                     </div>
                 </div>
@@ -537,10 +537,12 @@
   
     
     <script>
-        document.getElementById("showSignup").addEventListener("click", function() {
-            document.querySelector(".login_section").style.display = "none";
-            document.querySelector(".signup_section").style.display = "block";
-        });
+    document.getElementById("showSignup").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent the default behavior of the link
+        document.querySelector(".login_section").style.display = "none";
+        document.querySelector(".signup_section").style.display = "block";
+    });
+
     
         function togglePassword() {
             const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
@@ -578,6 +580,10 @@
       </div>
     </div>
   </section>
+
+  <footer style="background-color: #007f46; color: #FFF; text-align: center; padding: 10px;">
+    © 2023 Fertppm. All rights reserved.
+  </footer>
   
   <!-- js -->
   <!-- bootstrap -->

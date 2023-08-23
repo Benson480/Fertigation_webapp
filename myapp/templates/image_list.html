@@ -48,15 +48,20 @@
 {% endblock %}
 
 {% block content %}
+
+<header style="background-color: #007f46; padding: 0px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
+  <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
+  <div>
+    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Crop deficiency Dianosis Images</h2>
+    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">We are Training Artificial Intelligence model to identify nutrient Deficiency</p>
+  </div>
+</header>
+
 <head>
   <!-- Other meta tags and CSS links -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
   <div class="container">
-    <div class="headear" style="display: flex; margin-right: 20px;">
-      <h1><a href="#" style="padding: 30px; text-decoration: none; align-items: center; display: flex;">
-        We are Training Artificial Intelligence model to identify nutrient Deficiency</a></h1>
-    </div>
     <div>
       {% if images %}
         <ul>

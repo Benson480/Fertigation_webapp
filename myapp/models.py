@@ -79,6 +79,36 @@ class Fertilizer_Price(models.Model):
         return str(self.Fertilizer)
 
 
+class Fertilizer_Recycle(models.Model):
+    Date = models.DateField(null=True,db_index=True)
+    ELEMENT_CHOICES = (
+        ("Nitrate", "Nitrate [NO3N]"),
+        ("Phosphorus", "Phosphorus [P]"),
+        ("Potassium", "Potassium [K]"),
+        ("Calcium", "Cacium [Ca]"),
+        ("Magnesium",  "Magnesium [Mg]"),
+        ("Sulphur", "Sulphur [S]"),
+        ("Ammoniacal N", "Ammoniacal N [NH4N]"),
+        ("Iron", "Iron [Fe]"),
+        ("Manganese", "Manganese [Mn]"),
+        ("Copper", "Copper [Cu]"),
+        ("Boron", "Boron [B]"),
+        ("Zinc", "Zinc [Zn]"), 
+        ("Molybdenum", "Molybdenum [Mo]"),
+        )
+    Uv_Element       = models.CharField(max_length=200, choices=ELEMENT_CHOICES,db_index=True,null=True,blank=True)
+    Uv_PPM     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
+
+    @property
+    def UvElements(self):
+        getUvPercent = Fertilizer_Amount.objects.all()
+        UvPercent = 0  # Initialize UvPercent outside the loop
+        for elements in getUvPercent:
+            percentConstant = 100
+            UvPercent = round(self.Uv_PPM * elements.UV_percent / percentConstant, 2)
+        return UvPercent
+
+
 class Fertilizer_Amount(models.Model):
     Date = models.DateField(null=True,db_index=True)
     Fertilizer = models.ForeignKey(Fertilizer,on_delete=models.CASCADE, db_index=True)
@@ -144,12 +174,20 @@ class Fertilizer_Amount(models.Model):
         Dilution_ratio = round(Number_of_Tanks * (Cubic_Meters * Litres_To_M3) / self.Tank_mix_Volume, 0)
         Injection_ratio = round(self.Tank_mix_Volume / Cubic_Meters,2)
         getelements = Fertilizer_Element.objects.all()
+        # Fetch all objects from Fertilizer_Recycle
+        all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
+
+        # Iterate through all objects and calculate UV percentage for each
+        for fertilizer_recycle in all_fertilizer_recycles:
+            uv_percent = fertilizer_recycle.UvElements
+            # print(uv_percent)
+
         for e in getelements:
             if e.Fertilizer == self.Fertilizer:
-                fertppm1 = round(e.Composition_1 or 0 * Grams_per_m3 / 100,2)
-                fertppm2 = round(e.Composition_2 or 0 * Grams_per_m3 / 100,2)
-                fertppm3 = round(e.Composition_3 or 0 * Grams_per_m3 / 100,2)
-                fertppm4 = round(e.Composition_4 or 0 * Grams_per_m3 / 100,2)
+                fertppm1 = round((e.Composition_1 or 0) * Grams_per_m3 / 100,2)
+                fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100,2)
+                fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100,2)
+                fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100,2)
                 if (fertppm1 == 0):
                     fertppm1 = ""
                 if (fertppm2 == 0):
@@ -183,33 +221,7 @@ class Fertilizer_Amount(models.Model):
             'Injection_ratio' : 'N/A',
         }
       
-class Fertilizer_Recycle(models.Model):
-    Date = models.DateField(null=True,db_index=True)
-    ELEMENT_CHOICES = (
-        ("Nitrate", "Nitrate [NO3N]"),
-        ("Phosphorus", "Phosphorus [P]"),
-        ("Potassium", "Potassium [K]"),
-        ("Calcium", "Cacium [Ca]"),
-        ("Magnesium",  "Magnesium [Mg]"),
-        ("Sulphur", "Sulphur [S]"),
-        ("Ammoniacal N", "Ammoniacal N [NH4N]"),
-        ("Iron", "Iron [Fe]"),
-        ("Manganese", "Manganese [Mn]"),
-        ("Copper", "Copper [Cu]"),
-        ("Boron", "Boron [B]"),
-        ("Zinc", "Zinc [Zn]"), 
-        ("Molybdenum", "Molybdenum [Mo]"),
-        )
-    Uv_Element       = models.CharField(max_length=200, choices=ELEMENT_CHOICES,db_index=True,null=True,blank=True)
-    Uv_PPM     = models.FloatField(max_length=200, db_index=True,null=True,blank=True)
 
-    @property
-    def UvElements(self):
-        getUvPercent = Fertilizer_Amount.objects.all()
-        for elements in getUvPercent:
-            percentConstant = 100
-            UvPercent = round(self.Uv_PPM * elements.UV_percent / percentConstant,2)
-            return str(UvPercent)   
 
 
 #Testing Models

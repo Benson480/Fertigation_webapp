@@ -24,6 +24,7 @@ urlpatterns = [
     path('deleteprice/<int:id>', views.deleteprice, name='deleteprice'),
     path('elements/delete_elements/<int:id>', views.delete_elements, name='delete_elements'),
     path('fertilizer_list/delete/<int:id>', views.delete, name='delete'),
+    path('Fertilizers_recycle/delete_fertilizers_recycle/<int:id>', views.delete_fertilizers_recycle, name='delete_recycle'),
     path('Fertilizers/deleteprice/<int:id>', views.deleteprice, name='deleteprice'),
     path('Fertilizers/elements/', views.elements, name='elements'),
     path('Fertilizers/update/<int:id>', views.update, name='update'),

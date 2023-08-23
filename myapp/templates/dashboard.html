@@ -111,48 +111,48 @@
   .table th {
     background-color: #f2f2f2;
   }
-  
+
   /* Responsive Styles */
-  
+
   @media screen and (max-width: 768px) {
     .dashboard-container {
       grid-template-columns: 1fr;
     }
-    
+
     .chart {
       flex-basis: 100%;
     }
   }
-  
+
   @media screen and (max-width: 576px) {
     .sidebar {
       padding: 10px;
     }
-    
+
     .sidebar h2 {
       font-size: 16px;
     }
-    
+
     .chart-container {
       flex-direction: column;
     }
-    
+
     .chart {
       flex-basis: 100%;
       margin-right: 0;
       margin-bottom: 20px;
     }
-    
+
     .sidebar a.image-link {
       display: block;
       margin-bottom: 20px;
     }
-    
+
     .sidebar a.image-link img {
       width: 100%;
       height: auto;
     }
-    
+
     .sidebar a.image-link span {
       position: static;
       transform: none;
@@ -174,39 +174,67 @@
 
 
 
-<div class="dashboard-container" style="flex: 1; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+<div class="dashboard-container" >
+  <style>
+      .dashboard-container {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 20px;
+          justify-items: center;
+          align-items: center;
+          background-color: #eff7f3;
+          padding: 20px 0;
+          border-radius: 20px;
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      }
+</style>
     <ul>
-      <a href="/Fertilizers" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 13px;">
-        <img src="https://www.agrifarming.in/wp-content/uploads/2022/01/Wheat-Farming-Make-You-Rich-1-1024x683.jpg" width="340px" height="200px" alt="FERTILIZER REGIME" title="FERTILIZER REGIME">
+      <a href="/Fertilizers" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px;">
+        <img src="https://www.agrifarming.in/wp-content/uploads/2022/01/Wheat-Farming-Make-You-Rich-1-1024x683.jpg" width="250px" height="180px" alt="FERTILIZER REGIME" title="FERTILIZER REGIME">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 0%, 100%, 0.918); font-size: 30px; font-weight: bold;">FERTILIZER REGIME</span>
       </a>
 
-      <a href="/fertilizer_list" style="position: relative; display: inline-block; margin-bottom: 40px;  margin-right: 10px;">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2rhL7UeBUrRlQXqAiiuOtt3bBYTnffWkeZPMqwde4wX5uQKPD9bMospNUKDUAPjVw0nQ&usqp=CAU" width="348px" height="200px" alt="Farm Management" title="FERTILIZER MANAGEMENT">
+      <a href="/fertilizer_list" style="position: relative; display: inline-block; margin-bottom: 40px;  margin-right: 11px;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2rhL7UeBUrRlQXqAiiuOtt3bBYTnffWkeZPMqwde4wX5uQKPD9bMospNUKDUAPjVw0nQ&usqp=CAU" width="250px" height="180px" alt="Farm Management" title="FERTILIZER MANAGEMENT">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hwb(0 100% 0% / 0.918); font-size: 30px; font-weight: bold;">FERTILIZER MANAGEMENT</span>
       </a>
 
-      <a href="/laboratory" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 10px">
-        <img src="https://media.istockphoto.com/id/842452752/photo/science-laboratory-research-and-development-concept-microscope-with-test-tubes.jpg?s=612x612&w=0&k=20&c=0EblrK4k06_uXYcL_y_ozzKPUqD0jwvXK2QUikO0Ut0=" width="348px" height="200px" alt="LABORATORY TEST" title="LABORATORY TEST">
+      <a href="/laboratory" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://media.istockphoto.com/id/842452752/photo/science-laboratory-research-and-development-concept-microscope-with-test-tubes.jpg?s=612x612&w=0&k=20&c=0EblrK4k06_uXYcL_y_ozzKPUqD0jwvXK2QUikO0Ut0=" width="250px" height="180px" alt="LABORATORY TEST" title="LABORATORY TEST">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #131010ea; font-size: 30px; font-weight: bold;">LABORATORY TEST</span>
       </a>
 
-      <a href="/weather" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 12px">
-        <img src="https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/legacy/image/2019/Jun/PHOTO-dark%20and%20stormy%20cloudscape-istock-1125x534-Landscape.jpg" width="340px" height="200px" alt="WEATHER" title="WEATHER">
+      <a href="/weather" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://www.noaa.gov/sites/default/files/styles/landscape_width_1275/public/legacy/image/2019/Jun/PHOTO-dark%20and%20stormy%20cloudscape-istock-1125x534-Landscape.jpg" width="250px" height="180px" alt="WEATHER" title="WEATHER">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #ffffffea; font-size: 30px; font-weight: bold;">WEATHER</span>
       </a>
 
-      <a href="/Fertlizer_dealers" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 12px">
-        <img src="https://img.freepik.com/free-photo/beautiful-terraced-rice-field-water-season-top-view-rices-paddy-fieldthailand-generative-ai_1258-153055.jpg" width="348px" height="200px" alt="FERTILIZER DEALERS" title="FERTILIZER DEALERS">
+      <a href="/Fertlizer_dealers" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://img.freepik.com/free-photo/beautiful-terraced-rice-field-water-season-top-view-rices-paddy-fieldthailand-generative-ai_1258-153055.jpg" width="250px" height="180px" alt="FERTILIZER DEALERS" title="FERTILIZER DEALERS">
         <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: rgba(255, 255, 255, 0.918); font-size: 30px; font-weight: bold;">FERTILIZER DEALERS</span>
       </a>
 
-      <a href="/reports"  style="position: relative; display: inline-block; margin-bottom: 40px;">
-        <img src="https://www.bigdataframework.org/wp-content/uploads/2019/11/2.jpg" width="348px" height="200px" alt="REPORTS" title="REPORTS">
-        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 94%, 53%, 0.918); font-size: 40px; font-weight: bold;">REPORTS</span>
+      <a href="/reports"  style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://www.bigdataframework.org/wp-content/uploads/2019/11/2.jpg" width="250px" height="180px" alt="REPORTS" title="REPORTS">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: hsla(0, 0%, 100%, 0.918); font-size: 40px; font-weight: bold;">REPORTS</span>
       </a>
-      
+      <a href="/stocks" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://as1.ftcdn.net/v2/jpg/05/16/28/26/1000_F_516282626_PA7ukX1B15U4xEcMtmBNLks0YlGsY78l.jpg" width="250px" height="180px" alt="STOCK MANAGEMENT" title="STOCK MANAGEMENT">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #ffffffea; font-size: 30px; font-weight: bold;">STOCK CONTROL</span>
+      </a>
+
+      <a href="/{{ BASE_URL }}admin/" target="_blank" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://m2host.com/img/features-img/icon_AdminZilla-Network-Administrator-Android.jpg" width="250px" height="180px" alt="ADMIN INTERFACE" title="ADMIN INTERFACE">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: rgba(255, 255, 255, 0.918); font-size: 30px; font-weight: bold;"></span>
+      </a>
+
+      <a href="/settings"  style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
+        <img src="https://www.sdxcentral.com/wp-content/uploads/2023/04/responsible-AI.jpg" width="250px" height="180px" alt="SYSTEM SETTINGS" title="SYSTEM SETTINGS">
+        <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #ff0000; font-size: 40px; font-weight: bold;">SYSTEM SETTINGS</span>
+      </a>
+
     </ul>
+
 </div>
 
 

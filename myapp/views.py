@@ -213,6 +213,7 @@ def delete(request, id):
   member.delete()
   return HttpResponseRedirect(reverse("Fertilizers"))
 
+
 def delete_fertilizers(request, id):
   member = Fertilizer.objects.get(id=id)
   member.delete()
@@ -277,6 +278,11 @@ def UvElements(request):
       request.session['last_activity'] = datetime.datetime.now().isoformat()  # Convert to string
 
     return render(request, "UvElements.html", context)
+
+def delete_fertilizers_recycle(request, id):
+  member = Fertilizer_Recycle.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("Fertilizers_recycle"))
 
 @csrf_protect
 @login_required   
