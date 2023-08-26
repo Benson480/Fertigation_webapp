@@ -2,8 +2,25 @@
 <html>
 <head>
   <link rel="icon" href="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <title>{% block title %}{% endblock %}</title>
   <style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  footer {
+    background-color: #007f46;
+    color: #FFF;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto; /* Push the footer to the bottom */
+  }
+
     body, html {
       margin: 0;
       padding: 0;
@@ -175,7 +192,7 @@
       }
     }
   </style>
-
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <script>
     function search() {
       var input = document.getElementById('searchInput').value.toLowerCase();
@@ -205,35 +222,37 @@
 </head>
 <body>
   <div class="topnav">
-    <a href="/dashboard">Home</a>
-    <a href="/about/">About</a>
-    <a href="#">Farm Profile</a>
-    <a href="/contact">Contact</a>
-    <a href="#">Careers</a>
-    <a href="https://chat.openai.com/" target="_blank">Research</a>
-    <a href="/{{ BASE_URL }}admin/"  target="_blank">Admin</a>
+    <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
+    <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
+    <a href="#"><i class="fa fa-leaf"></i> Farm Profile</a>
+    <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
+    <a href="#"><i class="fa fa-briefcase"></i> Careers</a>
+    <a href="https://chat.openai.com/" target="_blank"><i class="fa fa-flask"></i> Research</a>
+    <a href="/{{ BASE_URL }}admin/" target="_blank"><i class="fa fa-user-cog"></i> Admin</a>
     <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search...">
-      <button onclick="search()">Search</button>
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="search()"><i class="fa fa-search"></i> Search</button>
     </div>
     <a href="javascript:void(0);" class="icon" onclick="toggleSidenav()">
-      <i class="fa fa-bars"></i>
-      <span class="show-text"></span>
+        <i class="fa fa-bars"></i>
+        <span class="show-text"></span>
     </a>
-  </div>
-  
-  <div class="sidenav" style="display: block;">
-    <a href="/dashboard">Dashboard</a>
-    <a href="/Fertilizers">Fertilizers Regime</a>
-    <a href="/fertilizer_list">Fertilizers</a>
-    <a href="/prices">Prices</a>
-    <a href="/diagnosis">Diagnosis</a>
-    <a href="/laboratory">Laboratories Test</a>
-    <a href="/ppm/">Ppm</a>
-    <a href='/elements'>Elements</a>
-    <a href="/Fertilizers_recycle">Fertilizer Recycle</a>
-    <a href="#">Farm Settings</a>
-    <a href="/login">Logout</a> 
+</div>
+
+<div class="sidenav" style="display: block;">
+    <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
+    <a href="/Fertilizers"><i class="fa fa-leaf"></i> Fertilizers Regime</a>
+    <a href="/fertilizer_list"><i class="fa fa-list"></i> Fertilizers</a>
+    <a href="/prices"><i class="fa fa-money-bill"></i> Prices</a>
+    <a href="/diagnosis"><i class="fa fa-stethoscope"></i> Diagnosis</a>
+    <a href="/laboratory"><i class="fa fa-flask"></i> Laboratories Test</a>
+    <a href="/ppm/"><i class="fa fa-tint"></i> Ppm</a>
+    <a href='/elements'><i class="fa fa-atom"></i> Elements</a>
+    <a href="/Fertilizers_recycle"><i class="fa fa-recycle"></i> Fertilizer Recycle</a>
+    <a href="#"><i class="fa fa-cogs"></i> Farm Settings</a>
+    <a href="/login"><i class="fa fa-sign-out-alt"></i> Logout</a>
+</div>
+
     <!-- {% if user.is_authenticated %} -->
     <!-- {% else %}
     <a href="{% url 'login' %}">Login</a>

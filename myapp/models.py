@@ -172,29 +172,35 @@ class Fertilizer_Amount(models.Model):
         Grams_per_m3 = Grams / Cubic_Meters
         Uv_Recycle = self.UV_percent / 100
         Dilution_ratio = round(Number_of_Tanks * (Cubic_Meters * Litres_To_M3) / self.Tank_mix_Volume, 0)
-        Injection_ratio = round(self.Tank_mix_Volume / Cubic_Meters,2)
+        Injection_ratio = round(self.Tank_mix_Volume / Cubic_Meters, 2)
         getelements = Fertilizer_Element.objects.all()
-        # Fetch all objects from Fertilizer_Recycle
         all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
 
-        # Iterate through all objects and calculate UV percentage for each
-        for fertilizer_recycle in all_fertilizer_recycles:
-            uv_percent = fertilizer_recycle.UvElements
-            # print(uv_percent)
+        uv_elements_total = {}  # Dictionary to store the sum of UV elements
 
+        # Iterate through all Fertilizer_Recycle objects
+        for fertilizer_recycle in all_fertilizer_recycles:
+            uv_element = fertilizer_recycle.Uv_Element
+            uv_ppm = fertilizer_recycle.Uv_PPM
+            if uv_element in uv_elements_total:
+                uv_elements_total[uv_element] += uv_ppm
+            else:
+                uv_elements_total[uv_element] = uv_ppm
+
+        # Calculate the values based on matched elements and their sums
         for e in getelements:
             if e.Fertilizer == self.Fertilizer:
-                fertppm1 = round((e.Composition_1 or 0) * Grams_per_m3 / 100,2)
-                fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100,2)
-                fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100,2)
-                fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100,2)
-                if (fertppm1 == 0):
+                fertppm1 = round((e.Composition_1 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_1', 0)
+                fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_2', 0)
+                fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_3', 0)
+                fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_4', 0)
+                if fertppm1 == 0:
                     fertppm1 = ""
-                if (fertppm2 == 0):
+                if fertppm2 == 0:
                     fertppm2 = ""
-                if (fertppm3 == 0):
+                if fertppm3 == 0:
                     fertppm3 = ""
-                if (fertppm4 == 0):
+                if fertppm4 == 0:
                     fertppm4 = ""
                 return {
                     'element_1': e.Element_1,
@@ -206,8 +212,9 @@ class Fertilizer_Amount(models.Model):
                     'fertppm2': fertppm2,
                     'fertppm3': fertppm3,
                     'fertppm4': fertppm4,
-                    'Injection_ratio' : Injection_ratio,
+                    'Injection_ratio': Injection_ratio,
                 }
+
         return {
             'element_1': 'N/A',
             'element_2': 'N/A',
@@ -218,7 +225,7 @@ class Fertilizer_Amount(models.Model):
             'fertppm2': 'N/A',
             'fertppm3': 'N/A',
             'fertppm4': 'N/A',
-            'Injection_ratio' : 'N/A',
+            'Injection_ratio': 'N/A',
         }
       
 

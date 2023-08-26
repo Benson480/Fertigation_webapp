@@ -169,22 +169,28 @@
 
 {% block content %}
 
-<header style="background-color: #096e41; padding: 0px 0; padding-top: 2px; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
-  <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
-  <div>
-    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Fertilizer Regime application</h2>
-    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px; text-align: center;">Daily optimized feeding and dosing</p>
+<header style="background-color: #096e41; padding: 2px 0; display: flex; justify-content: center; align-items: center; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); margin-top: -20px;">
+  <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px; margin-left: 20px;">
+  <div style="text-align: center;">
+    <h2 style="color: #fff; font-size: 28px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Fertilizer Regime Application</h2>
+    <p style="color: #fff; font-size: 16px; opacity: 0.8; margin-top: 5px;">Optimized Feeding and Dosing Solutions</p>
   </div>
 </header>
+
+
+
+
+
+
 
 <button id="toggleButtonadd" title="SHOW/HIDE FORM" >
   <i class="fa fa-plus"></i>
 </button>
-<div class="container" style="height: 100%; display: flex; ">
+<div class="container" style="height: 100vh; display: flex; align-items: center;">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-  <div class="form-container" style="float: left; background-color: rgb(226, 223, 220); width: 38%; padding: 10px; text-align: left;">
+  <div class="form-container" style="float: left; background-color: rgb(226, 223, 220); width: 38%; padding: 10px; text-align: left; margin-top: -50px;">
     <form method="POST" class="post-form" action="{% url 'Fertilizers' %}" id="myForm" style="padding: 5px;">
       {% csrf_token %}
       <h1 style="background-color: rgb(170, 249, 252); font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; padding: 10px; border-radius: 10px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); text-align: center; color: rgb(28, 79, 96);">

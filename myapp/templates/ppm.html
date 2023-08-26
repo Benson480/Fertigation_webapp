@@ -160,6 +160,7 @@
     padding: 20px;
     border-radius: 5px;
   }
+  
 </style>
 
 
@@ -167,14 +168,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" style="height: 100%; display: flex; align-items: center;">
+<header style="background-color: #096e41; padding: 2px 0; display: flex; justify-content: center; align-items: center; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); margin-top: -20px;">
+  <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px; margin-left: 20px;">
+  <div style="text-align: center;">
+    <h2 style="color: #fff; font-size: 28px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">FERTILIZERS PPM</h2>
+    <p style="color: #fff; font-size: 16px; opacity: 0.8; margin-top: 5px;">Optimized Feeding and Dosing Solutions</p>
+  </div>
+</header>
+
+<div class="container" style="height: 100%; display: flex; align-items: center; background-color: #fff;">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
   {% csrf_token %}
-<div style="overflow-x: auto; overflow-y: auto;">
- 
-    <h1>FERTILIZERS PPM</h1>
-    
+<div style="overflow-x: auto; overflow-y: auto; align-items: center;">  
     <h3>
       ---------
       <button onclick="window.location.href='/dashboard';">Back</button>
@@ -224,7 +230,8 @@
             <th>REMOVE</th>
           </tr>
           {% for x in mymember %}
-          <tr>
+          <tr class="{% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}">
+
               {% if x.Fertilizer is not None %}
               <td>{{ x.Date|date:"m/d/Y" }}</td>
               <td>{{ x.Media }}</td>
@@ -279,11 +286,21 @@
                 <td>{{ "" }}</td>
               {% endif %}
               <td><a style="color: green;" href="update/{{ x.id }}">Edit</a></td>
-              <td><a style="color: red;" href="delete/{{ x.id }}">Delete</a></td>
+              <td><a style="color: red;" href="delete_ppm/{{ x.id }}" title="DELETE ITEM">Delete</a></td>
               {% endif %}
           </tr>
           {% endfor %}
         </table>
+        <style>
+          /* Define styles for odd and even rows */
+          .odd {
+            background-color: white;
+          }
+          
+          .even {
+            background-color: #f0f0f0; /* Grey color */
+          }
+        </style>
       </div>
     </ul>
         

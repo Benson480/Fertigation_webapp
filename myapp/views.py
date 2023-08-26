@@ -373,6 +373,11 @@ def ppm(request):
   }
   return HttpResponse(template.render(context, request))
 
+def delete_ppm(request, id):
+  member = Fertilizer_Amount.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse("ppm"))
+
 @login_required
 def main(request):
   template = loader.get_template('main.html')

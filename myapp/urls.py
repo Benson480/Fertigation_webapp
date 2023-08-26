@@ -19,6 +19,7 @@ urlpatterns = [
     path('template/', views.template, name='template'),
     path('index/', views.index, name='index'),
     path('Fertilizers/delete/<int:id>', views.delete, name='delete'),
+    path('ppm/delete_ppm/<int:id>', views.delete_ppm, name='delete_ppm'),
     path('delete_fertilizers/<int:id>', views.delete_fertilizers, name='delete_fertilizers'),
     path('deleteimages/<int:id>', views.deleteimages, name='deleteimages'),
     path('deleteprice/<int:id>', views.deleteprice, name='deleteprice'),
