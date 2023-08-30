@@ -6,11 +6,10 @@
   <title>{% block title %}{% endblock %}</title>
   <style>
   body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
   }
   
   footer {
@@ -175,22 +174,139 @@
     }
     
     /* Responsive Styles for Small Phone Screens */
-    @media only screen and (max-width: 480px) {
-      .sidenav {
-        position: relative;
-        top: 58px;
+    @media only screen and (max-width: 400px) {
+      .sidenav,
+      .topnav.responsive .search-container {
+        position: static;
         width: 100%;
-        height: auto;
-        padding-top: 0;
       }
 
+      .topnav.responsive a.icon {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .topnav.responsive .search-container {
+        margin: 10px 0;
+        padding: 0;
+        text-align: left;
+      }
+
+      .topnav.responsive .search-container input[type="text"],
+      .topnav.responsive .search-container button {
+        width: 100%;
+      }
+      
+      .sidenav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .sidenav a {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .sidenav i {
+        margin-right: 0;
+        display: block;
+      }
 
       .content {
         margin-left: 0;
         margin-top: 0;
-        padding-top: 130px; /* Adjust the padding to make space for the fixed topnav */
+        padding-top: 80px; /* Adjust the padding to make space for the fixed topnav */
       }
     }
+    /* Add this media query to make the navigation full width on small screens */
+@media screen and (max-width: 600px) {
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a:not(.icon) {
+    display: block;
+    text-align: left;
+  }
+
+  .topnav.responsive .search-container {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .topnav.responsive .search-container input[type="text"],
+  .topnav.responsive .search-container button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+/* Responsive Styles for 6.1-inch Phone Screen */
+@media only screen and (max-width: 720px) {
+  .topnav {
+    position: static;
+  }
+
+  .search-container {
+    float: none;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .sidenav {
+    position: fixed;
+    left: -200px;
+    top: 58px;
+    width: 200px;
+    height: calc(100% - 58px);
+    transition: 0.5s;
+    z-index: 999;
+    background-color: hsl(157, 65%, 26%);
+  }
+
+  .sidenav a {
+    padding: 20px 8px 6px 16px;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .content {
+    margin-left: 0;
+    margin-top: 0;
+    padding-top: 80px;
+  }
+
+  .sidenav.show {
+    left: 0;
+  }
+
+  .content.show {
+    margin-left: 200px;
+  }
+
+  .topnav .icon {
+    display: block;
+  }
+}
+.topnav.responsive a.icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
   </style>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <script>
@@ -221,7 +337,7 @@
   </script>
 </head>
 <body>
-  <div class="topnav">
+  <div class="topnav" >
     <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
     <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
     <a href="#"><i class="fa fa-leaf"></i> Farm Profile</a>
@@ -230,16 +346,17 @@
     <a href="https://chat.openai.com/" target="_blank"><i class="fa fa-flask"></i> Research</a>
     <a href="/{{ BASE_URL }}admin/" target="_blank"><i class="fa fa-user-cog"></i> Admin</a>
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <button onclick="search()"><i class="fa fa-search"></i> Search</button>
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button onclick="search()"><i class="fa fa-search"></i> Search</button>
     </div>
     <a href="javascript:void(0);" class="icon" onclick="toggleSidenav()">
-        <i class="fa fa-bars"></i>
-        <span class="show-text"></span>
+      <i class="fa fa-bars"></i>
+      <span class="show-text"></span>
     </a>
-</div>
+  </div>
+  
 
-<div class="sidenav" style="display: block;">
+  <div class="sidenav" style="display: block;">  
     <a href="/dashboard"><i class="fa fa-chart-bar"></i> Dashboard</a>
     <a href="/Fertilizers"><i class="fa fa-leaf"></i> Fertilizers Regime</a>
     <a href="/fertilizer_list"><i class="fa fa-list"></i> Fertilizers</a>
@@ -251,15 +368,15 @@
     <a href="/Fertilizers_recycle"><i class="fa fa-recycle"></i> Fertilizer Recycle</a>
     <a href="#"><i class="fa fa-cogs"></i> Farm Settings</a>
     <a href="/login"><i class="fa fa-sign-out-alt"></i> Logout</a>
-</div>
-
+  </div>
+  
     <!-- {% if user.is_authenticated %} -->
     <!-- {% else %}
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'register' %}">Register</a>
     {% endif %} -->
   </div>
-  <div class="content">
+  <div class="content" style="background-size: cover; transform: scale(1); transform-origin: top left;">
     {% block content %}
     {% endblock %}
   </div>

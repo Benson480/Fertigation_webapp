@@ -176,24 +176,28 @@ class Fertilizer_Amount(models.Model):
         getelements = Fertilizer_Element.objects.all()
         all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
 
-        uv_elements_total = {}  # Dictionary to store the sum of UV elements
 
         # Iterate through all Fertilizer_Recycle objects
         for fertilizer_recycle in all_fertilizer_recycles:
             uv_element = fertilizer_recycle.Uv_Element
             uv_ppm = fertilizer_recycle.Uv_PPM
-            if uv_element in uv_elements_total:
-                uv_elements_total[uv_element] += uv_ppm
-            else:
-                uv_elements_total[uv_element] = uv_ppm
+            counter = 0
+            calculated_Uv = fertilizer_recycle.UvElements
+            if calculated_Uv:
+                counter += 1
+                print(counter)
+            print("Element", uv_element, "calculated", calculated_Uv)
+            # print("Uv element Dict", uv_elements_total)
+            # else:
+            #     uv_elements_total[uv_element] = uv_ppm
 
         # Calculate the values based on matched elements and their sums
         for e in getelements:
             if e.Fertilizer == self.Fertilizer:
-                fertppm1 = round((e.Composition_1 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_1', 0)
-                fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_2', 0)
-                fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_3', 0)
-                fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100, 2) + uv_elements_total.get('Element_4', 0)
+                fertppm1 = round((e.Composition_1 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_1', 0)
+                fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_2', 0)
+                fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_3', 0)
+                fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_4', 0)
                 if fertppm1 == 0:
                     fertppm1 = ""
                 if fertppm2 == 0:

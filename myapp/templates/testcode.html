@@ -1,44 +1,183 @@
-<a href="/Fertilizers" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px;">
-  <i class="fas fa-seedling" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;">FERTILIZER REGIME</span>
-</a>
+<section class="login_section">
+  <div class="container" style="padding: 80px;">
+      <div class="row justify-content-center">
+          <div class="col-md-6" style="top: 20px;">
+            <style>
+              .login_area {
+                background-color: rgba(255, 255, 255, 0.9);
+                color: #000;
+                background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%),
+                                  linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%),
+                                  linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.1) 75%),
+                                  linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.1) 75%);
+                background-size: 10px 10px;
+                background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+              }
+            </style>
+            <div class="login_area" >
+                  <img class="logo-img" style="padding: 20px;" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
+                  <form action="" method="post">
+                      <h3 class="signup" style="color: rgb(255, 255, 255); text-align: center; background-color: #244c0c;" >Sign in to your Account</h3>
+                      <ul>
+                          {% csrf_token %}
+                          <h5 style="font-weight: bold;">{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
+                              <label for="{{ login_form.password.id_for_label }}">
+                                <h5 style="font-weight: bold;">{{ login_form.password.label_tag }} </h5>
+                              </label>
+                              <div class="password-field">
+                              {{ login_form.password }}
+                              <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password">
+                                  <i class="fas fa-eye" style="background-color: #fff;"></i>
+                              </button>
+                              </div>
+                              <div>
+                              <a class="forgotpassword" href="#" target="_blank" title="Forgot Password" style="color: rgb(0, 0, 0); font-weight: bold;">Forgot your password?</a>
+                            </div>
+                              <button type="submit" style="text-align: center; align-items: center; background-color: blue; color: white; font-weight: bold; font-family:Georgia, 
+                              'Times New Roman', Times, serif;" title="Please Login Here">Log In</button>
 
-<a href="/fertilizer_list" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px;">
-  <i class="fas fa-toolbox" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;">FERTILIZER MANAGEMENT</span>
-</a>
+                      </ul>
+                  </form>
+                  {% if login_form.errors %}
+                      <div class="error-message" style="color: #ffffff; background-color: red; text-align: center;">
+                          <p>Login not successful. Please try again!</p>
+                      </div>
+                  {% endif %}
+                  <div>
+                    <h5>
+                      Don't Have An Account ? Register 
+                      <a href="#" id="showSignup" style="color: blue; text-decoration: underline; font-weight: bold;" title="Register Here">Here</a>
+                  </h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
 
-<a href="/laboratory" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-flask" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;">LABORATORY TEST</span>
-</a>
+<style>
+  .password-field {
+      display: flex;
+      align-items: center;
+  }
 
-<a href="/weather" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-cloud" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;">WEATHER</span>
-</a>
+  .password-toggle-button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+  }
+</style>
 
-<a href="/Fertlizer_dealers" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-store" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;">FERTILIZER DEALERS</span>
-</a>
 
-<a href="/reports" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-chart-bar" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 40px; font-weight: bold;">REPORTS</span>
-</a>
+<script>
+  function togglePasswordVisibility() {
+      const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
+      const passwordToggle = document.getElementById("showPasswordToggle");
 
-<a href="/stocks" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-box-open" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;">STOCK CONTROL</span>
-</a>
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+          passwordInput.type = "password";
+          passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+  }
+</script>
 
-<a href="/{{ BASE_URL }}admin/" target="_blank" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-user-cog" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 30px; font-weight: bold;"></span>
-</a>
+<section class="signup_section" style="display: none;">
+<div class="container" style="padding: 80px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="login_area">
+                <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
+                <h3 class="signup" style="color: #000000; text-align: center; font-weight: bold;">Register Here</h3>
+                <h5 class="question" style="text-align: center;">Already Have An Account?
+                  <a href="/login" style="color: #0019fc;" title="Go back to Login Page">LogIn</a>
+                </h5>
+                <form method="post" style="font-weight: bold;">
+                    {% csrf_token %}
+                    {% for field in signup_form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            <div class="input-group" style="font-weight: bold;">
+                                {% if field.name != 'username' and field.name != 'email' %}
+                                    <input type="{{ field.field.widget.input_type }}"
+                                           class="form-control"
+                                           id="{{ field.id_for_label }}"
+                                           name="{{ field.html_name }}"
+                                           placeholder="{{ field.label }}"
+                                           {% if field.field.required %} required{% endif %}>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary toggle-password-button" type="button">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <input type="{{ field.field.widget.input_type }}"
+                                           class="form-control"
+                                           id="{{ field.id_for_label }}"
+                                           name="{{ field.html_name }}"
+                                           placeholder="{{ field.label }}"
+                                           {% if field.field.required %} required{% endif %}>
+                                {% endif %}
+                            </div>
+                            {% if signup_form.errors %}
+                                {% for error in field.errors %}
+                                    <div class="error-message" style="color: red;">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" style="background-color: blue; color: white; font-weight: bold;">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 
-<a href="/settings" style="position: relative; display: inline-block; margin-bottom: 40px; margin-right: 11px">
-  <i class="fas fa-cogs" style="font-size: 100px; color: #000;"></i>
-  <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; font-size: 40px; font-weight: bold;">SYSTEM SETTINGS</span>
-</a>
+
+<script>
+const toggleButtons = document.querySelectorAll(".toggle-password-button");
+
+toggleButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        const passwordInput = button.closest(".input-group").querySelector("input");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            button.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            passwordInput.type = "password";
+            button.innerHTML = '<i class="fas fa-eye"></i>';
+        }
+    });
+});
+</script>
+
+
+
+<script>
+document.getElementById("showSignup").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevent the default behavior of the link
+  document.querySelector(".login_section").style.display = "none";
+  document.querySelector(".signup_section").style.display = "block";
+});
+
+
+  function togglePassword() {
+      const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
+      const showCheckbox = document.getElementById("{{ login_form.password.id_for_label }}_show");
+
+      passwordInput.type = showCheckbox.checked ? "text" : "password";
+  }
+</script>
+
+
+    <div class="image-Carrier" style="padding: 40px; width: 100%;">
+      <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width: 100%; padding: 5px;" height="40%">
+      <h5>We Provide the Best Plant Nutritional Ideas</h5>
+    <div>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/w_x-WDdQdxI?autoplay=1&mute=1" title="Crop Nutrition Analysis"></iframe>
+    </div>
+  </div>
