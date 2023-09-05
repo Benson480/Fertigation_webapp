@@ -1,183 +1,60 @@
-<section class="login_section">
-  <div class="container" style="padding: 80px;">
-      <div class="row justify-content-center">
-          <div class="col-md-6" style="top: 20px;">
-            <style>
-              .login_area {
-                background-color: rgba(255, 255, 255, 0.9);
-                color: #000;
-                background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%),
-                                  linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%),
-                                  linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.1) 75%),
-                                  linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.1) 75%);
-                background-size: 10px 10px;
-                background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
-              }
-            </style>
-            <div class="login_area" >
-                  <img class="logo-img" style="padding: 20px;" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
-                  <form action="" method="post">
-                      <h3 class="signup" style="color: rgb(255, 255, 255); text-align: center; background-color: #244c0c;" >Sign in to your Account</h3>
-                      <ul>
-                          {% csrf_token %}
-                          <h5 style="font-weight: bold;">{{ login_form.username.label_tag }} {{ login_form.username }} </h5>
-                              <label for="{{ login_form.password.id_for_label }}">
-                                <h5 style="font-weight: bold;">{{ login_form.password.label_tag }} </h5>
-                              </label>
-                              <div class="password-field">
-                              {{ login_form.password }}
-                              <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password">
-                                  <i class="fas fa-eye" style="background-color: #fff;"></i>
-                              </button>
-                              </div>
-                              <div>
-                              <a class="forgotpassword" href="#" target="_blank" title="Forgot Password" style="color: rgb(0, 0, 0); font-weight: bold;">Forgot your password?</a>
-                            </div>
-                              <button type="submit" style="text-align: center; align-items: center; background-color: blue; color: white; font-weight: bold; font-family:Georgia, 
-                              'Times New Roman', Times, serif;" title="Please Login Here">Log In</button>
+# Initialize dictionaries to store ppm values for each fertilizer
+# Initialize variables to store the sum of elements from both fertilizers
+total_elements = {}
 
-                      </ul>
-                  </form>
-                  {% if login_form.errors %}
-                      <div class="error-message" style="color: #ffffff; background-color: red; text-align: center;">
-                          <p>Login not successful. Please try again!</p>
-                      </div>
-                  {% endif %}
-                  <div>
-                    <h5>
-                      Don't Have An Account ? Register 
-                      <a href="#" id="showSignup" style="color: blue; text-decoration: underline; font-weight: bold;" title="Register Here">Here</a>
-                  </h5>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+# Iterate through the elements and compositions
+for e in getelements:
+    element_composition = {
+        e.Element_1: e.Composition_1,
+        e.Element_2: e.Composition_2,
+        e.Element_3: e.Composition_3,
+        e.Element_4: e.Composition_4
+    }
 
-<style>
-  .password-field {
-      display: flex;
-      align-items: center;
-  }
+    for key, value in element_composition.items():
+        if key is not None and value is not None and self.Fertilizer == e.Fertilizer:
+            freshFertPpm = round((value or 0) * Grams_per_m3 / 100, 2)
 
-  .password-toggle-button {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-  }
-</style>
+            # Check if the element is Nitrate and add it to the total
+            if key:
+                total_elements[key] = total_elements.get(key, 0) + freshFertPpm
+            elif key == "Calcium" and self.Fertilizer == "Calcium Nitrate":
+                total_elements[key] = total_elements.get(key, 0) + freshFertPpm
+            elif key == "Magnesium" and self.Fertilizer == "Magnesium Nitrate":
+                total_elements[key] = total_elements.get(key, 0) + freshFertPpm
+
+# Print the total sum for each relevant element
+for element, total_ppm in total_elements.items():
+    print("Total ppm of", element, "is", total_ppm)
 
 
-<script>
-  function togglePasswordVisibility() {
-      const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
-      const passwordToggle = document.getElementById("showPasswordToggle");
+    for e in getelements:
+    element_composition = {
+        e.Element_1: e.Composition_1,
+        e.Element_2: e.Composition_2,
+        e.Element_3: e.Composition_3,
+        e.Element_4: e.Composition_4
+    }
 
-      if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          passwordToggle.innerHTML = '<i class="fas fa-eye-slash"></i>';
-      } else {
-          passwordInput.type = "password";
-          passwordToggle.innerHTML = '<i class="fas fa-eye"></i>';
-      }
-  }
-</script>
+    for key, value in element_composition.items():
+        if key is not None and value is not None and self.Fertilizer == e.Fertilizer:
+            freshFertPpm = round((value or 0) * Grams_per_m3 / 100, 2)
+            print(key, value)
 
-<section class="signup_section" style="display: none;">
-<div class="container" style="padding: 80px;">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="login_area">
-                <img class="logo-img" src='https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg' alt="logo-img" />
-                <h3 class="signup" style="color: #000000; text-align: center; font-weight: bold;">Register Here</h3>
-                <h5 class="question" style="text-align: center;">Already Have An Account?
-                  <a href="/login" style="color: #0019fc;" title="Go back to Login Page">LogIn</a>
-                </h5>
-                <form method="post" style="font-weight: bold;">
-                    {% csrf_token %}
-                    {% for field in signup_form %}
-                        <div class="form-group">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            <div class="input-group" style="font-weight: bold;">
-                                {% if field.name != 'username' and field.name != 'email' %}
-                                    <input type="{{ field.field.widget.input_type }}"
-                                           class="form-control"
-                                           id="{{ field.id_for_label }}"
-                                           name="{{ field.html_name }}"
-                                           placeholder="{{ field.label }}"
-                                           {% if field.field.required %} required{% endif %}>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary toggle-password-button" type="button">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                {% else %}
-                                    <input type="{{ field.field.widget.input_type }}"
-                                           class="form-control"
-                                           id="{{ field.id_for_label }}"
-                                           name="{{ field.html_name }}"
-                                           placeholder="{{ field.label }}"
-                                           {% if field.field.required %} required{% endif %}>
-                                {% endif %}
-                            </div>
-                            {% if signup_form.errors %}
-                                {% for error in field.errors %}
-                                    <div class="error-message" style="color: red;">{{ error }}</div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <button type="submit" style="background-color: blue; color: white; font-weight: bold;">Sign Up</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
+        all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
+        for recyle in all_fertilizer_recycles:
 
+            recycled = {recyle.Uv_Element: recyle.UvElements
+            }
+            for elem, ppm in recycled.items():
+                if elem is not None and ppm is not None and key is not None:
+                    pass
 
-<script>
-const toggleButtons = document.querySelectorAll(".toggle-password-button");
-
-toggleButtons.forEach(button => {
-    button.addEventListener("click", function () {
-        const passwordInput = button.closest(".input-group").querySelector("input");
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            button.innerHTML = '<i class="fas fa-eye-slash"></i>';
-        } else {
-            passwordInput.type = "password";
-            button.innerHTML = '<i class="fas fa-eye"></i>';
-        }
-    });
-});
-</script>
-
-
-
-<script>
-document.getElementById("showSignup").addEventListener("click", function(event) {
-  event.preventDefault(); // Prevent the default behavior of the link
-  document.querySelector(".login_section").style.display = "none";
-  document.querySelector(".signup_section").style.display = "block";
-});
-
-
-  function togglePassword() {
-      const passwordInput = document.getElementById("{{ login_form.password.id_for_label }}");
-      const showCheckbox = document.getElementById("{{ login_form.password.id_for_label }}_show");
-
-      passwordInput.type = showCheckbox.checked ? "text" : "password";
-  }
-</script>
-
-
-    <div class="image-Carrier" style="padding: 40px; width: 100%;">
-      <img src="https://eos.com/wp-content/uploads/2021/03/nutrients-in-soil.jpg.webp" style="width: 100%; padding: 5px;" height="40%">
-      <h5>We Provide the Best Plant Nutritional Ideas</h5>
-    <div>
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/w_x-WDdQdxI?autoplay=1&mute=1" title="Crop Nutrition Analysis"></iframe>
-    </div>
-  </div>
+                    # print("Truth, recycled", elem,"is", ppm)
+                    # print("Is it same",key,"and", elem)
+                    if key in elem and self.Fertilizer == e.Fertilizer:
+                        # fertppm1 = freshFertPpm + ppm
+                        # print("Recycle", elem,"is", ppm)
+                        print("Fresh ppm of", elem, "in", self.Fertilizer, "is", freshFertPpm)
+                        # print("Final", key, "is", fertppm1)
+                    # print(element_composition)

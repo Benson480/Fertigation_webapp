@@ -307,6 +307,26 @@
   top: 10px;
 }
 
+.menu-item {
+    position: relative;
+    display: inline-block;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1; /* To ensure it appears above other elements */
+}
+
+.menu-item:hover .submenu {
+    display: block;
+}
+
   </style>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <script>
@@ -337,23 +357,38 @@
   </script>
 </head>
 <body>
-  <div class="topnav" >
+  <div class="topnav">
     <a href="/dashboard"><i class="fa fa-home"></i> Home</a>
     <a href="/about/"><i class="fa fa-info-circle"></i> About</a>
-    <a href="#"><i class="fa fa-leaf"></i> Farm Profile</a>
+    <div class="menu-item">
+        <a href="#"><i class="fa fa-leaf"></i> Farm Profile</a>
+        <div class="submenu" style="background-color: green;">
+          <a href="https://chat.openai.com/" target="_blank" style="background-color: rgb(202, 209, 106); color: black;">Show Profile</a>
+          <a href="#" style="background-color: rgb(230, 245, 23); color: black;">Edit My Profile</a>
+          <a href="#" style="background-color: aquamarine; color: black;">Admin Panel</a>
+        </div>
+    </div>
     <a href="/contact"><i class="fa fa-envelope"></i> Contact</a>
     <a href="#"><i class="fa fa-briefcase"></i> Careers</a>
-    <a href="https://chat.openai.com/" target="_blank"><i class="fa fa-flask"></i> Research</a>
+    <div class="menu-item">
+        <a href="#"><i class="fa fa-flask"></i> Research</a>
+        <div class="submenu" style="background-color: green; padding: 0px;">
+            <a href="https://chat.openai.com/" target="_blank" title="ChatGPT OpenAI" >OpenAI</a>
+            <a href="https://www.w3schools.com/django/" target="_blank" title="Django is a back-end server side web framework used to develop this app">Django Tutorial</a>
+            <a href="#">Soil Science</a>
+        </div>
+    </div>
     <a href="/{{ BASE_URL }}admin/" target="_blank"><i class="fa fa-user-cog"></i> Admin</a>
     <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Search...">
-      <button onclick="search()"><i class="fa fa-search"></i> Search</button>
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="search()"><i class="fa fa-search"></i> Search</button>
     </div>
     <a href="javascript:void(0);" class="icon" onclick="toggleSidenav()">
-      <i class="fa fa-bars"></i>
-      <span class="show-text"></span>
+        <i class="fa fa-bars"></i>
+        <span class="show-text"></span>
     </a>
-  </div>
+</div>
+
   
 
   <div class="sidenav" style="display: block;">  

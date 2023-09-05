@@ -173,65 +173,133 @@ class Fertilizer_Amount(models.Model):
         Uv_Recycle = self.UV_percent / 100
         Dilution_ratio = round(Number_of_Tanks * (Cubic_Meters * Litres_To_M3) / self.Tank_mix_Volume, 0)
         Injection_ratio = round(self.Tank_mix_Volume / Cubic_Meters, 2)
-        getelements = Fertilizer_Element.objects.all()
-        all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
+        getelements = list(Fertilizer_Element.objects.all())
 
+        # Initialize a dictionary to store ppm values for each element
+        element_ppm = {}
+
+        for e in getelements:
+            element_composition = {
+                e.Element_1: e.Composition_1,
+                e.Element_2: e.Composition_2,
+                e.Element_3: e.Composition_3,
+                e.Element_4: e.Composition_4
+            }
+
+            for key, value in element_composition.items():
+                if key is not None and value is not None and self.Fertilizer == e.Fertilizer:
+                    freshFertPpm = round((value or 0) * Grams_per_m3 / 100, 2)
+
+                    # Check if the element already exists in the dictionary
+                    if key in element_ppm:
+                        element_ppm[key] += freshFertPpm
+                    else:
+                        element_ppm[key] = freshFertPpm
+
+        # Calculate the total sum of "Nitrate" values
+        nitrate_sum = 0.0
+        if "Nitrate" in element_ppm:
+            nitrate_sum = element_ppm["Nitrate"]
+        sum1 = 0
+        print("Sum of Nitrate is", nitrate_sum)
+        sum1 = nitrate_sum
+        print(sum1)
+        
+
+
+
+        # Print the result dictionary
+                    # print(result)
+            # if element == "Nitrate":
+            #     print("Sum of ppm for", element, "is", ppm_sum)
+
+
+
+
+
+
+
+
+
+
+
+        all_fertilizer_recycles = Fertilizer_Recycle.objects.all()
+        # for items in getelements:
+        #     pass
 
         # Iterate through all Fertilizer_Recycle objects
-        for fertilizer_recycle in all_fertilizer_recycles:
-            uv_element = fertilizer_recycle.Uv_Element
-            uv_ppm = fertilizer_recycle.Uv_PPM
-            counter = 0
-            calculated_Uv = fertilizer_recycle.UvElements
-            if calculated_Uv:
-                counter += 1
-                print(counter)
-            print("Element", uv_element, "calculated", calculated_Uv)
-            # print("Uv element Dict", uv_elements_total)
-            # else:
-            #     uv_elements_total[uv_element] = uv_ppm
+        # for index, fertilizer_recycle in enumerate(all_fertilizer_recycles):
+        #     if index == 0:
+        #         uv_element = fertilizer_recycle.Uv_Element
+        #         uv_ppm = fertilizer_recycle.Uv_PPM
+        #         calculated_Uv = fertilizer_recycle.UvElements
+        #         # print("Index:", index, "Element:", uv_element, "calculated:", calculated_Uv)
 
-        # Calculate the values based on matched elements and their sums
-        for e in getelements:
-            if e.Fertilizer == self.Fertilizer:
-                fertppm1 = round((e.Composition_1 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_1', 0)
-                fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_2', 0)
-                fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_3', 0)
-                fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_4', 0)
-                if fertppm1 == 0:
-                    fertppm1 = ""
-                if fertppm2 == 0:
-                    fertppm2 = ""
-                if fertppm3 == 0:
-                    fertppm3 = ""
-                if fertppm4 == 0:
-                    fertppm4 = ""
-                return {
-                    'element_1': e.Element_1,
-                    'element_2': e.Element_2,
-                    'element_3': e.Element_3,
-                    'element_4': e.Element_4,
-                    'grams_per_m3': Grams_per_m3,
-                    'fertppm1': fertppm1,
-                    'fertppm2': fertppm2,
-                    'fertppm3': fertppm3,
-                    'fertppm4': fertppm4,
-                    'Injection_ratio': Injection_ratio,
-                }
+        # element_sum = {}  # Dictionary to store the sum of values for each element key
 
-        return {
-            'element_1': 'N/A',
-            'element_2': 'N/A',
-            'element_3': 'N/A',
-            'element_4': 'N/A',
-            'grams_per_m3': Grams_per_m3,
-            'fertppm1': 'N/A',
-            'fertppm2': 'N/A',
-            'fertppm3': 'N/A',
-            'fertppm4': 'N/A',
-            'Injection_ratio': 'N/A',
-        }
-      
+        # for e in getelements:
+        #     element_composition = {
+        #         e.Element_1: e.Composition_1,
+                # e.Element_2: e.Composition_2,
+                # e.Element_3: e.Composition_3,
+                # e.Element_4: e.Composition_4
+        #     }
+        # counter = 0
+        # for key, value in element_composition.items():
+        #     if key == "Calcium":  # Check for None values and key "Nitrate"
+        #         fertppm1 = round((value or 0) * Grams_per_m3 / 100, 2)
+                # print(fertppm1)
+                # print(key, value)
+                # break  # Exit the loop after processing the "Nitrate" element
+
+            # Print only the last value of fertppm1 after the loop completes
+                
+
+
+
+
+
+
+                # if key == "Nitrate":
+                #     fertppm1 = round((value or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_1', 0)
+                #     print(key, fertppm1)
+            #         fertppm2 = round((e.Composition_2 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_2', 0)
+            #         fertppm3 = round((e.Composition_3 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_3', 0)
+            #         fertppm4 = round((e.Composition_4 or 0) * Grams_per_m3 / 100, 2) #+ uv_elements_total.get('Element_4', 0)
+            #         if fertppm1 == 0:
+            #             fertppm1 = ""
+            #         if fertppm2 == 0:
+            #             fertppm2 = ""
+            #         if fertppm3 == 0:
+            #             fertppm3 = ""
+            #         if fertppm4 == 0:
+            #             fertppm4 = ""
+            #         return {
+            #             'element_1': e.Element_1,
+            #             'element_2': e.Element_2,
+            #             'element_3': e.Element_3,
+            #             'element_4': e.Element_4,
+            #             'grams_per_m3': Grams_per_m3,
+            #             'fertppm1': fertppm1,
+            #             'fertppm2': fertppm2,
+            #             'fertppm3': fertppm3,
+            #             'fertppm4': fertppm4,
+            #             'Injection_ratio': Injection_ratio,
+            #         }
+
+            # return {
+            #     'element_1': 'N/A',
+            #     'element_2': 'N/A',
+            #     'element_3': 'N/A',
+            #     'element_4': 'N/A',
+            #     'grams_per_m3': Grams_per_m3,
+            #     'fertppm1': 'N/A',
+            #     'fertppm2': 'N/A',
+            #     'fertppm3': 'N/A',
+            #     'fertppm4': 'N/A',
+            #     'Injection_ratio': 'N/A',
+            # }
+        
 
 
 
