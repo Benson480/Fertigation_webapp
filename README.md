@@ -89,3 +89,19 @@ Clear AXES Data: If you're testing and encountering these issues during developm
 
 Copy code
 python manage.py axes_reset
+
+
+
+To freeze the currently installed Python packages into a requirements.txt file using pip, you can use the following command:
+
+bash
+Copy code
+pip freeze > requirements.txt
+This command will generate a requirements.txt file in the current directory containing a list of all the installed packages and their versions. Each line in the file will represent one package in the format package-name==version.
+
+After running this command, you can use the requirements.txt file to recreate the same environment by installing the packages listed in it using pip. For example, to install the packages from requirements.txt into a virtual environment, you can use:
+
+bash
+Copy code
+pip install -r requirements.txt
+Make sure you run these commands in the appropriate directory or virtual environment where you want to create or update the requirements.txt file.
