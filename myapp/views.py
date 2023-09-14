@@ -37,49 +37,28 @@ def regenerate_csrf_token(request):
         return HttpResponse(csrf_token)
 
 def register_view(request):
-    if request.method == 'POST':
-        signup_form = SignupForm(request.POST)
+   pass
+    # if request.method == 'POST':
+    #     signup_form = SignupForm(request.POST)
 
-        if signup_form.is_valid():
-            username = signup_form.cleaned_data['username']
-            email = signup_form.cleaned_data['email']
-            password = signup_form.cleaned_data['password']
+    #     if signup_form.is_valid():
+    #         username = signup_form.cleaned_data['username']
+    #         email = signup_form.cleaned_data['email']
+    #         password = signup_form.cleaned_data['password']
             
-            # Check if the username is unique
-            if User.objects.filter(username=username).exists():
-                signup_form.add_error('username', 'This username is already taken.')
-            else:
-                user = User.objects.create_user(username=username, email=email, password=password)
-                user = authenticate(request, username=username, password=password)
-                login(request, user)
-                return redirect('login')  # Redirect to the desired URL after successful signup
-    else:
-        signup_form = SignupForm()
+    #         # Check if the username is unique
+    #         if User.objects.filter(username=username).exists():
+    #             signup_form.add_error('username', 'This username is already taken.')
+    #         else:
+    #             user = User.objects.create_user(username=username, email=email, password=password)
+    #             user = authenticate(request, username=username, password=password)
+    #             login(request, user)
+    #             return redirect('login')  # Redirect to the desired URL after successful signup
+    # else:
+    #     signup_form = SignupForm()
 
-    return render(request, 'accounts/register.html', {'signup_form': signup_form})
+    # return render(request, 'accounts/register.html', {'signup_form': signup_form})
     
-
-# def login_view(request):
-#     # future -> ?next=/articles/create/
-#     if request.method == "POST":
-#         form = AuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             messages.success(request, "Login successful.")
-#             login(request, user)
-#             return redirect('/dashboard/')
-        
-        
-#     else:
-#         messages.success(request, "Login not Sucessful try again!")
-#         form = AuthenticationForm(request)
-        
-#     context = {
-#         "form": form
-#     }
-#     return render(request, "accounts/login.html", context)
-
-
 
 logger = logging.getLogger(__name__)
 
@@ -114,6 +93,8 @@ def login_view(request):
 
         if User.objects.filter(username=username).exists():
             messages.error(request, f"This Username {request.POST.get('username')} is already in taken!")
+        elif User.objects.filter(email=email).exists():
+              messages.error(request, f"This Email '{email}' is already associated with an account!")
         else:
             user = User.objects.create_user(username=username, email=email, password=password)
             user = authenticate(request, username=username, password=password)

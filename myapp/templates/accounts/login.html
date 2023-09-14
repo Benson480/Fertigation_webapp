@@ -333,6 +333,7 @@
 
   <!-- Include jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- Include Bootstrap JS -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -407,7 +408,6 @@
                     <i class="fas fa-user-cog"></i> Admin
                 </a>
             </li>
-            
             </ul>
           </div>
         </div>
@@ -449,12 +449,28 @@
                                 <label for="{{ login_form.password.id_for_label }}">
                                     <h5 style="font-weight: bold;">{{ login_form.password.label_tag }} </h5>
                                 </label>
-                                <div class="password-field">
-                                    {{ login_form.password }}
-                                    <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password">
-                                        <i class="fas fa-eye" style="background-color: #fff;"></i>
-                                    </button>
-                                </div>
+                                <div class="password-field" style="position: relative;">
+                                  {{ login_form.password }}
+                                  <button type="button" id="showPasswordToggle" class="password-toggle-button" onclick="togglePasswordVisibility()" title="Show Password" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 5px;">
+                                      <i class="fas fa-eye" style="background-color: #fff;"></i>
+                                  </button>
+                              </div>
+                              
+                              <script>
+                                $(document).ready(function() {
+                                    $("#password-field").click(function() {
+                                        // Define the amount of scrolling (in pixels)
+                                        var scrollAmount = 150; // Adjust this value as needed
+                                
+                                        // Scroll the page up by scrollAmount
+                                        $("html, body").animate({
+                                            scrollTop: $(document).scrollTop() - scrollAmount
+                                        }, 500); // You can adjust the animation duration (500 milliseconds in this example)
+                                    });
+                                });
+                                </script>
+                                
+                              
                                 <div>
                                     <a class="forgotpassword" href="#" target="_blank" title="Forgot Password" style="color: rgb(0, 0, 0); font-weight: bold;">Forgot your password?</a>
                                 </div>

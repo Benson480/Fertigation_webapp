@@ -85,7 +85,7 @@ AUTO_LOGOUT_TIME = 600  # 10 minutes (adjust the value as needed)
 
 # Configure Django Axes to track user activity for auto-logout
 AXES_KEEP_RECORD = True
-AXES_FAILURE_LIMIT = 5  # Number of allowed failures before blocking
+AXES_FAILURE_LIMIT = 20  # Number of allowed failures before blocking
 AXES_COOLOFF_TIME = 1   # Time period (in hours) before login attempts reset
 AXES_LOCK_OUT_AT_FAILURE = 10 #The number of failed login attempts after which a user's account is locked. 
 AXES_MAX_FAILURES = 30 #Maximum number of failed login attempts allowed before locking out the user.
@@ -127,7 +127,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bensonmwangi101@gmail.com'  # Use your Gmail email address
-EMAIL_HOST_PASSWORD = 'Sulu5542'     # Use your Gmail password or app-specific password
+EMAIL_HOST_PASSWORD = 'nwtgutbhoxipnscw'     # Use your Gmail password or app-specific password
 
 
 
