@@ -60,8 +60,8 @@
 <header style="background-color: #007f46; padding: 0px 0; display: grid; grid-template-columns: auto 1fr; gap: 20px; justify-items: center; align-items: center;">
   <img src="https://thumbs.dreamstime.com/z/green-plantation-farm-estate-logo-icon-flat-vector-concept-design-203029656.jpg" alt="Logo" style="width: 80px; height: 80px; padding: 5px;">
   <div>
-    <h2 style="color: #fff; font-size: 36px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">Crop deficiency Diagnosis Images</h2>
-    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">We are Training Artificial Intelligence model to identify nutrient Deficiency</p>
+    <h2 style="color: #fff; font-size: 30px; font-weight:400; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); margin: 0;">CROP PROTECTION AND FERTILIZERS TECHNICAL DOCUMENTS</h2>
+    <p style="color: #fff; font-size: 18px; opacity: 0.8; margin-top: 10px;">Material Safety DataSheet (MSDS)</p>
   </div>
 </header>
 
@@ -71,26 +71,33 @@
 </head>
   <div class="container">
     <div>
-      {% if images %}
+      {% if files %}
         <ul>
-          {% for image in images %}
+          {% for myfile in files %}
           <ul class="horizontal-list" style=" display: inline-block; padding: 10px;">
             <li>
-              <p><strong>Title: {{ image.title }}</p></strong>
-              <a href="{{ image.image.url }}" target="_blank" style="display: flex; margin-right: 235px;" >
-                <img src="{{ image.image.url }}" alt="Uploaded Image" height="250px" width="281px" >
+              <p><strong>Title: {{ myfile.title }}</p></strong>
+
+              <!-- For images -->
+              <!-- <img src="{{ myfile.file.url }}" alt="Uploaded File" height="250px" width="281px"> -->
+              <!-- For other file types -->
+              <object data="{{ myfile.file.url }}" type="application/pdf" width="100%" height="100%">
+                  <p>It appears you don't have a PDF plugin for this browser. No worries, you can <a href="{{ myfile.file.url }}">click here to download the PDF file.</a></p>
+              </object>
+
+
               </a>
               <p>
-              {% if image.about_Image is not None %}
-              <p style="display: flex;">{{ image.about_Image|wordwrap:40 }}</p>
+              {% if myfile.about_File is not None %}
+              <p style="display: flex;">{{ myfile.about_File|wordwrap:40 }}</p>
                 
               {% else %}
                 {{ "" }}
               {% endif %}
               </p>
               <p>
-                <p><strong>Uploaded At:</strong> {{ image.uploaded_at }}
-                <a href="/deleteimages/{{ image.id }}" onclick="return confirm('Are you sure you want to delete this item?')" style="color: #ff0000; margin-right: 10px;">
+                <p><strong>Uploaded At:</strong> {{ myfile.uploaded_at }}
+                <a href="/deleteimages/{{ myfile.id }}" onclick="return confirm('Are you sure you want to delete this item?')" style="color: #ff0000; margin-right: 10px;">
                   <i class="fas fa-trash-alt" title="Delete"></i>
                 </a>
               </p>
@@ -99,11 +106,11 @@
             </li>
           </ul>
           {% endfor %}
-          <h1><a href="/upload" style="color: green; margin-right: 0px; display: block;" title="Add Images"> Add Images</a></h1>
+          <h1><a href="/upload" style="color: green; margin-right: 0px; display: block;" title="Add Images"> Add File</a></h1>
         </ul>
       {% else %}
-        <p>No images uploaded yet.</p>
-        <h1><a href="/upload" style="color: green; float: right; margin-right: 100px; display: flex;"> Add Images</a></h1>
+        <p>No Files uploaded yet.</p>
+        <h1><a href="/upload" style="color: green; float: right; margin-right: 100px; display: flex;"> Add File</a></h1>
       {% endif %}
     </div>
   </div>

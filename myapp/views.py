@@ -449,8 +449,8 @@ def upload_image(request):
 
 @login_required
 def image_list(request):
-    images = UploadedImage.objects.all()
-    return render(request, 'image_list.html', {'images': images})
+    files = UploadedImage.objects.all()
+    return render(request, 'image_list.html', {'files': files})
 
 def deleteimages(request, id):
   member = UploadedImage.objects.get(id=id)

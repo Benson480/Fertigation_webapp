@@ -323,15 +323,15 @@ class Fertilizer_Cost(models.Model):
     #     return str(self.fertcost)
 
 class UploadedImage(models.Model):
-    image = models.ImageField(upload_to='images/')
+    file = models.FileField(upload_to='files/', null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200, null=True, db_index=True, blank=True)
-    about_Image = models.TextField(max_length=255, null=True, blank=True)
+    about_File = models.TextField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         # Wrap the about_Image text before saving
-        if self.about_Image:
-            self.about_Image = textwrap.fill(self.about_Image, width=40)
+        if self.about_File:
+            self.about_File = textwrap.fill(self.about_File, width=40)
         super().save(*args, **kwargs)
 
     def __str__(self):

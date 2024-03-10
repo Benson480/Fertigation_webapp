@@ -196,11 +196,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "mystaticfiles"),
-]
-
 WHITENOISE_MANIFEST_STRICT = False
 
 # Default primary key field type
